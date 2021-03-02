@@ -1,0 +1,3 @@
+rootProject.name = 'm7r-content-manager'
+
+includeBuild('../m7r-service-objects')

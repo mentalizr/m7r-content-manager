@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+}
+
+group 'org.mentalizr'
+version '0.1-SNAPSHOT'
+
+repositories {
+    jcenter()
+    maven { url "https://jitpack.io" }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.mentalizr:m7r-service-objects:0.0.1-SNAPSHOT'
+
+    implementation 'com.github.arthurpicht:utils-core:1.2.1'
+    implementation 'com.github.arthurpicht:AP-Configuration:0.1.0'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
