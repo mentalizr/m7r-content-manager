@@ -59,6 +59,10 @@ public class ProgramDir {
         this.programConf = new ProgramConf(programConfFile);
     }
 
+    public File getProgramDir() {
+        return this.programDir;
+    }
+
     public String getProgramId() {
         return this.programDir.getName();
     }
