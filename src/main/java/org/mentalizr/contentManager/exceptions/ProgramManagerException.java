@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager;
+package org.mentalizr.contentManager.exceptions;
 
 public class ProgramManagerException extends Exception{
 
