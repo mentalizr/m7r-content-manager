@@ -21,12 +21,30 @@ public class ModuleDirMdp extends FhDirectory {
         return moduleConfFile;
     }
 
-    public List<SubmoduleDirMdp> getSubmoduleDirList() {
+    public List<SubmoduleDirMdp> getSubmoduleDirs() {
         return submoduleDirList;
     }
 
-    public String getIdFraction() {
-        return this.file.getName();
+    public List<String> getSubmoduleDirNames() {
+        List<String> dirNames = new ArrayList<>();
+        for (SubmoduleDirMdp submoduleDirMdp : this.submoduleDirList) {
+            dirNames.add(submoduleDirMdp.getDirName());
+        }
+        return dirNames;
+    }
+
+    public boolean hasSubmoduleDir(String dirName) {
+        for (SubmoduleDirMdp submoduleDirMdp : this.submoduleDirList) {
+            if (submoduleDirMdp.getDirName().equals(dirName)) return true;
+        }
+        return false;
+    }
+
+    public SubmoduleDirMdp getSubmoduleDir(String dirName) {
+        for (SubmoduleDirMdp submoduleDirMdp : this.submoduleDirList) {
+            if (submoduleDirMdp.getDirName().equals(dirName)) return submoduleDirMdp;
+        }
+        throw new RuntimeException("No submodule found with directory name: " + dirName);
     }
 
     @Override
@@ -55,6 +73,9 @@ public class ModuleDirMdp extends FhDirectory {
             SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(file);
             submoduleDirMdpList.add(submoduleDirMdp);
         }
+
+        submoduleDirMdpList.sort(new SubmoduleDirMdpComparator());
+
         return submoduleDirMdpList;
     }
 

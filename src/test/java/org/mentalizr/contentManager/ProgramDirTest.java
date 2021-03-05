@@ -23,19 +23,36 @@ class ProgramDirTest {
         List<MdpFile> infotextFiles = infotextDirMd.getInfotextFiles();
         assertEquals(1, infotextFiles.size());
 
-        List<ModuleDirMdp> moduleDirMdpList = mdpDir.getModuleDirList();
+        List<ModuleDirMdp> moduleDirMdpList = mdpDir.getModuleDirs();
         assertEquals(3, moduleDirMdpList.size());
 
-        assertTrue(mdpDir.hasModuleDirMdp("m1"));
-        ModuleDirMdp moduleDirMdp = mdpDir.getModuleDirMdp("m1");
+        assertTrue(mdpDir.hasModuleDir("m1"));
+        assertTrue(mdpDir.hasModuleDir("m2"));
+        assertTrue(mdpDir.hasModuleDir("m3"));
+        assertFalse(mdpDir.hasModuleDir("xyz"));
+
+        assertTrue(mdpDir.hasModuleDir("m1"));
+        ModuleDirMdp moduleDirMdp = mdpDir.getModuleDir("m1");
         assertEquals("Module1", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
 
-        assertTrue(mdpDir.hasModuleDirMdp("m2"));
-        moduleDirMdp = mdpDir.getModuleDirMdp("m2");
+        List<SubmoduleDirMdp> submoduleDirMdpList = moduleDirMdp.getSubmoduleDirs();
+        assertEquals(2, submoduleDirMdpList.size());
+
+        assertTrue(moduleDirMdp.hasSubmoduleDir("sm1"));
+        assertTrue(moduleDirMdp.hasSubmoduleDir("sm2"));
+        assertFalse(moduleDirMdp.hasSubmoduleDir("xyz"));
+
+        List<String> submoduleIds = moduleDirMdp.getSubmoduleDirNames();
+        assertEquals(2, submoduleIds.size());
+
+//        SubmoduleDirMdp submoduleDirMdp = moduleDirMdp.g
+
+        assertTrue(mdpDir.hasModuleDir("m2"));
+        moduleDirMdp = mdpDir.getModuleDir("m2");
         assertEquals("Module2", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
 
-        assertTrue(mdpDir.hasModuleDirMdp("m3"));
-        moduleDirMdp = mdpDir.getModuleDirMdp("m3");
+        assertTrue(mdpDir.hasModuleDir("m3"));
+        moduleDirMdp = mdpDir.getModuleDir("m3");
         assertEquals("Module3", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
 
 //        assertEquals("test1", programDir.getProgramId());

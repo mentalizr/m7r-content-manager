@@ -20,7 +20,7 @@ public class InfotextDirMd extends FhDirectory {
     }
 
     private List<MdpFile> obtainInfotextFiles() throws ProgramManagerException {
-        File[] fileArray = this.file.listFiles(new MdFilenameFilter());
+        File[] fileArray = this.file.listFiles(new MdpFilenameFilter());
         if (fileArray == null || fileArray.length == 0)
             return new ArrayList<>();
 

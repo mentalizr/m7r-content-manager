@@ -14,6 +14,10 @@ public abstract class FhFile extends FileHierarchyElement {
         assertFiletype();
     }
 
+    public String getFileName() {
+        return this.file.getName();
+    }
+
     protected abstract String getFiletype();
 
     @Override

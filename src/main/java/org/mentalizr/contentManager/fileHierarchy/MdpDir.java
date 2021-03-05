@@ -27,30 +27,30 @@ public class MdpDir extends FhDirectory {
         return this.infotextDirMd;
     }
 
-    public List<ModuleDirMdp> getModuleDirList() {
+    public List<ModuleDirMdp> getModuleDirs() {
         return moduleDirList;
     }
 
-    public List<String> getModuleIdFractionList() {
-        List<String> idFractionList = new ArrayList<>();
+    public List<String> getModuleDirNames() {
+        List<String> dirNames = new ArrayList<>();
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            idFractionList.add(moduleDirMdp.getIdFraction());
+            dirNames.add(moduleDirMdp.getDirName());
         }
-        return idFractionList;
+        return dirNames;
     }
 
-    public boolean hasModuleDirMdp(String idFraction) {
+    public boolean hasModuleDir(String dirName) {
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            return true;
+            if (moduleDirMdp.getDirName().equals(dirName)) return true;
         }
         return false;
     }
 
-    public ModuleDirMdp getModuleDirMdp(String idFraction) {
+    public ModuleDirMdp getModuleDir(String dirName) {
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            if (moduleDirMdp.getIdFraction().equals(idFraction)) return moduleDirMdp;
+            if (moduleDirMdp.getDirName().equals(dirName)) return moduleDirMdp;
         }
-        throw new RuntimeException("No Module in mdp directory with id fraction: " + idFraction);
+        throw new RuntimeException("No Module in mdp directory with directory name: " + dirName);
     }
 
     @Override
@@ -79,6 +79,9 @@ public class MdpDir extends FhDirectory {
             ModuleDirMdp moduleDirMdp = new ModuleDirMdp(file);
             moduleDirMdpList.add(moduleDirMdp);
         }
+
+        moduleDirMdpList.sort(new ModuleDirMdpComparator());
+
         return moduleDirMdpList;
     }
 

@@ -8,18 +8,32 @@ import java.util.List;
 
 public class SubmoduleDirMdp extends FhDirectory {
 
-    private final ModuleConfFile moduleConfFile;
+    private final SubmoduleConfFile submoduleConfFile;
+    private final List<MdpFile> stepFileList;
 
     public SubmoduleDirMdp(File file) throws ProgramManagerException {
         super(file);
-        this.moduleConfFile = new ModuleConfFile(new File(getFile(), "submodule.conf"));
+        this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
+        this.stepFileList = obtainMdpFiles();
     }
 
-    public ModuleConfFile getModuleConfFile() {
-        return moduleConfFile;
+    public SubmoduleConfFile getSubmoduleConfFile() {
+        return submoduleConfFile;
     }
 
-    public String getIdFraction() {
+    public List<MdpFile> getStepFiles() {
+        return this.stepFileList;
+    }
+
+    public List<String> getStepFileNames() {
+        List<String> stepFileNames = new ArrayList<>();
+        for (MdpFile stepFile : this.stepFileList) {
+            stepFileNames.add(stepFile.getFileName());
+        }
+        return stepFileNames;
+    }
+
+    public String getDirName() {
         return this.file.getName();
     }
 
@@ -36,6 +50,22 @@ public class SubmoduleDirMdp extends FhDirectory {
     @Override
     public boolean requiresWritePermission() {
         return false;
+    }
+
+    private List<MdpFile> obtainMdpFiles() throws ProgramManagerException {
+        File[] fileArray = this.file.listFiles(new MdpFilenameFilter());
+        if (fileArray == null || fileArray.length == 0)
+            throw new ProgramManagerException("No .mdp files found in submodule: [" + this.file.getAbsolutePath() + "]");
+
+        List<MdpFile> mdpFileList = new ArrayList<>();
+        for (File file : fileArray) {
+            MdpFile mdpFile = new MdpFile(file);
+            mdpFileList.add(mdpFile);
+        }
+
+        mdpFileList.sort(new MdpFileComparator());
+
+        return mdpFileList;
     }
 
 }

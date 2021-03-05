@@ -13,6 +13,10 @@ public abstract class FhDirectory extends FileHierarchyElement {
         super(file);
     }
 
+    public String getDirName() {
+        return this.file.getName();
+    }
+
     @Override
     protected void throwFileNotFoundException() throws FileNotFoundException {
         throw FileNotFoundException.forDirectory(this.file);

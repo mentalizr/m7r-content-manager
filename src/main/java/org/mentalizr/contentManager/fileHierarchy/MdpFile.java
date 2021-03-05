@@ -32,7 +32,7 @@ public class MdpFile extends FhFile {
         return false;
     }
 
-    public static boolean isMdFile(String filename) {
+    public static boolean isMdpFile(String filename) {
         return isFileOfType(filename, FILETYPE);
     }
 
