@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
+import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 
 import java.io.File;
@@ -34,21 +35,21 @@ public class MdpDir extends FhDirectory {
     public List<String> getModuleDirNames() {
         List<String> dirNames = new ArrayList<>();
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            dirNames.add(moduleDirMdp.getDirName());
+            dirNames.add(moduleDirMdp.getName());
         }
         return dirNames;
     }
 
     public boolean hasModuleDir(String dirName) {
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            if (moduleDirMdp.getDirName().equals(dirName)) return true;
+            if (moduleDirMdp.getName().equals(dirName)) return true;
         }
         return false;
     }
 
     public ModuleDirMdp getModuleDir(String dirName) {
         for (ModuleDirMdp moduleDirMdp : this.moduleDirList) {
-            if (moduleDirMdp.getDirName().equals(dirName)) return moduleDirMdp;
+            if (moduleDirMdp.getName().equals(dirName)) return moduleDirMdp;
         }
         throw new RuntimeException("No Module in mdp directory with directory name: " + dirName);
     }
@@ -72,7 +73,7 @@ public class MdpDir extends FhDirectory {
 
         File[] fileArray = this.file.listFiles(new ModuleDirFileFilter());
         if (fileArray == null || fileArray.length == 0)
-            throw new ProgramManagerException("No modules found: [" + this.file.getAbsolutePath() + "]");
+            throw new FileNotFoundException("No modules found: [" + this.file.getAbsolutePath() + "]");
 
         List<ModuleDirMdp> moduleDirMdpList = new ArrayList<>();
         for (File file : fileArray) {

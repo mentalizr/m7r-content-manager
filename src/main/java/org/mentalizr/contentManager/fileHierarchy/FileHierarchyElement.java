@@ -33,6 +33,10 @@ public abstract class FileHierarchyElement {
         return this.file;
     }
 
+    public String getName() {
+        return this.file.getName();
+    }
+
     public abstract boolean requiresExistence();
 
     public abstract boolean requiresReadPermission();

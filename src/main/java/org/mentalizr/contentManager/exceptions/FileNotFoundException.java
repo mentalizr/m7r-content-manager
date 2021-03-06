@@ -4,7 +4,7 @@ import java.io.File;
 
 public class FileNotFoundException extends ProgramManagerException {
 
-    private FileNotFoundException(String message) {
+    public FileNotFoundException(String message) {
         super(message);
     }
 

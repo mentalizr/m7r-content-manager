@@ -9,25 +9,27 @@ import java.util.Arrays;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SubmoduleDirMdpTest {
+class MdpDirTest {
 
     @Test
     public void positive() throws ProgramManagerException {
 
-        SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/testPrograms/test1/mdp/m1/sm1"));
+        MdpDir mdpDir = new MdpDir(new File("src/test/testPrograms/test1/mdp"));
 
-        assertEquals("sm1", submoduleDirMdp.getDirName());
+        assertEquals("mdp", mdpDir.getName());
 
-        assertEquals("Submodule1", submoduleDirMdp.getSubmoduleConfFile().getSubmoduleConf().getName());
+        assertEquals("Test1", mdpDir.getProgramConfFile().getProgramConf().getName());
 
-        assertEquals(2, submoduleDirMdp.getStepFiles().size());
-        assertEquals(Arrays.asList("s1.mdp", "s2.mdp"), submoduleDirMdp.getStepFileNames());
+        assertEquals(3, mdpDir.getModuleDirs().size());
+        assertEquals(Arrays.asList("m1", "m2", "m3"), mdpDir.getModuleDirNames());
+
+        assertEquals("_info", mdpDir.getInfotextDir().getName());
     }
 
     @Test
-    public void noMdpFilesFound_neg() throws ProgramManagerException {
+    public void noModulesFound_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/sm1"));
+            new MdpDir(new File("src/test/fractions/mdp"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din
@@ -37,9 +39,9 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void submoduleConfMissing_neg() throws ProgramManagerException {
+    public void programConfMissing_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/sm2"));
+            new MdpDir(new File("src/test/fractions/mdp2"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din
@@ -49,15 +51,18 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void submoduleNotExisting_neg() throws ProgramManagerException {
+    public void mdpNotExisting_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/not_existing"));
+            new MdpDir(new File("src/test/fractions/not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+//            System.out.println(e.getMessage());
+//            e.printStackTrace();
         }
     }
+
+
+
 
 }

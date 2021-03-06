@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
+import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 
 import java.io.File;
@@ -28,7 +29,7 @@ public class SubmoduleDirMdp extends FhDirectory {
     public List<String> getStepFileNames() {
         List<String> stepFileNames = new ArrayList<>();
         for (MdpFile stepFile : this.stepFileList) {
-            stepFileNames.add(stepFile.getFileName());
+            stepFileNames.add(stepFile.getName());
         }
         return stepFileNames;
     }
@@ -55,7 +56,7 @@ public class SubmoduleDirMdp extends FhDirectory {
     private List<MdpFile> obtainMdpFiles() throws ProgramManagerException {
         File[] fileArray = this.file.listFiles(new MdpFilenameFilter());
         if (fileArray == null || fileArray.length == 0)
-            throw new ProgramManagerException("No .mdp files found in submodule: [" + this.file.getAbsolutePath() + "]");
+            throw new FileNotFoundException("No .mdp files found in submodule: [" + this.file.getAbsolutePath() + "]");
 
         List<MdpFile> mdpFileList = new ArrayList<>();
         for (File file : fileArray) {

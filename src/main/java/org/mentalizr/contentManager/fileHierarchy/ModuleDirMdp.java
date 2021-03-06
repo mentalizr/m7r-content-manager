@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
+import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 
 import java.io.File;
@@ -66,7 +67,7 @@ public class ModuleDirMdp extends FhDirectory {
 
         File[] fileArray = this.file.listFiles(new ModuleDirFileFilter());
         if (fileArray == null || fileArray.length == 0)
-            throw new ProgramManagerException("No submodules found: [" + this.file.getAbsolutePath() + "]");
+            throw new FileNotFoundException("No submodules found: [" + this.file.getAbsolutePath() + "]");
 
         List<SubmoduleDirMdp> submoduleDirMdpList = new ArrayList<>();
         for (File file : fileArray) {
