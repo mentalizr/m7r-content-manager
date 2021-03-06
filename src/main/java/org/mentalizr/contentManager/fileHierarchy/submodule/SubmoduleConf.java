@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import de.arthurpicht.configuration.Configuration;
 import de.arthurpicht.configuration.ConfigurationFactory;
@@ -9,11 +9,11 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import java.io.File;
 import java.io.IOException;
 
-public class ModuleConf {
+public class SubmoduleConf {
 
     private final String name;
 
-    public ModuleConf(File programConfFile) throws ProgramManagerException {
+    public SubmoduleConf(File programConfFile) throws ProgramManagerException {
         ConfigurationFactory configurationFactory = new ConfigurationFactory();
         try {
             configurationFactory.addConfigurationFileFromFilesystem(programConfFile);
@@ -21,7 +21,7 @@ public class ModuleConf {
 
             this.name = configuration.getString("name");
             if (Strings.isUnspecified(this.name))
-                throw new ProgramManagerException("Parameter 'name' not set in configuration 'module.conf'.");
+                throw new ProgramManagerException("Parameter 'name' not set in configuration 'submodule.conf'.");
 
         } catch (ConfigurationFileNotFoundException | IOException e) {
             throw new ProgramManagerException(e);

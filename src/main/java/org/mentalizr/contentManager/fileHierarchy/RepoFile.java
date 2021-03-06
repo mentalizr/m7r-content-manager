@@ -5,11 +5,12 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.exceptions.WritePermissionMissingException;
 
+import java.io.File;
 import java.util.Locale;
 
-public abstract class FhFile extends FileHierarchyElement {
+public abstract class RepoFile extends FileHierarchyElement {
 
-    public FhFile(java.io.File file) throws ProgramManagerException {
+    public RepoFile(java.io.File file) throws ProgramManagerException {
         super(file);
         assertFiletype();
     }
@@ -32,17 +33,16 @@ public abstract class FhFile extends FileHierarchyElement {
     }
 
     private void assertFiletype() {
-        if (!isCorrectFileType())
+        if (!isTypeAppropriate())
             throw new RuntimeException("Not a " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]");
     }
 
-    private boolean isCorrectFileType() {
-        return isFileOfType(this.file.getName(), getFiletype());
-//        return (this.file.getName().toLowerCase(Locale.ROOT).endsWith(getFiletype().toLowerCase(Locale.ROOT)));
+    private boolean isTypeAppropriate() {
+        return isTypeAppropriate(this.file, getFiletype());
     }
 
-    public static boolean isFileOfType(String filename, String filenamePostfix) {
-        return (filename.toLowerCase(Locale.ROOT).endsWith(filenamePostfix.toLowerCase(Locale.ROOT)));
+    public static boolean isTypeAppropriate(File file, String filenamePostfix) {
+        return (file.getName().toLowerCase(Locale.ROOT).endsWith(filenamePostfix.toLowerCase(Locale.ROOT)));
     }
 
 }

@@ -1,13 +1,16 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubmoduleDirMdp extends FhDirectory {
+public class SubmoduleDirMdp extends RepoDirectory implements SubmoduleDir {
 
     private final SubmoduleConfFile submoduleConfFile;
     private final List<MdpFile> stepFileList;
@@ -18,24 +21,23 @@ public class SubmoduleDirMdp extends FhDirectory {
         this.stepFileList = obtainMdpFiles();
     }
 
+    @Override
     public SubmoduleConfFile getSubmoduleConfFile() {
         return submoduleConfFile;
     }
 
+    @Override
     public List<MdpFile> getStepFiles() {
         return this.stepFileList;
     }
 
+    @Override
     public List<String> getStepFileNames() {
         List<String> stepFileNames = new ArrayList<>();
         for (MdpFile stepFile : this.stepFileList) {
             stepFileNames.add(stepFile.getName());
         }
         return stepFileNames;
-    }
-
-    public String getDirName() {
-        return this.file.getName();
     }
 
     @Override
@@ -54,7 +56,7 @@ public class SubmoduleDirMdp extends FhDirectory {
     }
 
     private List<MdpFile> obtainMdpFiles() throws ProgramManagerException {
-        File[] fileArray = this.file.listFiles(new MdpFilenameFilter());
+        File[] fileArray = this.file.listFiles(new MdpFileFilter());
         if (fileArray == null || fileArray.length == 0)
             throw new FileNotFoundException("No .mdp files found in submodule: [" + this.file.getAbsolutePath() + "]");
 
@@ -64,7 +66,8 @@ public class SubmoduleDirMdp extends FhDirectory {
             mdpFileList.add(mdpFile);
         }
 
-        mdpFileList.sort(new MdpFileComparator());
+        //noinspection ComparatorCombinators
+        mdpFileList.sort((mdpFile1, mdpFile2) -> mdpFile1.getName().compareTo(mdpFile2.getName()));
 
         return mdpFileList;
     }

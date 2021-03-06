@@ -1,5 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
+import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
+
 import java.util.Comparator;
 
 public class MdpDirComparator implements Comparator<MdpDir> {

@@ -7,9 +7,9 @@ import org.mentalizr.contentManager.exceptions.WritePermissionMissingException;
 
 import java.io.File;
 
-public abstract class FhDirectory extends FileHierarchyElement {
+public abstract class RepoDirectory extends FileHierarchyElement {
 
-    public FhDirectory(File file) throws ProgramManagerException {
+    public RepoDirectory(File file) throws ProgramManagerException {
         super(file);
     }
 

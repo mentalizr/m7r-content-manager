@@ -1,12 +1,13 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.contentFile;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.RepoFile;
 
 import java.io.File;
 
-public class MdpFile extends FhFile {
+public class MdpFile extends RepoFile implements ContentFile {
 
-    private static final String FILETYPE = ".mdp";
+    public static final String FILETYPE = ".mdp";
 
     public MdpFile(File file) throws ProgramManagerException {
         super(file);
@@ -31,13 +32,5 @@ public class MdpFile extends FhFile {
     public boolean requiresWritePermission() {
         return false;
     }
-
-    public static boolean isMdpFile(String filename) {
-        return isFileOfType(filename, FILETYPE);
-    }
-
-//    public String getIdFraction() {
-//        return this.infotextFile.getName();
-//    }
 
 }

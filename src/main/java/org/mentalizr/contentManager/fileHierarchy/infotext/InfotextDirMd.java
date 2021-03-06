@@ -1,14 +1,17 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.infotext;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfotextDirMd extends FhDirectory {
+public class InfotextDirMd extends RepoDirectory implements InfotextDir {
 
-    private List<MdpFile> infotextFiles;
+    private final List<MdpFile> infotextFiles;
 
     public InfotextDirMd(File file) throws ProgramManagerException {
         super(file);
@@ -20,7 +23,7 @@ public class InfotextDirMd extends FhDirectory {
     }
 
     private List<MdpFile> obtainInfotextFiles() throws ProgramManagerException {
-        File[] fileArray = this.file.listFiles(new MdpFilenameFilter());
+        File[] fileArray = this.file.listFiles(new MdpFileFilter());
         if (fileArray == null || fileArray.length == 0)
             return new ArrayList<>();
 

@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.module;
 
 import java.io.File;
 import java.io.FileFilter;

@@ -1,20 +1,21 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.RepoFile;
 
 import java.io.File;
 
-public class ModuleConfFile extends FhFile {
+public class SubmoduleConfFile extends RepoFile {
 
-    private final ModuleConf moduleConf;
+    private final SubmoduleConf submoduleConf;
 
-    public ModuleConfFile(File file) throws ProgramManagerException {
+    public SubmoduleConfFile(File file) throws ProgramManagerException {
         super(file);
-        this.moduleConf = new ModuleConf(this.file);
+        this.submoduleConf = new SubmoduleConf(this.file);
     }
 
-    public ModuleConf getModuleConf() {
-        return this.moduleConf;
+    public SubmoduleConf getSubmoduleConf() {
+        return this.submoduleConf;
     }
 
     @Override

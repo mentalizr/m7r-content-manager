@@ -3,6 +3,7 @@ package org.mentalizr.contentManager.fileHierarchy;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
 
 import java.io.File;
 import java.util.Arrays;

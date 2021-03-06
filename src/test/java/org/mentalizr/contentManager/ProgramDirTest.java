@@ -3,6 +3,11 @@ package org.mentalizr.contentManager;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.*;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
+import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMd;
+import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirMdp;
 
 import java.io.File;
 import java.util.List;
