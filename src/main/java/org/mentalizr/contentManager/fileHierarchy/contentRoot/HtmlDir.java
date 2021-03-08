@@ -2,13 +2,10 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.ProgramConfFile;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirHtml;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMd;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirHtml;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
 import java.io.File;
 import java.util.ArrayList;

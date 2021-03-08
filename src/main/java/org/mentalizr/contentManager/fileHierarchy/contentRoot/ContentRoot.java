@@ -1,10 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
-import org.mentalizr.contentManager.fileHierarchy.ProgramConfFile;
 import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDir;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMd;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDir;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
 import java.util.List;
 

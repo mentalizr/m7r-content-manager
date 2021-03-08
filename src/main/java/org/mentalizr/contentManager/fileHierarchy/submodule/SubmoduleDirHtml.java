@@ -4,8 +4,7 @@ import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFileFilter;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
     public SubmoduleDirHtml(File file) throws ProgramManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
-        this.stepFileList = obtainMdpFiles();
+        this.stepFileList = obtainHtmlFiles();
     }
 
     @Override
@@ -56,8 +55,8 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
         return false;
     }
 
-    private List<HtmlFile> obtainMdpFiles() throws ProgramManagerException {
-        File[] fileArray = this.file.listFiles(new MdpFileFilter());
+    private List<HtmlFile> obtainHtmlFiles() throws ProgramManagerException {
+        File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)
             throw new FileNotFoundException("No .html files found in submodule: [" + this.file.getAbsolutePath() + "]");
 

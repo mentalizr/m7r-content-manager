@@ -1,9 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
-import org.mentalizr.contentManager.exceptions.FileNotFoundException;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.exceptions.ReadPermissionMissingException;
-import org.mentalizr.contentManager.exceptions.WritePermissionMissingException;
+import org.mentalizr.contentManager.exceptions.*;
 
 import java.io.File;
 import java.util.Locale;
@@ -12,6 +9,7 @@ public abstract class RepoFile extends FileHierarchyElement {
 
     public RepoFile(java.io.File file) throws ProgramManagerException {
         super(file);
+        assertIsFile();
         assertFiletype();
     }
 
@@ -30,6 +28,11 @@ public abstract class RepoFile extends FileHierarchyElement {
     @Override
     protected void throwWritePermissionMissingException() throws WritePermissionMissingException {
         throw WritePermissionMissingException.forFile(this.file);
+    }
+
+    private void assertIsFile() throws WrongFileTypeException {
+        if (!this.file.isFile())
+            throw WrongFileTypeException.fileExpected(file);
     }
 
     private void assertFiletype() {
