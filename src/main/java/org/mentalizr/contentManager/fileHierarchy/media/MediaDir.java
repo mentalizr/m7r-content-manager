@@ -2,8 +2,10 @@ package org.mentalizr.contentManager.fileHierarchy.media;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 
 import java.io.File;
+import java.util.List;
 
 public class MediaDir extends RepoDirectory {
 

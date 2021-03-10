@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.module;
 
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDir;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirMdp;
 
@@ -16,4 +17,7 @@ public interface ModuleDir {
     boolean hasSubmoduleDir(String dirName);
 
     SubmoduleDir getSubmoduleDir(String dirName);
+
+    List<? extends ContentFile> getContentFiles();
+
 }

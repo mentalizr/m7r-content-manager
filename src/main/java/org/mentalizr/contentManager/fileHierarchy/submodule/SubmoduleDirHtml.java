@@ -13,12 +13,12 @@ import java.util.List;
 public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
 
     private final SubmoduleConfFile submoduleConfFile;
-    private final List<HtmlFile> stepFileList;
+    private final List<HtmlFile> contentFileList;
 
     public SubmoduleDirHtml(File file) throws ProgramManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
-        this.stepFileList = obtainHtmlFiles();
+        this.contentFileList = obtainHtmlFiles();
     }
 
     @Override
@@ -27,14 +27,14 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
     }
 
     @Override
-    public List<HtmlFile> getStepFiles() {
-        return this.stepFileList;
+    public List<HtmlFile> getContentFiles() {
+        return this.contentFileList;
     }
 
     @Override
     public List<String> getStepFileNames() {
         List<String> stepFileNames = new ArrayList<>();
-        for (HtmlFile htmlFile : this.stepFileList) {
+        for (HtmlFile htmlFile : this.contentFileList) {
             stepFileNames.add(htmlFile.getName());
         }
         return stepFileNames;

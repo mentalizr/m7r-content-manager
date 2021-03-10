@@ -1,7 +1,9 @@
 package org.mentalizr.contentManager.fileHierarchy.infotext;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 
@@ -9,13 +11,18 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfotextDirMd extends RepoDirectory implements InfotextDir {
+public class InfotextDirMdp extends ContentDirectory implements InfotextDir {
 
     private final List<MdpFile> infotextFiles;
 
-    public InfotextDirMd(File file) throws ProgramManagerException {
+    public InfotextDirMdp(File file) throws ProgramManagerException {
         super(file);
         this.infotextFiles = obtainInfotextFiles();
+    }
+
+    @Override
+    public List<MdpFile> getContentFiles() {
+        return this.infotextFiles;
     }
 
     public List<MdpFile> getInfotextFiles() {
@@ -32,6 +39,10 @@ public class InfotextDirMd extends RepoDirectory implements InfotextDir {
             MdpFile mdpFile = new MdpFile(file);
             mdpFileList.add(mdpFile);
         }
+
+        //noinspection ComparatorCombinators
+        mdpFileList.sort((mdpFile1, mdpFile2) -> mdpFile1.getName().compareTo(mdpFile2.getName()));
+
         return mdpFileList;
     }
 

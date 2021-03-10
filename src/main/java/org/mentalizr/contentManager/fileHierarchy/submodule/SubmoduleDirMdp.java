@@ -5,7 +5,6 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -14,12 +13,12 @@ import java.util.List;
 public class SubmoduleDirMdp extends RepoDirectory implements SubmoduleDir {
 
     private final SubmoduleConfFile submoduleConfFile;
-    private final List<MdpFile> stepFileList;
+    private final List<MdpFile> contentFileList;
 
     public SubmoduleDirMdp(File file) throws ProgramManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
-        this.stepFileList = obtainMdpFiles();
+        this.contentFileList = obtainMdpFiles();
     }
 
     @Override
@@ -28,14 +27,14 @@ public class SubmoduleDirMdp extends RepoDirectory implements SubmoduleDir {
     }
 
     @Override
-    public List<MdpFile> getStepFiles() {
-        return this.stepFileList;
+    public List<MdpFile> getContentFiles() {
+        return this.contentFileList;
     }
 
     @Override
     public List<String> getStepFileNames() {
         List<String> stepFileNames = new ArrayList<>();
-        for (MdpFile stepFile : this.stepFileList) {
+        for (MdpFile stepFile : this.contentFileList) {
             stepFileNames.add(stepFile.getName());
         }
         return stepFileNames;

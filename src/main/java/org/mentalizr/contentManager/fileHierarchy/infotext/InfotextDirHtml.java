@@ -1,25 +1,27 @@
 package org.mentalizr.contentManager.fileHierarchy.infotext;
 
-import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfotextDirHtml extends RepoDirectory implements InfotextDir {
+public class InfotextDirHtml extends ContentDirectory implements InfotextDir {
 
     private final List<HtmlFile> infotextFiles;
 
     public InfotextDirHtml(File file) throws ProgramManagerException {
         super(file);
         this.infotextFiles = obtainInfotextFiles();
+    }
+
+    @Override
+    public List<HtmlFile> getContentFiles() {
+        return this.infotextFiles;
     }
 
     public List<HtmlFile> getInfotextFiles() {
@@ -36,6 +38,10 @@ public class InfotextDirHtml extends RepoDirectory implements InfotextDir {
             HtmlFile htmlFile = new HtmlFile(file);
             htmlFileList.add(htmlFile);
         }
+
+        //noinspection ComparatorCombinators
+        htmlFileList.sort((mdpFile1, mdpFile2) -> mdpFile1.getName().compareTo(mdpFile2.getName()));
+
         return htmlFileList;
     }
 

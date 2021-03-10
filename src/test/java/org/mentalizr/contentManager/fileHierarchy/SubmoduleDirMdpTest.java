@@ -21,7 +21,7 @@ class SubmoduleDirMdpTest {
 
         assertEquals("Submodule1", submoduleDirMdp.getSubmoduleConfFile().getSubmoduleConf().getName());
 
-        assertEquals(2, submoduleDirMdp.getStepFiles().size());
+        assertEquals(2, submoduleDirMdp.getContentFiles().size());
         assertEquals(Arrays.asList("s1.mdp", "s2.mdp"), submoduleDirMdp.getStepFileNames());
     }
 

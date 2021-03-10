@@ -3,6 +3,10 @@ package org.mentalizr.contentManager.fileHierarchy.module;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirHtml;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirMdp;
 
 import java.io.File;
@@ -53,6 +57,15 @@ public class ModuleDirMdp extends RepoDirectory implements ModuleDir {
             if (submoduleDirMdp.getName().equals(dirName)) return submoduleDirMdp;
         }
         throw new RuntimeException("No submodule found with directory name: " + dirName);
+    }
+
+    @Override
+    public List<MdpFile> getContentFiles() {
+        List<MdpFile> contentFiles = new ArrayList<>();
+        for (SubmoduleDirMdp submoduleDir : this.submoduleDirList) {
+            contentFiles.addAll(submoduleDir.getContentFiles());
+        }
+        return contentFiles;
     }
 
     @Override

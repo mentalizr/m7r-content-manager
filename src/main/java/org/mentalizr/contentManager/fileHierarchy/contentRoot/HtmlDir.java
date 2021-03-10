@@ -2,7 +2,8 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirHtml;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirHtml;
@@ -11,19 +12,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlDir extends RepoDirectory implements ContentRoot {
+public class HtmlDir extends ContentDirectory implements ContentRoot {
 
     public static final String DIR_NAME = "html";
 
     private final ProgramConfFile programConfFile;
     private final InfotextDirHtml infotextDirHtml;
     private final List<ModuleDirHtml> moduleDirList;
+    private final List<HtmlFile> htmlFiles;
 
     public HtmlDir(File file) throws ProgramManagerException {
         super(file);
         this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
         this.infotextDirHtml = new InfotextDirHtml(new File(getFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
+        this.htmlFiles = obtainContentFiles();
+    }
+
+    @Override
+    public List<HtmlFile> getContentFiles() {
+        return this.htmlFiles;
     }
 
     @Override
@@ -97,6 +105,14 @@ public class HtmlDir extends RepoDirectory implements ContentRoot {
         moduleDirList.sort((moduleDir1, moduleDir2) -> moduleDir1.getName().compareTo(moduleDir2.getName()));
 
         return moduleDirList;
+    }
+
+    private List<HtmlFile> obtainContentFiles() {
+        List<HtmlFile> contentFiles = new ArrayList<>();
+        for (ModuleDirHtml moduleDir : this.moduleDirList) {
+            contentFiles.addAll(moduleDir.getContentFiles());
+        }
+        return contentFiles;
     }
 
 }

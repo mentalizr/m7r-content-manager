@@ -2,14 +2,16 @@ package org.mentalizr.contentManager.fileHierarchy.program;
 
 import org.mentalizr.contentManager.FileSystemHelper;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
-import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
+import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.List;
 import java.util.Optional;
 
 public class ProgramDir extends RepoDirectory {
@@ -23,6 +25,15 @@ public class ProgramDir extends RepoDirectory {
         this.mdpDir = new MdpDir(new File(getFile(), "mdp"));
         this.htmlDir = getOptionalHtmlDirAsNullable();
         this.mediaDir = new MediaDir(new File(getFile(), "media"));
+    }
+
+    public List<HtmlFile> getHtmlFiles() {
+        if (!hasHtmlDir()) throw new IllegalStateException("No html dir existing. Check before calling.");
+        return this.htmlDir.getContentFiles();
+    }
+
+    public List<MdpFile> getMdpFiles() {
+        return this.mdpDir.getContentFiles();
     }
 
     private HtmlDir getOptionalHtmlDirAsNullable() throws ProgramManagerException {

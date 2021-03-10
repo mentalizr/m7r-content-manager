@@ -8,7 +8,7 @@ import java.util.List;
 public interface SubmoduleDir {
     SubmoduleConfFile getSubmoduleConfFile();
 
-    List<? extends ContentFile> getStepFiles();
+    List<? extends ContentFile> getContentFiles();
 
     List<String> getStepFileNames();
 }

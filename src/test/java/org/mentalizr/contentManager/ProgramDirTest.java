@@ -1,16 +1,18 @@
 package org.mentalizr.contentManager;
 
+import de.arthurpicht.utils.core.strings.Strings;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMd;
+import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
-import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirMdp;
 
 import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,8 +26,8 @@ class ProgramDirTest {
         MdpDir mdpDir = programDir.getMdpDir();
         assertEquals("Test1", mdpDir.getProgramConfFile().getProgramConf().getName());
 
-        InfotextDirMd infotextDirMd = mdpDir.getInfotextDir();
-        List<MdpFile> infotextFiles = infotextDirMd.getInfotextFiles();
+        InfotextDirMdp infotextDirMdp = mdpDir.getInfotextDir();
+        List<MdpFile> infotextFiles = infotextDirMdp.getInfotextFiles();
         assertEquals(1, infotextFiles.size());
 
         List<ModuleDirMdp> moduleDirMdpList = mdpDir.getModuleDirs();
@@ -40,18 +42,6 @@ class ProgramDirTest {
         ModuleDirMdp moduleDirMdp = mdpDir.getModuleDir("m1");
         assertEquals("Module1", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
 
-        List<SubmoduleDirMdp> submoduleDirMdpList = moduleDirMdp.getSubmoduleDirs();
-        assertEquals(2, submoduleDirMdpList.size());
-
-        assertTrue(moduleDirMdp.hasSubmoduleDir("sm1"));
-        assertTrue(moduleDirMdp.hasSubmoduleDir("sm2"));
-        assertFalse(moduleDirMdp.hasSubmoduleDir("xyz"));
-
-        List<String> submoduleIds = moduleDirMdp.getSubmoduleDirNames();
-        assertEquals(2, submoduleIds.size());
-
-//        SubmoduleDirMdp submoduleDirMdp = moduleDirMdp.g
-
         assertTrue(mdpDir.hasModuleDir("m2"));
         moduleDirMdp = mdpDir.getModuleDir("m2");
         assertEquals("Module2", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
@@ -59,6 +49,28 @@ class ProgramDirTest {
         assertTrue(mdpDir.hasModuleDir("m3"));
         moduleDirMdp = mdpDir.getModuleDir("m3");
         assertEquals("Module3", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
+
+        List<MdpFile> mdpFiles = programDir.getMdpFiles();
+        List<String> idList = mdpFiles.stream().map(MdpFile::getId).collect(Collectors.toList());
+        String idString = Strings.listing(idList, " ");
+
+        assertEquals("test1_m1_sm1_s1 " +
+                "test1_m1_sm1_s2 " +
+                "test1_m1_sm2_s1 " +
+                "test1_m2_sm1_s1 " +
+                "test1_m3_sm1_s1", idString);
+
+        List<HtmlFile> htmlFiles = programDir.getHtmlFiles();
+        idList = htmlFiles.stream().map(HtmlFile::getId).collect(Collectors.toList());
+        idString = Strings.listing(idList, " ");
+
+        assertEquals("test1_m1_sm1_s1 " +
+                "test1_m1_sm1_s2 " +
+                "test1_m1_sm2_s1 " +
+                "test1_m2_sm1_s1 " +
+                "test1_m3_sm1_s1", idString);
+
+
 
 //        assertEquals("test1", programDir.getProgramId());
 //        assertEquals("Test1", programDir.getDisplayName());

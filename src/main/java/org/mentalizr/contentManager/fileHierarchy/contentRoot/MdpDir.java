@@ -2,8 +2,10 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMd;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
@@ -11,19 +13,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MdpDir extends RepoDirectory implements ContentRoot {
+public class MdpDir extends ContentDirectory implements ContentRoot {
 
     public static final String DIR_NAME = "mdp";
 
     private final ProgramConfFile programConfFile;
-    private final InfotextDirMd infotextDirMd;
+    private final InfotextDirMdp infotextDirMdp;
     private final List<ModuleDirMdp> moduleDirList;
+    private final List<MdpFile> mdpFiles;
 
     public MdpDir(File file) throws ProgramManagerException {
         super(file);
         this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infotextDirMd = new InfotextDirMd(new File(getFile(), "_info"));
+        this.infotextDirMdp = new InfotextDirMdp(new File(getFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
+        this.mdpFiles = obtainContentFiles();
+    }
+
+    @Override
+    public List<MdpFile> getContentFiles() {
+        return this.mdpFiles;
     }
 
     @Override
@@ -32,8 +41,8 @@ public class MdpDir extends RepoDirectory implements ContentRoot {
     }
 
     @Override
-    public InfotextDirMd getInfotextDir() {
-        return this.infotextDirMd;
+    public InfotextDirMdp getInfotextDir() {
+        return this.infotextDirMdp;
     }
 
     @Override
@@ -97,6 +106,14 @@ public class MdpDir extends RepoDirectory implements ContentRoot {
         moduleDirMdpList.sort((moduleDir1, moduleDir2) -> moduleDir1.getName().compareTo(moduleDir2.getName()));
 
         return moduleDirMdpList;
+    }
+
+    private List<MdpFile> obtainContentFiles() {
+        List<MdpFile> contentFiles = new ArrayList<>();
+        for (ModuleDirMdp moduleDir : this.moduleDirList) {
+            contentFiles.addAll(moduleDir.getContentFiles());
+        }
+        return contentFiles;
     }
 
 }
