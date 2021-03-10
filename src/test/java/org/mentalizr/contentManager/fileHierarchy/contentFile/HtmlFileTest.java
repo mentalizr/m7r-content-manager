@@ -18,4 +18,10 @@ class HtmlFileTest {
         assertEquals("Info1", htmlFile.getDisplayName());
     }
 
+    @Test
+    public void id() throws ProgramManagerException {
+        HtmlFile file = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s1.html"));
+        assertEquals("test1_m1_sm1_s1", file.getId());
+    }
+
 }

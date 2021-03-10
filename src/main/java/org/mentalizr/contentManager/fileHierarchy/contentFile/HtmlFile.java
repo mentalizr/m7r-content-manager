@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class HtmlFile extends RepoFile implements ContentFile {
+public class HtmlFile extends ContentFile {
 
     public static final String FILETYPE = ".html";
 

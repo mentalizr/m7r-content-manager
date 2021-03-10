@@ -5,6 +5,7 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
+import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -13,6 +13,8 @@ import java.util.List;
 
 public class MdpDir extends RepoDirectory implements ContentRoot {
 
+    public static final String DIR_NAME = "mdp";
+
     private final ProgramConfFile programConfFile;
     private final InfotextDirMd infotextDirMd;
     private final List<ModuleDirMdp> moduleDirList;

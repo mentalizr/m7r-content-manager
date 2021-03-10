@@ -13,6 +13,8 @@ import java.util.List;
 
 public class HtmlDir extends RepoDirectory implements ContentRoot {
 
+    public static final String DIR_NAME = "html";
+
     private final ProgramConfFile programConfFile;
     private final InfotextDirHtml infotextDirHtml;
     private final List<ModuleDirHtml> moduleDirList;
