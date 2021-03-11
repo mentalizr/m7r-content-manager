@@ -5,6 +5,7 @@ import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
+import org.mentalizr.serviceObjects.frontend.Infotext;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -44,6 +45,13 @@ public class InfotextDirHtml extends ContentDirectory implements InfotextDir {
 
         return htmlFileList;
     }
+
+//    public Infotext getInfotext() {
+//        return new Infotext(
+//                getName(),
+//
+//        );
+//    }
 
 
 

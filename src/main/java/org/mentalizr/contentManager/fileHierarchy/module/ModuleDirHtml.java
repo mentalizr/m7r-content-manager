@@ -6,6 +6,8 @@ import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirHtml;
+import org.mentalizr.serviceObjects.frontend.Module;
+import org.mentalizr.serviceObjects.frontend.Submodule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -79,6 +81,23 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
     @Override
     public boolean requiresWritePermission() {
         return false;
+    }
+
+    public String getDisplayName() {
+        return this.moduleConfFile.getName();
+    }
+
+    public Module getModule() {
+        List<Submodule> submodules = new ArrayList<>();
+        for (SubmoduleDirHtml submoduleDirHtml : this.submoduleDirList) {
+            submodules.add(submoduleDirHtml.getSubmodule());
+        }
+
+        return new Module(
+                this.getName(),
+                getDisplayName(),
+                submodules
+        );
     }
 
     private List<SubmoduleDirHtml> obtainSubmoduleDirs() throws ProgramManagerException {

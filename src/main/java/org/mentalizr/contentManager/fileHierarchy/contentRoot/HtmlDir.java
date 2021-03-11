@@ -7,6 +7,8 @@ import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirHtml;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirHtml;
+import org.mentalizr.serviceObjects.frontend.Module;
+import org.mentalizr.serviceObjects.frontend.Program;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -105,6 +107,27 @@ public class HtmlDir extends ContentDirectory implements ContentRoot {
         moduleDirList.sort((moduleDir1, moduleDir2) -> moduleDir1.getName().compareTo(moduleDir2.getName()));
 
         return moduleDirList;
+    }
+
+    public String getDisplayName() {
+        return this.programConfFile.getName();
+    }
+
+    public Program getProgram() {
+        List<Module> modules = new ArrayList<>();
+        for (ModuleDirHtml moduleDirHtml : this.moduleDirList) {
+            modules.add(moduleDirHtml.getModule());
+        }
+
+        // TODO
+
+        Program program = new Program(
+                getName(),
+                getDisplayName(),
+                modules
+        );
+//        program.s
+        throw new RuntimeException("NIY");
     }
 
     private List<HtmlFile> obtainContentFiles() {

@@ -1,8 +1,9 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.fileHierarchy.contentFile;
 
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 
 import java.io.File;
@@ -32,5 +33,22 @@ class MdpFileTest {
         assertEquals("test1_m1_sm1_s1", file.getId());
     }
 
+    @Test
+    public void idOfInfotextMdp() throws ProgramManagerException {
+        MdpFile mdpFile = new MdpFile(new File("src/test/testPrograms/test1/mdp/_info/info1.mdp"));
+        assertEquals("test1__info_info1", mdpFile.getId());
+    }
+
+    @Test
+    public void getName() throws ProgramManagerException {
+        MdpFile mdpFile = new MdpFile(new File("src/test/testPrograms/test1/mdp/_info/info1.mdp"));
+        assertEquals("info1", mdpFile.getName());
+    }
+
+    @Test
+    public void getFileType() throws ProgramManagerException {
+        MdpFile mdpFile = new MdpFile(new File("src/test/testPrograms/test1/mdp/m1/sm1/s1.mdp"));
+        assertEquals(".mdp", mdpFile.getFiletype());
+    }
 
 }

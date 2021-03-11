@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface InfotextDir {
 
+    public static final String DIR_NAME = "_info";
+
     public List<? extends ContentFile> getInfotextFiles();
 }

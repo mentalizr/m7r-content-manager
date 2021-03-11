@@ -3,8 +3,11 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFileFilter;
+import org.mentalizr.serviceObjects.frontend.Step;
+import org.mentalizr.serviceObjects.frontend.Submodule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -53,6 +56,23 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
     @Override
     public boolean requiresWritePermission() {
         return false;
+    }
+
+    public String getDisplayName() {
+        return this.submoduleConfFile.getName();
+    }
+
+    public Submodule getSubmodule() {
+        List<Step> steps = new ArrayList<>();
+        for (HtmlFile htmlFile : this.contentFileList) {
+            steps.add(htmlFile.getStep());
+        }
+
+        return new Submodule(
+                getName(),
+                getDisplayName(),
+                steps
+        );
     }
 
     private List<HtmlFile> obtainHtmlFiles() throws ProgramManagerException {
