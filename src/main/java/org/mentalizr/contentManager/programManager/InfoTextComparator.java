@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.programManager;
 
 
-import org.mentalizr.serviceObjects.frontend.Infotext;
+import org.mentalizr.serviceObjects.frontend.program.Infotext;
 
 import java.util.Comparator;
 

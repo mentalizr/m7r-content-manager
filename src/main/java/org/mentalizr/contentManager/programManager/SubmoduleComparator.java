@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.programManager;
 
-import org.mentalizr.serviceObjects.frontend.Submodule;
+import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.util.Comparator;
 

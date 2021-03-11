@@ -3,7 +3,7 @@ package org.mentalizr.contentManager.programManager;
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.contentManager.Configuration;
 import org.mentalizr.contentManager.ProgramConsistencyException;
-import org.mentalizr.serviceObjects.frontend.Program;
+import org.mentalizr.serviceObjects.frontend.program.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

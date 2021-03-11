@@ -1,15 +1,16 @@
 package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDir;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
+import org.mentalizr.contentManager.fileHierarchy.info.InfoDir;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDir;
 
 import java.util.List;
 
-public interface ContentRoot {
+public interface ContentRootDir {
 
     ProgramConfFile getProgramConfFile();
 
-    InfotextDir getInfotextDir();
+    InfoDir getInfotextDir();
 
     List<? extends ModuleDir> getModuleDirs();
 
@@ -18,4 +19,6 @@ public interface ContentRoot {
     boolean hasModuleDir(String dirName);
 
     ModuleDir getModuleDir(String dirName);
+
+    List<? extends ContentFile> getStepContentFiles();
 }

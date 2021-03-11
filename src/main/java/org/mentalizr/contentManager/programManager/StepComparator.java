@@ -2,7 +2,7 @@ package org.mentalizr.contentManager.programManager;
 
 import java.util.Comparator;
 
-import org.mentalizr.serviceObjects.frontend.Step;
+import org.mentalizr.serviceObjects.frontend.program.Step;
 
 public class StepComparator implements Comparator<Step> {
 

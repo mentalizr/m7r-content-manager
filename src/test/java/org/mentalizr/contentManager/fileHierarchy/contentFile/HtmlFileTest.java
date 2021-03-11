@@ -3,7 +3,8 @@ package org.mentalizr.contentManager.fileHierarchy.contentFile;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.serviceObjects.frontend.Step;
+import org.mentalizr.serviceObjects.frontend.program.Infotext;
+import org.mentalizr.serviceObjects.frontend.program.Step;
 
 import java.io.File;
 
@@ -57,11 +58,21 @@ class HtmlFileTest {
     }
 
     @Test
-    public void getStep() throws ProgramManagerException {
+    public void asStep() throws ProgramManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s1.html"));
-        Step step = htmlFile.getStep();
+        Step step = htmlFile.asStep();
         assertEquals("test1_m1_sm1_s1", step.getId());
         assertEquals("Step1", step.getName());
     }
+
+    @Test
+    public void asInfotext() throws ProgramManagerException {
+        HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/_info/info1.html"));
+        Infotext infotext = htmlFile.asInfotext();
+        assertEquals("test1__info_info1", infotext.getId());
+        assertEquals("Info1", infotext.getName());
+    }
+
+
 
 }

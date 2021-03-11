@@ -8,6 +8,7 @@ import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
+import org.mentalizr.serviceObjects.frontend.program.Program;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,12 +29,17 @@ public class ProgramDir extends RepoDirectory {
     }
 
     public List<HtmlFile> getHtmlFiles() {
-        if (!hasHtmlDir()) throw new IllegalStateException("No html dir existing. Check before calling.");
-        return this.htmlDir.getContentFiles();
+        assertHtmlDir();
+        return this.htmlDir.getStepContentFiles();
     }
 
     public List<MdpFile> getMdpFiles() {
-        return this.mdpDir.getContentFiles();
+        return this.mdpDir.getStepContentFiles();
+    }
+
+    public Program asProgram() {
+        assertHtmlDir();
+        return this.htmlDir.asProgram();
     }
 
     private HtmlDir getOptionalHtmlDirAsNullable() throws ProgramManagerException {
@@ -90,6 +96,10 @@ public class ProgramDir extends RepoDirectory {
     @Override
     public boolean requiresWritePermission() {
         return false;
+    }
+
+    private void assertHtmlDir() {
+        if (!hasHtmlDir()) throw new IllegalStateException("No html dir existing. Check before calling.");
     }
 
 }

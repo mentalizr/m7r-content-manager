@@ -2,17 +2,13 @@ package org.mentalizr.contentManager.fileHierarchy.contentFile;
 
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoFile;
-import org.mentalizr.serviceObjects.frontend.Step;
+import org.mentalizr.serviceObjects.frontend.program.Infotext;
+import org.mentalizr.serviceObjects.frontend.program.Step;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class HtmlFile extends ContentFile {
 
@@ -56,8 +52,12 @@ public class HtmlFile extends ContentFile {
         return this.displayName;
     }
 
-    public Step getStep() {
+    public Step asStep() {
         return new Step(getId(), getDisplayName());
+    }
+
+    public Infotext asInfotext() {
+        return new Infotext(getId(), getDisplayName());
     }
 
     private String obtainDisplayName() throws ProgramManagerException {

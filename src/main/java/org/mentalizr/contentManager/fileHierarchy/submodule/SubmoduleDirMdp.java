@@ -2,6 +2,7 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
@@ -10,7 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubmoduleDirMdp extends RepoDirectory implements SubmoduleDir {
+public class SubmoduleDirMdp extends ContentTreeDirectory implements SubmoduleDir {
 
     private final SubmoduleConfFile submoduleConfFile;
     private final List<MdpFile> contentFileList;

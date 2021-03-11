@@ -2,26 +2,28 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFileFilter;
-import org.mentalizr.serviceObjects.frontend.Step;
-import org.mentalizr.serviceObjects.frontend.Submodule;
+import org.mentalizr.serviceObjects.frontend.program.Step;
+import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
+public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleDir {
 
     private final SubmoduleConfFile submoduleConfFile;
     private final List<HtmlFile> contentFileList;
+    private final Submodule submodule;
 
     public SubmoduleDirHtml(File file) throws ProgramManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
         this.contentFileList = obtainHtmlFiles();
+        this.submodule = prepareSubmodule();
     }
 
     @Override
@@ -59,20 +61,11 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
     }
 
     public String getDisplayName() {
-        return this.submoduleConfFile.getName();
+        return this.submoduleConfFile.getSubmoduleConf().getName();
     }
 
-    public Submodule getSubmodule() {
-        List<Step> steps = new ArrayList<>();
-        for (HtmlFile htmlFile : this.contentFileList) {
-            steps.add(htmlFile.getStep());
-        }
-
-        return new Submodule(
-                getName(),
-                getDisplayName(),
-                steps
-        );
+    public Submodule asSubmodule() {
+        return this.submodule;
     }
 
     private List<HtmlFile> obtainHtmlFiles() throws ProgramManagerException {
@@ -90,6 +83,19 @@ public class SubmoduleDirHtml extends RepoDirectory implements SubmoduleDir {
         htmlFileList.sort((htmlFile1, htmlFile) -> htmlFile1.getName().compareTo(htmlFile.getName()));
 
         return htmlFileList;
+    }
+
+    private Submodule prepareSubmodule() {
+        List<Step> steps = new ArrayList<>();
+        for (HtmlFile htmlFile : this.contentFileList) {
+            steps.add(htmlFile.asStep());
+        }
+
+        return new Submodule(
+                getId(),
+                getDisplayName(),
+                steps
+        );
     }
 
 }

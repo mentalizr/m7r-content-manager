@@ -2,7 +2,7 @@
 //
 //import de.arthurpicht.utils.core.strings.Strings;
 //import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-//import org.mentalizr.serviceObjects.frontend.Infotext;
+//import org.mentalizr.serviceObjects.frontend.program.Infotext;
 //
 //import java.io.BufferedReader;
 //import java.io.FileReader;

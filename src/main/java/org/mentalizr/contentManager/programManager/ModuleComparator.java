@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.programManager;
 
 import java.util.Comparator;
-import org.mentalizr.serviceObjects.frontend.Module;
+import org.mentalizr.serviceObjects.frontend.program.Module;
 
 public class ModuleComparator implements Comparator<Module> {
 

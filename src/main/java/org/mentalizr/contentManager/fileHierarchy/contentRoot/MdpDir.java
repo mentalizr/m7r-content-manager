@@ -2,10 +2,9 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.ContentDirectory;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.info.InfoDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
@@ -13,25 +12,25 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MdpDir extends ContentDirectory implements ContentRoot {
+public class MdpDir extends RepoDirectory implements ContentRootDir {
 
     public static final String DIR_NAME = "mdp";
 
     private final ProgramConfFile programConfFile;
-    private final InfotextDirMdp infotextDirMdp;
+    private final InfoDirMdp infoDirMdp;
     private final List<ModuleDirMdp> moduleDirList;
     private final List<MdpFile> mdpFiles;
 
     public MdpDir(File file) throws ProgramManagerException {
         super(file);
         this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infotextDirMdp = new InfotextDirMdp(new File(getFile(), "_info"));
+        this.infoDirMdp = new InfoDirMdp(new File(getFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.mdpFiles = obtainContentFiles();
     }
 
     @Override
-    public List<MdpFile> getContentFiles() {
+    public List<MdpFile> getStepContentFiles() {
         return this.mdpFiles;
     }
 
@@ -41,8 +40,8 @@ public class MdpDir extends ContentDirectory implements ContentRoot {
     }
 
     @Override
-    public InfotextDirMdp getInfotextDir() {
-        return this.infotextDirMdp;
+    public InfoDirMdp getInfotextDir() {
+        return this.infoDirMdp;
     }
 
     @Override

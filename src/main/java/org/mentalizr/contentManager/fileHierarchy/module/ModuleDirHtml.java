@@ -3,11 +3,10 @@ package org.mentalizr.contentManager.fileHierarchy.module;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirHtml;
-import org.mentalizr.serviceObjects.frontend.Module;
-import org.mentalizr.serviceObjects.frontend.Submodule;
+import org.mentalizr.serviceObjects.frontend.program.Module;
+import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -17,11 +16,13 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
 
     private final ModuleConfFile moduleConfFile;
     private final List<SubmoduleDirHtml> submoduleDirList;
+    private final Module module;
 
     public ModuleDirHtml(File file) throws ProgramManagerException {
         super(file);
         this.moduleConfFile = new ModuleConfFile(new File(getFile(), "module.conf"));
         this.submoduleDirList = obtainSubmoduleDirs();
+        this.module = prepareModule();
     }
 
     @Override
@@ -88,16 +89,7 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
     }
 
     public Module getModule() {
-        List<Submodule> submodules = new ArrayList<>();
-        for (SubmoduleDirHtml submoduleDirHtml : this.submoduleDirList) {
-            submodules.add(submoduleDirHtml.getSubmodule());
-        }
-
-        return new Module(
-                this.getName(),
-                getDisplayName(),
-                submodules
-        );
+        return this.module;
     }
 
     private List<SubmoduleDirHtml> obtainSubmoduleDirs() throws ProgramManagerException {
@@ -116,6 +108,19 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
         submoduleDirList.sort((submoduleDir1, submoduleDir2) -> submoduleDir1.getName().compareTo(submoduleDir2.getName()));
 
         return submoduleDirList;
+    }
+
+    private Module prepareModule() {
+        List<Submodule> submodules = new ArrayList<>();
+        for (SubmoduleDirHtml submoduleDirHtml : this.submoduleDirList) {
+            submodules.add(submoduleDirHtml.asSubmodule());
+        }
+
+        return new Module(
+                this.getName(),
+                getDisplayName(),
+                submodules
+        );
     }
 
 }

@@ -6,9 +6,11 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.infotext.InfotextDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.info.InfoDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
+import org.mentalizr.serviceObjects.frontend.program.Program;
+import org.mentalizr.serviceObjects.frontend.program.ProgramSOX;
 
 import java.io.File;
 import java.util.List;
@@ -26,8 +28,8 @@ class ProgramDirTest {
         MdpDir mdpDir = programDir.getMdpDir();
         assertEquals("Test1", mdpDir.getProgramConfFile().getProgramConf().getName());
 
-        InfotextDirMdp infotextDirMdp = mdpDir.getInfotextDir();
-        List<MdpFile> infotextFiles = infotextDirMdp.getInfotextFiles();
+        InfoDirMdp infoDirMdp = mdpDir.getInfotextDir();
+        List<MdpFile> infotextFiles = infoDirMdp.getInfoFiles();
         assertEquals(1, infotextFiles.size());
 
         List<ModuleDirMdp> moduleDirMdpList = mdpDir.getModuleDirs();
@@ -69,6 +71,9 @@ class ProgramDirTest {
                 "test1_m1_sm2_s1 " +
                 "test1_m2_sm1_s1 " +
                 "test1_m3_sm1_s1", idString);
+
+        Program program = programDir.asProgram();
+        System.out.println(ProgramSOX.toJsonWithFormatting(program));
 
 
 

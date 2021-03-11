@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.programManager;
 
-import org.mentalizr.serviceObjects.frontend.Program;
+import org.mentalizr.serviceObjects.frontend.program.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
