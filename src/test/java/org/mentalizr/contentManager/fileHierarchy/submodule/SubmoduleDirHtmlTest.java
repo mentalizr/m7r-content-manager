@@ -3,12 +3,12 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
+import org.mentalizr.contentManager.utils.ContentFileUtils;
 import org.mentalizr.serviceObjects.frontend.program.Step;
 import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -43,16 +43,8 @@ class SubmoduleDirHtmlTest {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         List<HtmlFile> htmlFiles = submoduleDirMdp.getContentFiles();
         assertEquals(2, htmlFiles.size());
-        assertTrue(htmlFiles.stream()
-                .map(HtmlFile::getFile)
-                .map(File::getName)
-                .collect(Collectors.toList())
-                .contains("s1.html"));
-        assertTrue(htmlFiles.stream()
-                .map(HtmlFile::getFile)
-                .map(File::getName)
-                .collect(Collectors.toList())
-                .contains("s2.html"));
+        assertTrue(ContentFileUtils.containsFileName(htmlFiles, "s1.html"));
+        assertTrue(ContentFileUtils.containsFileName(htmlFiles, "s2.html"));
     }
 
     @Test

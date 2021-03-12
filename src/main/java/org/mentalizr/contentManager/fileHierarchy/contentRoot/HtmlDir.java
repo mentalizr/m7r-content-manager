@@ -124,7 +124,7 @@ public class HtmlDir extends RepoDirectory implements ContentRootDir {
     private Program prepareProgram() {
         List<Module> modules = new ArrayList<>();
         for (ModuleDirHtml moduleDirHtml : this.moduleDirList) {
-            modules.add(moduleDirHtml.getModule());
+            modules.add(moduleDirHtml.asModule());
         }
 
         List<Infotext> infotextList = this.infotextDirHtml.asInfotextList();

@@ -2,7 +2,7 @@ package org.mentalizr.contentManager.fileHierarchy.module;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirHtml;
 import org.mentalizr.serviceObjects.frontend.program.Module;
@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
+public class ModuleDirHtml extends ContentTreeDirectory implements ModuleDir {
 
     private final ModuleConfFile moduleConfFile;
     private final List<SubmoduleDirHtml> submoduleDirList;
@@ -85,10 +85,10 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
     }
 
     public String getDisplayName() {
-        return this.moduleConfFile.getName();
+        return this.moduleConfFile.getModuleConf().getName();
     }
 
-    public Module getModule() {
+    public Module asModule() {
         return this.module;
     }
 
@@ -117,7 +117,7 @@ public class ModuleDirHtml extends RepoDirectory implements ModuleDir {
         }
 
         return new Module(
-                this.getName(),
+                this.getId(),
                 getDisplayName(),
                 submodules
         );
