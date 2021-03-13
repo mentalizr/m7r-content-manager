@@ -14,13 +14,9 @@ class ModuleDirMdpTest {
 
     @Test
     public void positive() throws ProgramManagerException {
-
         ModuleDirMdp moduleDirMdp = new ModuleDirMdp(new File("src/test/testPrograms/test1/mdp/m1"));
-
         assertEquals("m1", moduleDirMdp.getName());
-
         assertEquals("Module1", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
-
         assertEquals(2, moduleDirMdp.getSubmoduleDirs().size());
         assertEquals(Arrays.asList("sm1", "sm2"), moduleDirMdp.getSubmoduleDirNames());
     }
@@ -28,41 +24,37 @@ class ModuleDirMdpTest {
     @Test
     public void noSubmodulesFound_neg() throws ProgramManagerException {
         try {
-            new ModuleDirMdp(new File("src/test/fractions/m1"));
+            new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m3"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("No submodules found"));
+            assertTrue(message.contains("test_neg_3/mdp/m3"));
         }
     }
 
     @Test
     public void moduleConfMissing_neg() throws ProgramManagerException {
         try {
-            new ModuleDirMdp(new File("src/test/fractions/m2"));
+            new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m2"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("File not found"));
+            assertTrue(message.contains("mdp/m2/module.conf"));
         }
     }
 
     @Test
     public void moduleNotExisting_neg() throws ProgramManagerException {
         try {
-            new ModuleDirMdp(new File("src/test/fractions/not_existing"));
+            new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m_not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("Directory not found"));
+            assertTrue(message.contains("/m_not_existing"));
         }
     }
-
-
-
-
 
 }

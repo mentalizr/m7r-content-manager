@@ -14,13 +14,9 @@ class SubmoduleDirMdpTest {
 
     @Test
     public void positive() throws ProgramManagerException {
-
         SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/testPrograms/test1/mdp/m1/sm1"));
-
         assertEquals("sm1", submoduleDirMdp.getName());
-
         assertEquals("Submodule1", submoduleDirMdp.getSubmoduleConfFile().getSubmoduleConf().getName());
-
         assertEquals(2, submoduleDirMdp.getContentFiles().size());
         assertEquals(Arrays.asList("s1", "s2"), submoduleDirMdp.getStepFileNames());
     }
@@ -28,36 +24,36 @@ class SubmoduleDirMdpTest {
     @Test
     public void noMdpFilesFound_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/sm1"));
+            new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm1"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("No .mdp files found in submodule"));
+            assertTrue(message.contains("test_neg_3/mdp/m1/sm1"));
         }
     }
 
     @Test
     public void submoduleConfMissing_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/sm2"));
+            new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm2"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-//            System.out.println(e.getMessage());
-//            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("File not found"));
+            assertTrue(message.contains("mdp/m1/sm2/submodule.conf"));
         }
     }
 
     @Test
     public void submoduleNotExisting_neg() throws ProgramManagerException {
         try {
-            SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/fractions/not_existing"));
+            new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm_not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
-            // din
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+            String message = e.getMessage();
+            assertTrue(message.contains("Directory not found"));
+            assertTrue(message.contains("mdp/m1/sm_not_existing"));
         }
     }
 

@@ -13,11 +13,18 @@ import java.util.List;
 
 public abstract class ContentTreeDirectory extends RepoDirectory {
 
+    protected final String id;
+
     public ContentTreeDirectory(File file) throws ProgramManagerException {
         super(file);
+        this.id = prepareId();
     }
 
     public String getId() {
+        return this.id;
+    }
+
+    private String prepareId() {
         List<String> names = new ArrayList<>();
         Path path = this.file.toPath();
         int nameCount = path.getNameCount();
@@ -40,7 +47,6 @@ public abstract class ContentTreeDirectory extends RepoDirectory {
         Collections.reverse(names);
 
         return Strings.listing(names, "_");
-
     }
 
 }

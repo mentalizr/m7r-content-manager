@@ -18,8 +18,8 @@ class ModuleDirHtmlTest {
 
     @Test
     public void getModuleConf() throws ProgramManagerException {
-        ModuleDirHtml moduleDirMdp = new ModuleDirHtml(new File("src/test/testPrograms/test1/html/m1"));
-        assertEquals("Module1", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
+        ModuleDirHtml moduleDirHtml = new ModuleDirHtml(new File("src/test/testPrograms/test1/html/m1"));
+        assertEquals("Module1", moduleDirHtml.getModuleConfFile().getModuleConf().getName());
     }
 
     @Test
@@ -58,7 +58,6 @@ class ModuleDirHtmlTest {
         assertEquals("Module1", module.getName());
         List<Submodule> submodules = module.getSubmodules();
         assertEquals(2, submodules.size());
-
     }
 
 }

@@ -2,9 +2,10 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.info.InfoDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
@@ -17,20 +18,21 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
     public static final String DIR_NAME = "mdp";
 
     private final ProgramConfFile programConfFile;
-    private final InfoDirMdp infoDirMdp;
+    private final InfopageDirMdp infoDirMdp;
     private final List<ModuleDirMdp> moduleDirList;
     private final List<MdpFile> mdpFiles;
 
     public MdpDir(File file) throws ProgramManagerException {
         super(file);
+        FileUtils.assertFileName(file, DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infoDirMdp = new InfoDirMdp(new File(getFile(), "_info"));
+        this.infoDirMdp = new InfopageDirMdp(new File(getFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.mdpFiles = obtainContentFiles();
     }
 
     @Override
-    public List<MdpFile> getStepContentFiles() {
+    public List<MdpFile> getContentFiles() {
         return this.mdpFiles;
     }
 
@@ -40,7 +42,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
     }
 
     @Override
-    public InfoDirMdp getInfotextDir() {
+    public InfopageDirMdp getInfotextDir() {
         return this.infoDirMdp;
     }
 

@@ -30,7 +30,7 @@ class MdpDirTest {
     @Test
     public void noModulesFound_neg() throws ProgramManagerException {
         try {
-            new MdpDir(new File("src/test/fractions/mdp"));
+            new MdpDir(new File("src/test/testPrograms/test_neg_1/mdp"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din
@@ -42,7 +42,7 @@ class MdpDirTest {
     @Test
     public void programConfMissing_neg() throws ProgramManagerException {
         try {
-            new MdpDir(new File("src/test/fractions/mdp2"));
+            new MdpDir(new File("src/test/testPrograms/test_neg_2/mdp"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din
@@ -54,7 +54,7 @@ class MdpDirTest {
     @Test
     public void mdpNotExisting_neg() throws ProgramManagerException {
         try {
-            new MdpDir(new File("src/test/fractions/not_existing"));
+            new MdpDir(new File("src/test/testPrograms/test_not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
         } catch (FileNotFoundException e) {
             // din

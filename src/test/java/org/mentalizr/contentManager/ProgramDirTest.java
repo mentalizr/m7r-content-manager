@@ -6,7 +6,7 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.info.InfoDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
 import org.mentalizr.serviceObjects.frontend.program.Program;
@@ -28,8 +28,8 @@ class ProgramDirTest {
         MdpDir mdpDir = programDir.getMdpDir();
         assertEquals("Test1", mdpDir.getProgramConfFile().getProgramConf().getName());
 
-        InfoDirMdp infoDirMdp = mdpDir.getInfotextDir();
-        List<MdpFile> infotextFiles = infoDirMdp.getInfoFiles();
+        InfopageDirMdp infoDirMdp = mdpDir.getInfotextDir();
+        List<MdpFile> infotextFiles = infoDirMdp.getInfopageFiles();
         assertEquals(1, infotextFiles.size());
 
         List<ModuleDirMdp> moduleDirMdpList = mdpDir.getModuleDirs();
@@ -73,7 +73,11 @@ class ProgramDirTest {
                 "test1_m3_sm1_s1", idString);
 
         Program program = programDir.asProgram();
-        System.out.println(ProgramSOX.toJsonWithFormatting(program));
+//        System.out.println(ProgramSOX.toJsonWithFormatting(program));
+//        System.out.println(ProgramSOX.toJson(program));
+
+        assertEquals("{\"id\":\"test1\",\"infotexts\":[{\"id\":\"test1__info_info1\",\"name\":\"Info1\"}],\"modules\":[{\"id\":\"test1_m1\",\"name\":\"Module1\",\"submodules\":[{\"id\":\"test1_m1_sm1\",\"name\":\"Submodule1\",\"steps\":[{\"id\":\"test1_m1_sm1_s1\",\"name\":\"Step1\"},{\"id\":\"test1_m1_sm1_s2\",\"name\":\"Step2\"}]},{\"id\":\"test1_m1_sm2\",\"name\":\"Submodule2\",\"steps\":[{\"id\":\"test1_m1_sm2_s1\",\"name\":\"Step1\"}]}]},{\"id\":\"test1_m2\",\"name\":\"Module2\",\"submodules\":[{\"id\":\"test1_m2_sm1\",\"name\":\"Submodule1\",\"steps\":[{\"id\":\"test1_m2_sm1_s1\",\"name\":\"Step1\"}]}]},{\"id\":\"test1_m3\",\"name\":\"Module3\",\"submodules\":[{\"id\":\"test1_m3_sm1\",\"name\":\"Submodule1\",\"steps\":[{\"id\":\"test1_m3_sm1_s1\",\"name\":\"Step1\"}]}]}],\"name\":\"Test1\"}",
+                ProgramSOX.toJson(program));
 
 
 

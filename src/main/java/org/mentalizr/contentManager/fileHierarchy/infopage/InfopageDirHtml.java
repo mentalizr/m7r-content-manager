@@ -1,8 +1,10 @@
-package org.mentalizr.contentManager.fileHierarchy.info;
+package org.mentalizr.contentManager.fileHierarchy.infopage;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
 
@@ -10,20 +12,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class InfoDirHtml extends RepoDirectory implements InfoDir {
+public class InfopageDirHtml extends RepoDirectory implements InfopageDir {
 
-    private final List<HtmlFile> infotextFiles;
+    private final List<HtmlFile> infopageFiles;
     private final List<Infotext> infotextList;
 
-    public InfoDirHtml(File file) throws ProgramManagerException {
+    public InfopageDirHtml(File file) throws ProgramManagerException {
         super(file);
-        this.infotextFiles = obtainInfotextFiles();
+        FileUtils.assertFileName(file, InfopageDir.DIR_NAME);
+        this.infopageFiles = obtainInfopageFiles();
         this.infotextList = prepareInfotextList();
     }
 
     @Override
-    public List<HtmlFile> getInfoFiles() {
-        return this.infotextFiles;
+    public List<HtmlFile> getInfopageFiles() {
+        return this.infopageFiles;
     }
 
     @Override
@@ -45,8 +48,8 @@ public class InfoDirHtml extends RepoDirectory implements InfoDir {
         return this.infotextList;
     }
 
-    private List<HtmlFile> obtainInfotextFiles() throws ProgramManagerException {
-        File[] fileArray = this.file.listFiles(new MdpFileFilter());
+    private List<HtmlFile> obtainInfopageFiles() throws ProgramManagerException {
+        File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)
             return new ArrayList<>();
 
@@ -64,7 +67,7 @@ public class InfoDirHtml extends RepoDirectory implements InfoDir {
 
     private List<Infotext> prepareInfotextList() {
         List<Infotext> infotextList = new ArrayList<>();
-        for (HtmlFile htmlFile : this.infotextFiles) {
+        for (HtmlFile htmlFile : this.infopageFiles) {
             Infotext infotext = new Infotext(htmlFile.getId(), htmlFile.getDisplayName());
             infotextList.add(infotext);
         }

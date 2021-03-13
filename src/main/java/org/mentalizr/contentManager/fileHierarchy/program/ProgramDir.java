@@ -30,11 +30,11 @@ public class ProgramDir extends RepoDirectory {
 
     public List<HtmlFile> getHtmlFiles() {
         assertHtmlDir();
-        return this.htmlDir.getStepContentFiles();
+        return this.htmlDir.getContentFiles();
     }
 
     public List<MdpFile> getMdpFiles() {
-        return this.mdpDir.getStepContentFiles();
+        return this.mdpDir.getContentFiles();
     }
 
     public Program asProgram() {

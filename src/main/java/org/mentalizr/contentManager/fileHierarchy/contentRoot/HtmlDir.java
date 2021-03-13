@@ -2,9 +2,10 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
+import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.info.InfoDirHtml;
+import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirHtml;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirHtml;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
@@ -15,31 +16,32 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HtmlDir extends RepoDirectory implements ContentRootDir {
+public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
     public static final String DIR_NAME = "html";
 
     private final ProgramConfFile programConfFile;
-    private final InfoDirHtml infotextDirHtml;
+    private final InfopageDirHtml infotextDirHtml;
     private final List<ModuleDirHtml> moduleDirList;
     private final List<HtmlFile> htmlFiles;
     private final Program program;
 
     public HtmlDir(File file) throws ProgramManagerException {
         super(file);
+        FileUtils.assertFileName(file, DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infotextDirHtml = new InfoDirHtml(new File(getFile(), "_info"));
+        this.infotextDirHtml = new InfopageDirHtml(new File(getFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.htmlFiles = obtainContentFiles();
         this.program = prepareProgram();
     }
 
     public String getDisplayName() {
-        return this.programConfFile.getName();
+        return this.programConfFile.getProgramConf().getName();
     }
 
     @Override
-    public List<HtmlFile> getStepContentFiles() {
+    public List<HtmlFile> getContentFiles() {
         return this.htmlFiles;
     }
 
@@ -49,7 +51,7 @@ public class HtmlDir extends RepoDirectory implements ContentRootDir {
     }
 
     @Override
-    public InfoDirHtml getInfotextDir() {
+    public InfopageDirHtml getInfotextDir() {
         return this.infotextDirHtml;
     }
 
@@ -130,7 +132,7 @@ public class HtmlDir extends RepoDirectory implements ContentRootDir {
         List<Infotext> infotextList = this.infotextDirHtml.asInfotextList();
 
         Program program = new Program(
-                getName(),
+                getId(),
                 getDisplayName(),
                 modules
         );
