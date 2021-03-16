@@ -10,8 +10,13 @@ public class MdpFile extends ContentFile {
 
     public static final String FILETYPE = ".mdp";
 
+//    private final String name;
+//    private final String displayName;
+
     public MdpFile(File file) throws ProgramManagerException {
         super(file);
+//        this.name = Strings.cutEnd(super.getName(), FILETYPE.length());
+//        this.displayName = obtainDisplayName();
     }
 
     @Override
@@ -34,9 +39,14 @@ public class MdpFile extends ContentFile {
         return false;
     }
 
-    @Override
-    public String getName() {
-        return Strings.cutEnd(super.getName(), FILETYPE.length());
-    }
+//    @Override
+//    public String getName() {
+//        return this.name;
+//    }
+//
+//    @Override
+//    public String getDisplayName() {
+//        return this.displayName;
+//    }
 
 }
