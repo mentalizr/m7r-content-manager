@@ -7,6 +7,8 @@ import java.io.File;
 
 public class ProgramConfFile extends RepoFile {
 
+    public static final String FILE_NAME = "program.conf";
+
     private final ProgramConf programConf;
 
     public ProgramConfFile(File file) throws ProgramManagerException {

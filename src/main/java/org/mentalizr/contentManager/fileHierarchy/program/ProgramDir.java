@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.program;
 
-import org.mentalizr.contentManager.FileSystemHelper;
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
@@ -12,8 +12,12 @@ import org.mentalizr.serviceObjects.frontend.program.Program;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.FileVisitor;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
-import java.util.Optional;
 
 public class ProgramDir extends RepoDirectory {
 
@@ -23,9 +27,9 @@ public class ProgramDir extends RepoDirectory {
 
     public ProgramDir(File file) throws ProgramManagerException {
         super(file);
-        this.mdpDir = new MdpDir(new File(getFile(), "mdp"));
+        this.mdpDir = new MdpDir(new File(asFile(), MdpDir.DIR_NAME));
         this.htmlDir = getOptionalHtmlDirAsNullable();
-        this.mediaDir = new MediaDir(new File(getFile(), "media"));
+        this.mediaDir = new MediaDir(new File(asFile(), MediaDir.DIR_NAME));
     }
 
     public List<HtmlFile> getHtmlFiles() {
@@ -44,9 +48,9 @@ public class ProgramDir extends RepoDirectory {
 
     private HtmlDir getOptionalHtmlDirAsNullable() throws ProgramManagerException {
         HtmlDir htmlDir = null;
-        File htmlDirFile = new File(getFile(), "html");
+        File htmlDirFile = new File(asFile(), HtmlDir.DIR_NAME);
         if (htmlDirFile.exists()) {
-            htmlDir = new HtmlDir(new File(getFile(), "html"));
+            htmlDir = new HtmlDir(new File(asFile(), HtmlDir.DIR_NAME));
         }
         return htmlDir;
     }
@@ -55,30 +59,27 @@ public class ProgramDir extends RepoDirectory {
         return this.mdpDir;
     }
 
-    public Optional<HtmlDir> getHtmlDir() {
-        return Optional.ofNullable(this.htmlDir);
+    public boolean hasHtmlDir() {
+        return this.htmlDir != null;
+    }
+
+    public HtmlDir getHtmlDir() {
+        if (this.htmlDir == null) throw new IllegalStateException("No html existing. Check before calling getHtmlDir().");
+        return this.htmlDir;
     }
 
     public MediaDir getMediaDir() {
         return mediaDir;
     }
 
-    private boolean hasHtmlDir() {
-        return this.htmlDir != null;
-    }
-
     public void clean() throws ProgramManagerException {
         if (hasHtmlDir()) {
             try {
-                if (FileSystemHelper.getDepth(this.htmlDir.getFile().toPath()) > 3)
-                    throw new IllegalStateException("Emergency breaking on cleaning m7r content repo." +
-                            " Subdirectory html can not be deeper than 3 levels." +
-                            " [" + this.htmlDir.getFile().getAbsolutePath() + "]");
-                FileSystemHelper.deleteDirectoryRecursively(this.htmlDir.getFile().toPath());
+                FileUtils.rmDir(this.htmlDir.asPath());
                 this.htmlDir = null;
             } catch (IOException e) {
                 throw new ProgramManagerException("Exception on cleaning html file." +
-                        " [" + this.htmlDir.getFile().getAbsolutePath() + "]", e);
+                        " [" + this.htmlDir.asFile().getAbsolutePath() + "]", e);
             }
         }
     }

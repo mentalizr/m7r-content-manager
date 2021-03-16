@@ -20,7 +20,7 @@ public class ModuleDirHtml extends ContentTreeDirectory implements ModuleDir {
 
     public ModuleDirHtml(File file) throws ProgramManagerException {
         super(file);
-        this.moduleConfFile = new ModuleConfFile(new File(getFile(), "module.conf"));
+        this.moduleConfFile = new ModuleConfFile(new File(asFile(), ModuleConfFile.FILE_NAME));
         this.submoduleDirList = obtainSubmoduleDirs();
         this.module = prepareModule();
     }

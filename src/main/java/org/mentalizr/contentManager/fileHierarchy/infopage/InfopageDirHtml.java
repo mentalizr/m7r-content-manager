@@ -1,16 +1,16 @@
 package org.mentalizr.contentManager.fileHierarchy.infopage;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFileFilter;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 
 public class InfopageDirHtml extends RepoDirectory implements InfopageDir {
 
@@ -19,7 +19,7 @@ public class InfopageDirHtml extends RepoDirectory implements InfopageDir {
 
     public InfopageDirHtml(File file) throws ProgramManagerException {
         super(file);
-        FileUtils.assertFileName(file, InfopageDir.DIR_NAME);
+        assertFileName(file.toPath(), InfopageDir.DIR_NAME);
         this.infopageFiles = obtainInfopageFiles();
         this.infotextList = prepareInfotextList();
     }

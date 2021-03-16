@@ -6,6 +6,7 @@ import org.mentalizr.contentManager.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.exceptions.WritePermissionMissingException;
 
 import java.io.File;
+import java.nio.file.Path;
 
 public abstract class FileHierarchyElement {
 
@@ -29,8 +30,12 @@ public abstract class FileHierarchyElement {
         }
     }
 
-    public File getFile() {
+    public File asFile() {
         return this.file;
+    }
+
+    public Path asPath() {
+        return this.file.toPath();
     }
 
     public String getName() {

@@ -6,8 +6,8 @@ group 'org.mentalizr'
 version '0.1-SNAPSHOT'
 
 repositories {
-    jcenter()
     maven { url "https://jitpack.io" }
+    jcenter()
     mavenCentral()
 }
 
@@ -16,6 +16,7 @@ dependencies {
 
     implementation 'com.github.arthurpicht:utils-core:1.2.1'
     implementation 'com.github.arthurpicht:AP-Configuration:0.1.0'
+    implementation 'com.github.arthurpicht:utils-io:08e8e6f0fb'
     implementation 'ch.qos.logback:logback-classic:1.2.3'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'

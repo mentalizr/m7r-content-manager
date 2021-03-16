@@ -10,7 +10,7 @@ public class ContentFileUtils {
 
     public static boolean containsFileName(List<? extends ContentFile> contentFiles, String contentName) {
         return (contentFiles.stream()
-                .map(ContentFile::getFile)
+                .map(ContentFile::asFile)
                 .map(File::getName)
                 .collect(Collectors.toList())
                 .contains(contentName));

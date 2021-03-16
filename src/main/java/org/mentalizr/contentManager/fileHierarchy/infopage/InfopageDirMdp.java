@@ -1,7 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.infopage;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
@@ -10,13 +9,15 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
+
 public class InfopageDirMdp extends RepoDirectory implements InfopageDir {
 
     private final List<MdpFile> infotextFiles;
 
     public InfopageDirMdp(File file) throws ProgramManagerException {
         super(file);
-        FileUtils.assertFileName(file, InfopageDir.DIR_NAME);
+        assertFileName(file.toPath(), InfopageDir.DIR_NAME);
         this.infotextFiles = obtainInfotextFiles();
     }
 

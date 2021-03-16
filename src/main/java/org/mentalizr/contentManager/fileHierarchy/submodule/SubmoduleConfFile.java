@@ -7,6 +7,8 @@ import java.io.File;
 
 public class SubmoduleConfFile extends RepoFile {
 
+    public static final String FILE_NAME = "submodule.conf";
+
     private final SubmoduleConf submoduleConf;
 
     public SubmoduleConfFile(File file) throws ProgramManagerException {

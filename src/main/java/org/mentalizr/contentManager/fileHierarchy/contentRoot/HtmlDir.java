@@ -3,7 +3,6 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
-import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirHtml;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
@@ -15,6 +14,8 @@ import org.mentalizr.serviceObjects.frontend.program.Program;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 
 public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
@@ -28,9 +29,9 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
     public HtmlDir(File file) throws ProgramManagerException {
         super(file);
-        FileUtils.assertFileName(file, DIR_NAME);
-        this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infotextDirHtml = new InfopageDirHtml(new File(getFile(), "_info"));
+        assertFileName(file.toPath(), DIR_NAME);
+        this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
+        this.infotextDirHtml = new InfopageDirHtml(new File(asFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.htmlFiles = obtainContentFiles();
         this.program = prepareProgram();

@@ -3,7 +3,6 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
-import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFileFilter;
 
@@ -18,7 +17,7 @@ public class SubmoduleDirMdp extends ContentTreeDirectory implements SubmoduleDi
 
     public SubmoduleDirMdp(File file) throws ProgramManagerException {
         super(file);
-        this.submoduleConfFile = new SubmoduleConfFile(new File(getFile(), "submodule.conf"));
+        this.submoduleConfFile = new SubmoduleConfFile(new File(asFile(), SubmoduleConfFile.FILE_NAME));
         this.contentFileList = obtainMdpFiles();
     }
 

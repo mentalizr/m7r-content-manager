@@ -7,6 +7,8 @@ import java.io.File;
 
 public class ModuleConfFile extends RepoFile {
 
+    public static final String FILE_NAME = "module.conf";
+
     private final ModuleConf moduleConf;
 
     public ModuleConfFile(File file) throws ProgramManagerException {

@@ -2,7 +2,6 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.FileUtils;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirMdp;
@@ -12,6 +11,8 @@ import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 
 public class MdpDir extends RepoDirectory implements ContentRootDir {
 
@@ -24,9 +25,9 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
 
     public MdpDir(File file) throws ProgramManagerException {
         super(file);
-        FileUtils.assertFileName(file, DIR_NAME);
-        this.programConfFile = new ProgramConfFile(new File(getFile(), "program.conf"));
-        this.infoDirMdp = new InfopageDirMdp(new File(getFile(), "_info"));
+        assertFileName(file.toPath(), DIR_NAME);
+        this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
+        this.infoDirMdp = new InfopageDirMdp(new File(asFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.mdpFiles = obtainContentFiles();
     }
