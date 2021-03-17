@@ -12,20 +12,20 @@ import java.util.List;
 
 import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 
-public class InfopageDirHtml extends RepoDirectory implements InfopageDir {
+public class HtmlInfoDir extends RepoDirectory implements InfoDir {
 
     private final List<HtmlFile> infopageFiles;
     private final List<Infotext> infotextList;
 
-    public InfopageDirHtml(File file) throws ProgramManagerException {
+    public HtmlInfoDir(File file) throws ProgramManagerException {
         super(file);
-        assertFileName(file.toPath(), InfopageDir.DIR_NAME);
+        assertFileName(file.toPath(), InfoDir.DIR_NAME);
         this.infopageFiles = obtainInfopageFiles();
         this.infotextList = prepareInfotextList();
     }
 
     @Override
-    public List<HtmlFile> getInfopageFiles() {
+    public List<HtmlFile> getContentFiles() {
         return this.infopageFiles;
     }
 

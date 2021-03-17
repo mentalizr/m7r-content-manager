@@ -4,7 +4,7 @@ import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.infopage.MdpInfoDir;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
 
@@ -19,7 +19,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
     public static final String DIR_NAME = "mdp";
 
     private final ProgramConfFile programConfFile;
-    private final InfopageDirMdp infoDirMdp;
+    private final MdpInfoDir mdpInfoDir;
     private final List<ModuleDirMdp> moduleDirList;
     private final List<MdpFile> mdpFiles;
 
@@ -27,7 +27,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
         super(file);
         assertFileName(file.toPath(), DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
-        this.infoDirMdp = new InfopageDirMdp(new File(asFile(), "_info"));
+        this.mdpInfoDir = new MdpInfoDir(new File(asFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.mdpFiles = obtainContentFiles();
     }
@@ -43,8 +43,8 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
     }
 
     @Override
-    public InfopageDirMdp getInfotextDir() {
-        return this.infoDirMdp;
+    public MdpInfoDir getInfoDir() {
+        return this.mdpInfoDir;
     }
 
     @Override
@@ -115,6 +115,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
         for (ModuleDirMdp moduleDir : this.moduleDirList) {
             contentFiles.addAll(moduleDir.getContentFiles());
         }
+        contentFiles.addAll(this.mdpInfoDir.getContentFiles());
         return contentFiles;
     }
 

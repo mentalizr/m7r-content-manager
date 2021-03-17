@@ -44,12 +44,13 @@ class HtmlDirTest {
     public void getContentFiles() throws ProgramManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         List<HtmlFile> htmlFiles = htmlDir.getContentFiles();
-        assertEquals(5, htmlFiles.size());
+        assertEquals(6, htmlFiles.size());
         assertTrue(ContentFileUtils.containsId(htmlFiles, "test1_m1_sm1_s1"));
         assertTrue(ContentFileUtils.containsId(htmlFiles, "test1_m1_sm1_s2"));
         assertTrue(ContentFileUtils.containsId(htmlFiles, "test1_m1_sm2_s1"));
         assertTrue(ContentFileUtils.containsId(htmlFiles, "test1_m2_sm1_s1"));
         assertTrue(ContentFileUtils.containsId(htmlFiles, "test1_m3_sm1_s1"));
+        assertTrue(ContentFileUtils.containsId(htmlFiles, "test1__info_info1"));
     }
 
     @Test

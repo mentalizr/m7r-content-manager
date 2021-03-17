@@ -2,10 +2,11 @@ package org.mentalizr.contentManager.fileHierarchy.contentRoot;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoFile;
+import org.mentalizr.contentManager.fileHierarchy.confFile.ConfFile;
 
 import java.io.File;
 
-public class ProgramConfFile extends RepoFile {
+public class ProgramConfFile extends ConfFile {
 
     public static final String FILE_NAME = "program.conf";
 
@@ -18,11 +19,6 @@ public class ProgramConfFile extends RepoFile {
 
     public ProgramConf getProgramConf() {
         return this.programConf;
-    }
-
-    @Override
-    protected String getFiletype() {
-        return ".conf";
     }
 
     @Override

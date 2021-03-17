@@ -4,7 +4,7 @@ import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.ProgramConfFile;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDir;
+import org.mentalizr.contentManager.fileHierarchy.infopage.InfoDir;
 import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleConfFile;
 import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleConfFile;
@@ -33,7 +33,7 @@ public class Programs {
         Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
         createDirectory(mdpPath);
 
-        Path infoPath = mdpPath.resolve(InfopageDir.DIR_NAME);
+        Path infoPath = mdpPath.resolve(InfoDir.DIR_NAME);
         createDirectory(infoPath);
 
         Path programConfPath = mdpPath.resolve(ProgramConfFile.FILE_NAME);

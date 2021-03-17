@@ -17,4 +17,10 @@ public class PathAssertions {
                     + path.toAbsolutePath().toString() + "].");
     }
 
+    public static void assertPathNotExisting(Path path) {
+        if (Files.exists(path))
+            throw new PathAssertionException(path, "Assertion failed. Path as not existing expected : ["
+                    + path.toAbsolutePath().toString() + "].");
+    }
+
 }

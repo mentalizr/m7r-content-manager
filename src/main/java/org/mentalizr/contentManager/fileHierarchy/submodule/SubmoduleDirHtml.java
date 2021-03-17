@@ -68,11 +68,12 @@ public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleD
     }
 
     private List<HtmlFile> obtainHtmlFiles() throws ProgramManagerException {
+        List<HtmlFile> htmlFileList = new ArrayList<>();
         File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)
-            throw new FileNotFoundException("No .html files found in submodule: [" + this.file.getAbsolutePath() + "]");
+            return htmlFileList;
+//            throw new FileNotFoundException("No .html files found in submodule: [" + this.file.getAbsolutePath() + "]");
 
-        List<HtmlFile> htmlFileList = new ArrayList<>();
         for (File file : fileArray) {
             HtmlFile htmlFile = new HtmlFile(file);
             htmlFileList.add(htmlFile);

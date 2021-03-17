@@ -46,6 +46,12 @@ class MdpFileTest {
     }
 
     @Test
+    public void getDisplayName() throws ProgramManagerException {
+        MdpFile mdpFile = new MdpFile(new File("src/test/testPrograms/test1/mdp/_info/info1.mdp"));
+        assertEquals("Info1", mdpFile.getDisplayName());
+    }
+
+    @Test
     public void getFileType() throws ProgramManagerException {
         MdpFile mdpFile = new MdpFile(new File("src/test/testPrograms/test1/mdp/m1/sm1/s1.mdp"));
         assertEquals(".mdp", mdpFile.getFiletype());

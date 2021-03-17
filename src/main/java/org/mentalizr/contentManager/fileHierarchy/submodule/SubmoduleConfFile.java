@@ -2,10 +2,11 @@ package org.mentalizr.contentManager.fileHierarchy.submodule;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoFile;
+import org.mentalizr.contentManager.fileHierarchy.confFile.ConfFile;
 
 import java.io.File;
 
-public class SubmoduleConfFile extends RepoFile {
+public class SubmoduleConfFile extends ConfFile {
 
     public static final String FILE_NAME = "submodule.conf";
 
@@ -18,11 +19,6 @@ public class SubmoduleConfFile extends RepoFile {
 
     public SubmoduleConf getSubmoduleConf() {
         return this.submoduleConf;
-    }
-
-    @Override
-    protected String getFiletype() {
-        return ".conf";
     }
 
     @Override

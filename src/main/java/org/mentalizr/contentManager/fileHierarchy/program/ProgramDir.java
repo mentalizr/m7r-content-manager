@@ -1,6 +1,5 @@
 package org.mentalizr.contentManager.fileHierarchy.program;
 
-import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
@@ -11,24 +10,18 @@ import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
 import org.mentalizr.serviceObjects.frontend.program.Program;
 
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.FileVisitResult;
-import java.nio.file.FileVisitor;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
 public class ProgramDir extends RepoDirectory {
 
     private final MdpDir mdpDir;
-    private HtmlDir htmlDir;
+    private final HtmlDir htmlDir;
     private final MediaDir mediaDir;
 
     public ProgramDir(File file) throws ProgramManagerException {
         super(file);
         this.mdpDir = new MdpDir(new File(asFile(), MdpDir.DIR_NAME));
-        this.htmlDir = getOptionalHtmlDirAsNullable();
+        this.htmlDir = obtainHtmlDirNullable();
         this.mediaDir = new MediaDir(new File(asFile(), MediaDir.DIR_NAME));
     }
 
@@ -44,15 +37,6 @@ public class ProgramDir extends RepoDirectory {
     public Program asProgram() {
         assertHtmlDir();
         return this.htmlDir.asProgram();
-    }
-
-    private HtmlDir getOptionalHtmlDirAsNullable() throws ProgramManagerException {
-        HtmlDir htmlDir = null;
-        File htmlDirFile = new File(asFile(), HtmlDir.DIR_NAME);
-        if (htmlDirFile.exists()) {
-            htmlDir = new HtmlDir(new File(asFile(), HtmlDir.DIR_NAME));
-        }
-        return htmlDir;
     }
 
     public MdpDir getMdpDir() {
@@ -72,18 +56,6 @@ public class ProgramDir extends RepoDirectory {
         return mediaDir;
     }
 
-    public void clean() throws ProgramManagerException {
-        if (hasHtmlDir()) {
-            try {
-                FileUtils.rmDir(this.htmlDir.asPath());
-                this.htmlDir = null;
-            } catch (IOException e) {
-                throw new ProgramManagerException("Exception on cleaning html file." +
-                        " [" + this.htmlDir.asFile().getAbsolutePath() + "]", e);
-            }
-        }
-    }
-
     @Override
     public boolean requiresExistence() {
         return true;
@@ -101,6 +73,15 @@ public class ProgramDir extends RepoDirectory {
 
     private void assertHtmlDir() {
         if (!hasHtmlDir()) throw new IllegalStateException("No html dir existing. Check before calling.");
+    }
+
+    private HtmlDir obtainHtmlDirNullable() throws ProgramManagerException {
+        HtmlDir htmlDir = null;
+        File htmlDirFile = new File(asFile(), HtmlDir.DIR_NAME);
+        if (htmlDirFile.exists()) {
+            htmlDir = new HtmlDir(new File(asFile(), HtmlDir.DIR_NAME));
+        }
+        return htmlDir;
     }
 
 }

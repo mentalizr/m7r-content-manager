@@ -4,7 +4,7 @@ import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDirHtml;
+import org.mentalizr.contentManager.fileHierarchy.infopage.HtmlInfoDir;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirHtml;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
@@ -22,7 +22,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     public static final String DIR_NAME = "html";
 
     private final ProgramConfFile programConfFile;
-    private final InfopageDirHtml infotextDirHtml;
+    private final HtmlInfoDir htmlInfoDir;
     private final List<ModuleDirHtml> moduleDirList;
     private final List<HtmlFile> htmlFiles;
     private final Program program;
@@ -31,7 +31,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         super(file);
         assertFileName(file.toPath(), DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
-        this.infotextDirHtml = new InfopageDirHtml(new File(asFile(), "_info"));
+        this.htmlInfoDir = new HtmlInfoDir(new File(asFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.htmlFiles = obtainContentFiles();
         this.program = prepareProgram();
@@ -52,8 +52,8 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     }
 
     @Override
-    public InfopageDirHtml getInfotextDir() {
-        return this.infotextDirHtml;
+    public HtmlInfoDir getInfoDir() {
+        return this.htmlInfoDir;
     }
 
     @Override
@@ -130,7 +130,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
             modules.add(moduleDirHtml.asModule());
         }
 
-        List<Infotext> infotextList = this.infotextDirHtml.asInfotextList();
+        List<Infotext> infotextList = this.htmlInfoDir.asInfotextList();
 
         Program program = new Program(
                 getId(),
@@ -147,6 +147,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         for (ModuleDirHtml moduleDir : this.moduleDirList) {
             contentFiles.addAll(moduleDir.getContentFiles());
         }
+        contentFiles.addAll(this.htmlInfoDir.getContentFiles());
         return contentFiles;
     }
 

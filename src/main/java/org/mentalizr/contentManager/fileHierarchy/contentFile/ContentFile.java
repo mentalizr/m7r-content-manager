@@ -5,7 +5,7 @@ import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.RepoFile;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfopageDir;
+import org.mentalizr.contentManager.fileHierarchy.infopage.InfoDir;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -46,7 +46,7 @@ public abstract class ContentFile extends RepoFile {
         Path path = this.file.toPath();
         int nameCount = path.getNameCount();
 
-        if (path.getName(nameCount - 2).toString().equals(InfopageDir.DIR_NAME)) {
+        if (path.getName(nameCount - 2).toString().equals(InfoDir.DIR_NAME)) {
             String programName = path.getName(nameCount - 4).toString();
             return programName + "__info_" + getName();
         }

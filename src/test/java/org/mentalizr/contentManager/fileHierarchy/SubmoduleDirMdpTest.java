@@ -22,7 +22,7 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void noMdpFilesFound_neg() throws ProgramManagerException {
+    public void nohtmlFilesFound_neg() throws ProgramManagerException {
         try {
             new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm1"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
