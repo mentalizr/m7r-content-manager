@@ -121,4 +121,28 @@ public class Programs {
         createMdpFile(mdpFilePath, mdpFileDisplayName);
     }
 
+    public static void createMdpInfoStub(
+            Path contentRootPath,
+            String programName,
+            String mdpFileName,
+            String mdpFileDisplayName) throws ProgramManagerException {
+
+        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertExistingDirectory(contentRootPath);
+        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
+        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileName", mdpFileName);
+        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
+
+        Path programPath = contentRootPath.resolve(programName);
+        assertExistingDirectory(programPath);
+
+        Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
+        assertExistingDirectory(mdpPath);
+
+        Path infoPath = mdpPath.resolve(InfoDir.DIR_NAME);
+        assertExistingDirectory(infoPath);
+
+        Path mdpFilePath = infoPath.resolve(mdpFileName + ".mdp");
+        createMdpFile(mdpFilePath, mdpFileDisplayName);
+    }
 }

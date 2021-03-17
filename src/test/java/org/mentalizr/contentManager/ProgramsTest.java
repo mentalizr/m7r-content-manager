@@ -29,12 +29,13 @@ class ProgramsTest {
         ProgramDir programDir = new ProgramDir(programRootPath.resolve("test").toFile());
 
         List<MdpFile> mdpFiles = programDir.getMdpFiles();
-        assertEquals(5, mdpFiles.size());
+        assertEquals(6, mdpFiles.size());
         assertTrue(ContentFileUtils.containsId(mdpFiles, "test_m1_sm1_step01"));
         assertTrue(ContentFileUtils.containsId(mdpFiles, "test_m1_sm1_step02"));
         assertTrue(ContentFileUtils.containsId(mdpFiles, "test_m1_sm2_step01"));
         assertTrue(ContentFileUtils.containsId(mdpFiles, "test_m1_sm2_step02"));
         assertTrue(ContentFileUtils.containsId(mdpFiles, "test_m2_sm1_step01"));
+        assertTrue(ContentFileUtils.containsId(mdpFiles, "test__info_info01"));
         assertFalse(programDir.hasHtmlDir());
     }
 }
