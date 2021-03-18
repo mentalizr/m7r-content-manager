@@ -1,7 +1,8 @@
 package org.mentalizr.contentManager.outdated.programManager;
 
-import java.util.Comparator;
 import org.mentalizr.serviceObjects.frontend.program.Module;
+
+import java.util.Comparator;
 
 @Deprecated
 public class ModuleComparator implements Comparator<Module> {

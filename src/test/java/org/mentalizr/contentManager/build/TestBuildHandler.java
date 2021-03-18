@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.build;
 
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.confFile;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoFile;
+import org.mentalizr.contentManager.fileHierarchy.basics.RepoFile;
 
 import java.io.File;
 

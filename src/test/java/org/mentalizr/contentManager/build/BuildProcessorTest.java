@@ -2,12 +2,12 @@ package org.mentalizr.contentManager.build;
 
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.ProgramConfFile;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfoDir;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleConfFile;
-import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
-import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleConfFile;
 import org.mentalizr.contentManager.helper.TestPrograms;
 import org.mentalizr.contentManager.testUtils.TempDir;
 import org.mentalizr.contentManager.testUtils.TempDirs;
@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BuildProcessorTest {
 

@@ -1,9 +1,9 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleDirMdp;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
+import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleDirMdp;
 
 import java.io.File;
 import java.util.Arrays;
@@ -22,7 +22,7 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void nohtmlFilesFound_neg() throws ProgramManagerException {
+    public void noHtmlFilesFound_neg() throws ProgramManagerException {
         try {
             new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm1"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");

@@ -1,8 +1,8 @@
 package org.mentalizr.contentManager.outdated.programManager;
 
-import java.util.Comparator;
-
 import org.mentalizr.serviceObjects.frontend.program.Step;
+
+import java.util.Comparator;
 
 @Deprecated
 public class StepComparator implements Comparator<Step> {

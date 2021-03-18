@@ -1,7 +1,8 @@
 package org.mentalizr.contentManager;
 
 import org.mentalizr.contentManager.build.BuildHandler;
-import org.mentalizr.contentManager.exceptions.*;
+import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
+import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;

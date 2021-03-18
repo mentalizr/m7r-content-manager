@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.outdated.programManager;
 
-import org.mentalizr.serviceObjects.frontend.program.*;
 import org.mentalizr.serviceObjects.frontend.program.Module;
+import org.mentalizr.serviceObjects.frontend.program.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

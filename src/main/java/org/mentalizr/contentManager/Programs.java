@@ -2,18 +2,18 @@ package org.mentalizr.contentManager;
 
 import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.ProgramConfFile;
-import org.mentalizr.contentManager.fileHierarchy.infopage.InfoDir;
-import org.mentalizr.contentManager.fileHierarchy.media.MediaDir;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleConfFile;
-import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleConfFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleConfFile;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.mentalizr.contentManager.helper.PathHelper.*;
 import static org.mentalizr.contentManager.helper.PathAssertions.assertExistingDirectory;
+import static org.mentalizr.contentManager.helper.PathHelper.*;
 
 public class Programs {
 

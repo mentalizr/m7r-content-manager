@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
 
 import java.io.File;

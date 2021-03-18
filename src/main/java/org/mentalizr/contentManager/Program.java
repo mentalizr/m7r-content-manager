@@ -3,11 +3,11 @@ package org.mentalizr.contentManager;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.build.BuildHandler;
 import org.mentalizr.contentManager.build.BuildProcessor;
+import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 
 import java.io.IOException;
 import java.nio.file.Path;

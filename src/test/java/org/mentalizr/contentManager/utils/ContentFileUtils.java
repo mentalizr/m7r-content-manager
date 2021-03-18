@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.utils;
 
-import org.mentalizr.contentManager.fileHierarchy.contentFile.ContentFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.ContentFile;
 
 import java.io.File;
 import java.util.List;

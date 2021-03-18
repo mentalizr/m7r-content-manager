@@ -2,9 +2,8 @@ package org.mentalizr.contentManager;
 
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.build.BuildProcessor;
-import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.TestPrograms;
 import org.mentalizr.contentManager.testUtils.TempDir;
 import org.mentalizr.contentManager.testUtils.TempDirs;

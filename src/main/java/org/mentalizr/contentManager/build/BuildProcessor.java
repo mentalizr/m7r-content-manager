@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.build;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.HtmlDir;
-import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.PathAssertions;
 
 import java.io.IOException;

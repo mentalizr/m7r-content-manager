@@ -2,20 +2,16 @@ package org.mentalizr.contentManager;
 
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
-import org.mentalizr.contentManager.fileHierarchy.contentFile.MdpFile;
-import org.mentalizr.contentManager.fileHierarchy.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.infopage.MdpInfoDir;
-import org.mentalizr.contentManager.fileHierarchy.module.ModuleDirMdp;
-import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
-import org.mentalizr.contentManager.utils.ContentFileUtils;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.serviceObjects.frontend.program.Program;
 import org.mentalizr.serviceObjects.frontend.program.ProgramSOX;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ProgramDirTest {
 
