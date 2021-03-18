@@ -1,4 +1,6 @@
-package org.mentalizr.contentManager.exceptions;
+package org.mentalizr.contentManager.fileHierarchy.exceptions;
+
+import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 
 import java.io.File;
 

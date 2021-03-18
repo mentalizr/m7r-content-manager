@@ -15,7 +15,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.List;
 
-import static org.mentalizr.contentManager.fileHierarchy.PathHelper.createDirectory;
+import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
 
 public class BuildProcessor {
 

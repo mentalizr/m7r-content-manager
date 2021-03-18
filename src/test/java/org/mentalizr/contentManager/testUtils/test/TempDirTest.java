@@ -12,6 +12,7 @@ public class TempDirTest {
     void getTempDir() throws IOException {
         TempDir myTempDir = TempDirs.createUniqueTempDir();
         // System.out.println("tempDir is " + myTempDir.getPath().toString());
+        myTempDir.clean();
     }
 
     @Test

@@ -1,8 +1,8 @@
-package org.mentalizr.contentManager.programManager;
+package org.mentalizr.contentManager.outdated.programManager;
 
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.contentManager.Configuration;
-import org.mentalizr.contentManager.ProgramConsistencyException;
+import org.mentalizr.contentManager.outdated.Configuration;
+import org.mentalizr.contentManager.outdated.ProgramConsistencyException;
 import org.mentalizr.serviceObjects.frontend.program.Program;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+@Deprecated
 public class ProgramManagerOld {
 
     private static Logger logger = LoggerFactory.getLogger(ProgramManagerOld.class);

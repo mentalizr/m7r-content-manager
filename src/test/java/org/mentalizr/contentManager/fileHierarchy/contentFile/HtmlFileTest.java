@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.contentFile;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.FileNotFoundException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
 import org.mentalizr.serviceObjects.frontend.program.Step;

@@ -1,6 +1,5 @@
 package org.mentalizr.contentManager.fileHierarchy.submodule;
 
-import org.mentalizr.contentManager.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;

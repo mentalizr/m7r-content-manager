@@ -1,5 +1,6 @@
-package org.mentalizr.contentManager;
+package org.mentalizr.contentManager.outdated;
 
+@Deprecated
 public class ProgramConsistencyException extends Exception {
 
     public ProgramConsistencyException() {

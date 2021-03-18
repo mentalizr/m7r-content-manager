@@ -1,9 +1,9 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
-import org.mentalizr.contentManager.exceptions.FileNotFoundException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.exceptions.ReadPermissionMissingException;
-import org.mentalizr.contentManager.exceptions.WritePermissionMissingException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.ReadPermissionMissingException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.WritePermissionMissingException;
 
 import java.io.File;
 import java.nio.file.Path;

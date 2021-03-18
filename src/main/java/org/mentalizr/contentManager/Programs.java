@@ -12,7 +12,7 @@ import org.mentalizr.contentManager.fileHierarchy.submodule.SubmoduleConfFile;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.mentalizr.contentManager.fileHierarchy.PathHelper.*;
+import static org.mentalizr.contentManager.helper.PathHelper.*;
 import static org.mentalizr.contentManager.helper.PathAssertions.assertExistingDirectory;
 
 public class Programs {

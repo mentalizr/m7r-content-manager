@@ -1,6 +1,6 @@
-package org.mentalizr.contentManager.contentManager;
+package org.mentalizr.contentManager.outdated.contentManager;
 
-import org.mentalizr.contentManager.Configuration;
+import org.mentalizr.contentManager.outdated.Configuration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+@Deprecated
 public class ContentManager {
 
     private static final Logger logger = LoggerFactory.getLogger(ContentManager.class);

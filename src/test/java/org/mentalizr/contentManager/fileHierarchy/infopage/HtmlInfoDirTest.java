@@ -2,7 +2,7 @@ package org.mentalizr.contentManager.fileHierarchy.infopage;
 
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.exceptions.WrongFileTypeException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.WrongFileTypeException;
 import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
 

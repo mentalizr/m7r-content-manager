@@ -3,13 +3,15 @@ package org.mentalizr.contentManager;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.build.BuildHandler;
 import org.mentalizr.contentManager.build.BuildProcessor;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
+import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
-import org.mentalizr.contentManager.fileHierarchy.RepoDirectory;
+import org.mentalizr.contentManager.fileHierarchy.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.program.ProgramDir;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
 public class Program {
 
@@ -17,6 +19,18 @@ public class Program {
 
     public Program(Path programPath) throws ProgramManagerException {
         this.programDir = new ProgramDir(programPath.toFile());
+    }
+
+    public String getName() {
+        return this.programDir.getName();
+    }
+
+    public List<HtmlFile> getHtmlFiles() {
+        return this.programDir.getHtmlFiles();
+    }
+
+    public Path getMediaResource(String fileName) throws MalformedMediaResourceNameException, NoSuchMediaResourceException {
+        return this.programDir.getMediaDir().getMediaResource(fileName);
     }
 
     public void clean() throws ProgramManagerException {

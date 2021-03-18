@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager.programManager;
+package org.mentalizr.contentManager.outdated.programManager;
 
 import de.arthurpicht.utils.core.strings.Strings;
 import org.mentalizr.serviceObjects.frontend.program.*;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 
+@Deprecated
 public class ProgramFileVisitor extends SimpleFileVisitor<Path> {
 
     private static Logger logger = LoggerFactory.getLogger(ProgramFileVisitor.class);

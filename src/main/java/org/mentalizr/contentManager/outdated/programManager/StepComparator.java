@@ -1,12 +1,14 @@
-package org.mentalizr.contentManager.programManager;
+package org.mentalizr.contentManager.outdated.programManager;
 
 import java.util.Comparator;
-import org.mentalizr.serviceObjects.frontend.program.Module;
 
-public class ModuleComparator implements Comparator<Module> {
+import org.mentalizr.serviceObjects.frontend.program.Step;
+
+@Deprecated
+public class StepComparator implements Comparator<Step> {
 
     @Override
-    public int compare(Module o1, Module o2) {
+    public int compare(Step o1, Step o2) {
 
         if (o1 == null || o1.getId() == null || o2 == null || o2.getId() == null) throw new RuntimeException("Übergabeparameter oder zugehöriges ID-Attribut ist null.");
 

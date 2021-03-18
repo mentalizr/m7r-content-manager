@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager.fileHierarchy;
+package org.mentalizr.contentManager.helper;
 
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 

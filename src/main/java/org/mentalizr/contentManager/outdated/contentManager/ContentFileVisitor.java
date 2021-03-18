@@ -1,4 +1,4 @@
-package org.mentalizr.contentManager.contentManager;
+package org.mentalizr.contentManager.outdated.contentManager;
 
 import de.arthurpicht.utils.core.strings.Strings;
 
@@ -9,6 +9,7 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Map;
 
+@Deprecated
 public class ContentFileVisitor<T> extends SimpleFileVisitor<Path> {
 
     private static final String HTML_POSTFIX = ".html";

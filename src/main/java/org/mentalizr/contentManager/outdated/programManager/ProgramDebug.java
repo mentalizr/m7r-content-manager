@@ -1,10 +1,11 @@
-package org.mentalizr.contentManager.programManager;
+package org.mentalizr.contentManager.outdated.programManager;
 
 import org.mentalizr.serviceObjects.frontend.program.*;
 import org.mentalizr.serviceObjects.frontend.program.Module;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+@Deprecated
 public class ProgramDebug {
 
     private static Logger logger = LoggerFactory.getLogger(ProgramDebug.class);
