@@ -13,7 +13,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertExistingDirectory;
+import static org.mentalizr.contentManager.helper.PathAssertions.assertIsExistingDirectory;
 
 public class ContentManagerNotThreadsafe {
 
@@ -33,7 +33,7 @@ public class ContentManagerNotThreadsafe {
     }
 
     private void initProgram(Path programRootPath) throws ProgramManagerException {
-        assertExistingDirectory(programRootPath);
+        assertIsExistingDirectory(programRootPath);
         Program program = new Program(programRootPath);
         this.programMap.put(program.getName(), program);
         List<HtmlFile> htmlFiles = program.getHtmlFiles();

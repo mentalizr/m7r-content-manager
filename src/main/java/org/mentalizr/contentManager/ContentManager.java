@@ -20,7 +20,7 @@ public class ContentManager extends ContentManagerNotThreadsafe {
 
     public static ContentManager getInstanceForContentRoot(Path contentRoot) throws ProgramManagerException {
         try {
-            List<Path> programRootDirs = Nio2Helper.getSubDirectories(contentRoot);
+            List<Path> programRootDirs = Nio2Helper.getSubdirectories(contentRoot);
             return new ContentManager(programRootDirs);
         } catch (IOException e) {
             throw new ProgramManagerException(e.getMessage(), e);

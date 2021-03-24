@@ -24,7 +24,7 @@ class BuildProcessorTest {
     void createHtmlDirSkeleton() throws ProgramManagerException, IOException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
-        Path programRootPath = tempDir.getPath();
+        Path programRootPath = tempDir.asPath();
         TestPrograms.createTest(programRootPath);
         ProgramDir programDir = new ProgramDir(programRootPath.resolve("test").toFile());
         BuildProcessor.createHtmlDirSkeleton(programDir);
@@ -57,7 +57,7 @@ class BuildProcessorTest {
     void build() throws IOException, ProgramManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
-        Path programRootPath = tempDir.getPath();
+        Path programRootPath = tempDir.asPath();
 
         TestPrograms.createTest(programRootPath);
 

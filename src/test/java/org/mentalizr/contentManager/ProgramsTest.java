@@ -21,7 +21,7 @@ class ProgramsTest {
     void plausibility() throws IOException, ProgramManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
-        Path programRootPath = tempDir.getPath();
+        Path programRootPath = tempDir.asPath();
 
         TestPrograms.createTest(programRootPath);
 

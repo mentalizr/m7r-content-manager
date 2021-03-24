@@ -12,7 +12,7 @@ import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleConf
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertExistingDirectory;
+import static org.mentalizr.contentManager.helper.PathAssertions.assertIsExistingDirectory;
 import static org.mentalizr.contentManager.helper.PathHelper.*;
 
 public class Programs {
@@ -20,7 +20,7 @@ public class Programs {
     public static void createProgram(Path contentRootPath, String programName, String programDisplayName) throws ProgramManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
-        assertExistingDirectory(contentRootPath);
+        assertIsExistingDirectory(contentRootPath);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programDisplayName", programDisplayName);
 
@@ -46,16 +46,16 @@ public class Programs {
     public static void createModule(Path contentRootPath, String programName, String moduleName, String moduleDisplayName) throws ProgramManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
-        assertExistingDirectory(contentRootPath);
+        assertIsExistingDirectory(contentRootPath);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleDisplayName", moduleDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
-        assertExistingDirectory(programPath);
+        assertIsExistingDirectory(programPath);
 
         Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
-        assertExistingDirectory(mdpPath);
+        assertIsExistingDirectory(mdpPath);
 
         Path modulePath = mdpPath.resolve(moduleName);
         createDirectory(modulePath);
@@ -67,20 +67,20 @@ public class Programs {
     public static void createSubmodule(Path contentRootPath, String programName, String moduleName, String submoduleName, String submoduleDisplayName) throws ProgramManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
-        assertExistingDirectory(contentRootPath);
+        assertIsExistingDirectory(contentRootPath);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleName", submoduleName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleDisplayName", submoduleDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
-        assertExistingDirectory(programPath);
+        assertIsExistingDirectory(programPath);
 
         Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
-        assertExistingDirectory(mdpPath);
+        assertIsExistingDirectory(mdpPath);
 
         Path modulePath = mdpPath.resolve(moduleName);
-        assertExistingDirectory(modulePath);
+        assertIsExistingDirectory(modulePath);
 
         Path submodulePath = modulePath.resolve(submoduleName);
         createDirectory(submodulePath);
@@ -98,7 +98,7 @@ public class Programs {
             String mdpFileDisplayName) throws ProgramManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
-        assertExistingDirectory(contentRootPath);
+        assertIsExistingDirectory(contentRootPath);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleName", submoduleName);
@@ -106,16 +106,16 @@ public class Programs {
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
-        assertExistingDirectory(programPath);
+        assertIsExistingDirectory(programPath);
 
         Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
-        assertExistingDirectory(mdpPath);
+        assertIsExistingDirectory(mdpPath);
 
         Path modulePath = mdpPath.resolve(moduleName);
-        assertExistingDirectory(modulePath);
+        assertIsExistingDirectory(modulePath);
 
         Path submodulePath = modulePath.resolve(submoduleName);
-        assertExistingDirectory(submodulePath);
+        assertIsExistingDirectory(submodulePath);
 
         Path mdpFilePath = submodulePath.resolve(mdpFileName + ".mdp");
         createMdpFile(mdpFilePath, mdpFileDisplayName);
@@ -128,19 +128,19 @@ public class Programs {
             String mdpFileDisplayName) throws ProgramManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
-        assertExistingDirectory(contentRootPath);
+        assertIsExistingDirectory(contentRootPath);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileName", mdpFileName);
         AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
-        assertExistingDirectory(programPath);
+        assertIsExistingDirectory(programPath);
 
         Path mdpPath = programPath.resolve(MdpDir.DIR_NAME);
-        assertExistingDirectory(mdpPath);
+        assertIsExistingDirectory(mdpPath);
 
         Path infoPath = mdpPath.resolve(InfoDir.DIR_NAME);
-        assertExistingDirectory(infoPath);
+        assertIsExistingDirectory(infoPath);
 
         Path mdpFilePath = infoPath.resolve(mdpFileName + ".mdp");
         createMdpFile(mdpFilePath, mdpFileDisplayName);

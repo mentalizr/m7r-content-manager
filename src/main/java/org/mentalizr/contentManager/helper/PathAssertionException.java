@@ -4,7 +4,7 @@ import java.nio.file.Path;
 
 public class PathAssertionException extends RuntimeException {
 
-    private Path path;
+    private final Path path;
 
     public PathAssertionException(Path path) {
         this.path = path;

@@ -8,9 +8,56 @@ import java.util.stream.Collectors;
 
 public class Nio2Helper {
 
-    public static List<Path> getSubDirectories(Path dir) throws IOException {
-        PathAssertions.assertExistingDirectory(dir);
-        return Files.walk(dir, 1).filter(Files::isDirectory).collect(Collectors.toList());
+    public static boolean isExistingRegularFile(Path file) {
+        return (Files.exists(file) && Files.isRegularFile(file));
     }
+
+    public static boolean isExistingDir(Path dir) {
+        return (Files.exists(dir) && Files.isDirectory(dir));
+    }
+
+    public static boolean isFileName(Path path, String fileName) {
+        return (path.getFileName().toString().equals(fileName));
+    }
+
+    /**
+     * Obtains all subdirectories for specified path. Specified path must be an existing directory.
+     *
+     * @param dir directory
+     * @return a list of {@link Path} instances representing subdirectories
+     * @throws IOException
+     * @throws PathAssertionException if specified directory does not exist
+     */
+    public static List<Path> getSubdirectories(Path dir) throws IOException {
+        PathAssertions.assertIsExistingDirectory(dir);
+        List<Path> subdirectories = Files.walk(dir, 1).filter(Files::isDirectory).collect(Collectors.toList());
+        // remove specified dir
+        subdirectories.remove(0);
+        return subdirectories;
+    }
+
+    public static boolean isSubdirectory(Path dir, Path subdir) {
+        Path dirWork = dir.normalize().toAbsolutePath();
+        PathAssertions.assertIsExistingDirectory(dir);
+        Path subdirWork = subdir.normalize().toAbsolutePath();
+        PathAssertions.assertIsExistingDirectory(subdirWork);
+
+        return (!dirWork.equals(subdirWork) && subdirWork.startsWith(dirWork));
+    }
+
+    public static boolean isDirectSubdirectory(Path dir, Path subdir) {
+        Path dirWork = dir.normalize().toAbsolutePath();
+        PathAssertions.assertIsExistingDirectory(dir);
+        int nameCountDirWork = dirWork.getNameCount();
+
+        Path subdirWork = subdir.normalize().toAbsolutePath();
+        PathAssertions.assertIsExistingDirectory(subdirWork);
+        int nameCountSubdirWork = subdirWork.getNameCount();
+
+        boolean oneLonger = (nameCountSubdirWork - nameCountDirWork == 1);
+
+        return (!dirWork.equals(subdirWork) && subdirWork.startsWith(dirWork) && oneLonger);
+    }
+
 
 }

@@ -19,7 +19,7 @@ public class TempDir {
         this.autoClean = autoclean;
     }
 
-    public Path getPath() {
+    public Path asPath() {
         return this.tempDir;
     }
 
