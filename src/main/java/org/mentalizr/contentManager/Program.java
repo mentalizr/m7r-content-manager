@@ -29,6 +29,10 @@ public class Program {
         return this.programDir.getHtmlFiles();
     }
 
+    public org.mentalizr.serviceObjects.frontend.program.Program asProgram() {
+        return this.programDir.asProgram();
+    }
+
     public Path getMediaResource(String fileName) throws MalformedMediaResourceNameException, NoSuchMediaResourceException {
         return this.programDir.getMediaDir().getMediaResource(fileName);
     }
