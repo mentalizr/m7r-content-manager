@@ -17,14 +17,18 @@ public abstract class FileHierarchyElement {
 
         if (requiresExistence()) {
             if (!this.file.exists()) throwFileNotFoundException();
-        } else {
-            return;
         }
 
+        if (!requiresExistence() && requiresReadPermission())
+            throw new RuntimeException("Illegal " + FileHierarchyElement.class.getSimpleName()
+                    + " specification: requiring read permission for a non existing element.");
         if (requiresReadPermission()) {
             if (!this.file.canRead()) throwReadPermissionMissingException();
         }
 
+        if (!requiresExistence() && requiresWritePermission())
+            throw new RuntimeException("Illegal " + FileHierarchyElement.class.getSimpleName()
+                    + " specification: requiring write permission for a non existing element.");
         if (requiresWritePermission()) {
             if (!this.file.canWrite()) throwWritePermissionMissingException();
         }

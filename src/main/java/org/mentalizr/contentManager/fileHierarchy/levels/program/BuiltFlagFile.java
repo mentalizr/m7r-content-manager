@@ -44,14 +44,14 @@ public class BuiltFlagFile extends RepoFile {
         }
     }
 
-    public FileTime getCreationTime() throws ProgramManagerException {
+    public Instant getCreationTime() throws ProgramManagerException {
         BasicFileAttributes attributesFlag;
         try {
             attributesFlag = Files.readAttributes(file.toPath(), BasicFileAttributes.class);
         } catch (IOException e) {
             throw new ProgramManagerException(e.getMessage(), e);
         }
-        return attributesFlag.creationTime();
+        return attributesFlag.creationTime().toInstant();
     }
 
     @Override

@@ -13,7 +13,7 @@ public abstract class RepoFile extends FileHierarchyElement {
 
     public RepoFile(java.io.File file) throws ProgramManagerException {
         super(file);
-        assertIsFile();
+        if (requiresExistence()) assertIsFile();
         assertFiletype();
     }
 

@@ -2,6 +2,7 @@ package org.mentalizr.contentManager.testUtils;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
 
+import java.io.File;
 import java.nio.file.Path;
 
 public class TempDir {
@@ -21,6 +22,10 @@ public class TempDir {
 
     public Path asPath() {
         return this.tempDir;
+    }
+
+    public File asFile() {
+        return this.tempDir.toFile();
     }
 
     public boolean isAutoClean() {
