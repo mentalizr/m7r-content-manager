@@ -52,6 +52,7 @@ public class Program {
         clean();
         try {
             BuildProcessor.createHtmlDirSkeleton(this.programDir);
+            this.programDir = ProgramDir.reinitializeHtmlDir(this.programDir);
             BuildProcessor.compile(this.programDir, buildHandler);
         } catch (IOException e) {
             throw new ProgramManagerException(e);

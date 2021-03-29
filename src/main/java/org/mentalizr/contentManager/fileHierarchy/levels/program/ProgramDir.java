@@ -25,6 +25,17 @@ public class ProgramDir extends RepoDirectory {
         this.mediaDir = new MediaDir(new File(asFile(), MediaDir.DIR_NAME));
     }
 
+    private ProgramDir(ProgramDir programDir) throws ProgramManagerException {
+        super(programDir.file);
+        this.mdpDir = programDir.mdpDir;
+        this.htmlDir = obtainHtmlDirNullable();
+        this.mediaDir = programDir.mediaDir;
+    }
+
+    public static ProgramDir reinitializeHtmlDir(ProgramDir programDir) throws ProgramManagerException {
+        return new ProgramDir(programDir);
+    }
+
     public List<HtmlFile> getHtmlFiles() {
         assertHtmlDir();
         return this.htmlDir.getContentFiles();
