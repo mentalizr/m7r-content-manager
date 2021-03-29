@@ -17,6 +17,11 @@ public class MdpFile extends ContentFile {
         return FILETYPE;
     }
 
+//    @Override
+//    protected boolean requireContainingDir() {
+//        return false;
+//    }
+
     @Override
     public boolean requiresExistence() {
         return true;

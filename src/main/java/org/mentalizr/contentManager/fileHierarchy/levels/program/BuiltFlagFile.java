@@ -15,8 +15,8 @@ public class BuiltFlagFile extends RepoFile {
 
     public static final String FILE_NAME = "built.flag";
 
-    public BuiltFlagFile(File file) throws ProgramManagerException {
-        super(file);
+    public BuiltFlagFile(Path containingDir) throws ProgramManagerException {
+        super(containingDir.resolve(FILE_NAME).toFile());
     }
 
     public boolean exists() {
@@ -61,16 +61,21 @@ public class BuiltFlagFile extends RepoFile {
 
     @Override
     public boolean requiresReadPermission() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean requiresWritePermission() {
-        return true;
+        return false;
     }
 
     @Override
     protected String getFiletype() {
         return ".flag";
     }
+
+//    @Override
+//    protected boolean requireContainingDir() {
+//        return true;
+//    }
 }

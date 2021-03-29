@@ -5,9 +5,13 @@ import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundExcepti
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WritePermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WrongFileTypeException;
+import org.mentalizr.contentManager.helper.Nio2Helper;
+import org.mentalizr.contentManager.helper.PathAssertions;
 
 import java.io.File;
+import java.nio.file.Path;
 import java.util.Locale;
+import java.util.Objects;
 
 public abstract class RepoFile extends FileHierarchyElement {
 
@@ -15,9 +19,12 @@ public abstract class RepoFile extends FileHierarchyElement {
         super(file);
         if (requiresExistence()) assertIsFile();
         assertFiletype();
+//        if (requireContainingDir()) assertExistenceOfContainingDirectory();
     }
 
     protected abstract String getFiletype();
+
+//    protected abstract boolean requireContainingDir();
 
     @Override
     protected void throwFileNotFoundException() throws FileNotFoundException {
@@ -51,5 +58,12 @@ public abstract class RepoFile extends FileHierarchyElement {
     public static boolean isTypeAppropriate(File file, String filenamePostfix) {
         return (file.getName().toLowerCase(Locale.ROOT).endsWith(filenamePostfix.toLowerCase(Locale.ROOT)));
     }
+
+//    private void assertExistenceOfContainingDirectory() throws FileNotFoundException {
+//        Path dir = this.file.toPath().getParent();
+//        Objects.requireNonNull(dir, "No content file. [" + this.file.getAbsolutePath() + "]");
+//        if (!Nio2Helper.isExistingDir(dir))
+//            throw FileNotFoundException.forDirectory(dir.toFile());
+//    }
 
 }

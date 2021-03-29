@@ -37,8 +37,12 @@ public class Program {
         return this.programDir.getMediaDir().getMediaResource(fileName);
     }
 
+    public boolean isBuilt() {
+        return this.programDir.hasHtmlDir();
+    }
+
     public void clean() throws ProgramManagerException {
-        if (this.programDir.hasHtmlDir()) {
+        if (this.isBuilt()) {
             removeHtmlDir();
             reinitializeProgramDir();
         }

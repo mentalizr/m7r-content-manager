@@ -20,15 +20,17 @@ public abstract class FileHierarchyElement {
         }
 
         if (!requiresExistence() && requiresReadPermission())
-            throw new RuntimeException("Illegal " + FileHierarchyElement.class.getSimpleName()
-                    + " specification: requiring read permission for a non existing element.");
+            throw new AssertionError("Illegal " + this.getClass().getSimpleName()
+                    + " specification: requiring read permission for a non existing element."
+                    + " Specify requireExistence also.");
         if (requiresReadPermission()) {
             if (!this.file.canRead()) throwReadPermissionMissingException();
         }
 
         if (!requiresExistence() && requiresWritePermission())
-            throw new RuntimeException("Illegal " + FileHierarchyElement.class.getSimpleName()
-                    + " specification: requiring write permission for a non existing element.");
+            throw new AssertionError("Illegal " + this.getClass().getSimpleName()
+                    + " specification: requiring write permission for a non existing element."
+                    + " Specify requireExistence also.");
         if (requiresWritePermission()) {
             if (!this.file.canWrite()) throwWritePermissionMissingException();
         }
@@ -46,10 +48,27 @@ public abstract class FileHierarchyElement {
         return this.file.getName();
     }
 
+    /**
+     * Specifies weather file hierarchy element is expected as existing.
+     *
+     * @return
+     */
     public abstract boolean requiresExistence();
 
+    /**
+     * Specifies weather file hierarchy element is expected to be readably by executing user.
+     * Checking file permissions requires existence also.
+     *
+     * @return
+     */
     public abstract boolean requiresReadPermission();
 
+    /**
+     * Specifies weather file hierarchy element is expected to be writable by executing user.
+     * Checking file permissions requires existence also.
+     *
+     * @return
+     */
     public abstract boolean requiresWritePermission();
 
     protected abstract void throwFileNotFoundException() throws FileNotFoundException;
