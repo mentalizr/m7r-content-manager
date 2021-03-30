@@ -16,7 +16,7 @@ public class Nio2Helper {
         return (Files.exists(dir) && Files.isDirectory(dir));
     }
 
-    public static boolean isFileName(Path path, String fileName) {
+    public static boolean isPathEndingWithFileName(Path path, String fileName) {
         return (path.getFileName().toString().equals(fileName));
     }
 
@@ -47,11 +47,11 @@ public class Nio2Helper {
 
     public static boolean isDirectSubdirectory(Path dir, Path subdir) {
         Path dirWork = dir.normalize().toAbsolutePath();
-        PathAssertions.assertIsExistingDirectory(dir);
+        if (!isExistingDir(dir)) return false;
         int nameCountDirWork = dirWork.getNameCount();
 
         Path subdirWork = subdir.normalize().toAbsolutePath();
-        PathAssertions.assertIsExistingDirectory(subdirWork);
+        if (!isExistingDir(subdirWork)) return false;
         int nameCountSubdirWork = subdirWork.getNameCount();
 
         boolean oneLonger = (nameCountSubdirWork - nameCountDirWork == 1);

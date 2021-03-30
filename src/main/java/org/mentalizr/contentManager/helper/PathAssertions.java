@@ -15,7 +15,7 @@ public class PathAssertions {
      * @param fileName
      */
     public static void assertFileName(Path file, String fileName) {
-        if (!Nio2Helper.isFileName(file, fileName))
+        if (!Nio2Helper.isPathEndingWithFileName(file, fileName))
             throw new PathAssertionException(file, "Assertion failed. File name [" + fileName + "] expected " +
                     "but is [" + file.getFileName() + "].");
     }
