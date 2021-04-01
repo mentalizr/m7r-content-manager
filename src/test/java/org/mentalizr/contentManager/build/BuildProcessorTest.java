@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BuildProcessorTest {
@@ -67,7 +68,7 @@ class BuildProcessorTest {
         programDir = new ProgramDir(programRootPath.resolve("test").toFile());
         assertTrue(programDir.hasHtmlDir());
 
-        BuildProcessor.compile(programDir, new TestBuildHandler());
+        BuildSummary buildSummary = BuildProcessor.compile(programDir, new TestBuildHandler());
 
         Path htmlPath = programDir.getHtmlDir().asPath();
 
@@ -77,6 +78,10 @@ class BuildProcessorTest {
         assertTrue(Files.exists(htmlPath.resolve("m1").resolve("sm2").resolve("step01.html")));
         assertTrue(Files.exists(htmlPath.resolve("m1").resolve("sm2").resolve("step02.html")));
         assertTrue(Files.exists(htmlPath.resolve("m2").resolve("sm1").resolve("step01.html")));
+
+        assertEquals(0, buildSummary.getNrOfFailedMdpFiles());
+        assertEquals(6, buildSummary.getNrOfSuccessfulMdpFiles());
+
     }
 
 }

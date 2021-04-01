@@ -13,6 +13,7 @@ import java.nio.file.FileVisitor;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
@@ -76,7 +77,7 @@ public class BuildProcessor {
         });
     }
 
-    public static void compile(ProgramDir programDir, BuildHandler buildHandler) throws ProgramManagerException {
+    public static BuildSummary compile(ProgramDir programDir, BuildHandler buildHandler) throws ProgramManagerException {
 
         if (!programDir.hasHtmlDir())
             throw new IllegalArgumentException("Program has no html directory: "
@@ -86,12 +87,28 @@ public class BuildProcessor {
         Path htmlDirPath = programDir.getHtmlDir().asPath();
 
         List<MdpFile> mdpFiles = programDir.getMdpFiles();
-
+        BuildSummary buildSummary = new BuildSummary();
 
         for (MdpFile mdpFile : mdpFiles) {
             Path htmlFile = getHtmlDestination(mdpDirPath, htmlDirPath, mdpFile);
-            List<String> htmlLines = buildHandler.compile(mdpFile);
+            List<String> htmlLines = compileMdpFile(buildHandler, buildSummary, mdpFile);
             writeAllLines(htmlFile, htmlLines);
+        }
+
+        return buildSummary;
+    }
+
+    private static List<String> compileMdpFile(BuildHandler buildHandler, BuildSummary buildSummary, MdpFile mdpFile) {
+        try {
+            List<String> htmlLines = buildHandler.compile(mdpFile);
+            buildSummary.addSuccessfulMdpFile(mdpFile);
+            return htmlLines;
+        } catch (BuildException buildException) {
+            Exception exception
+                    = (buildException.getCause() != null) && (buildException.getCause() instanceof  Exception)
+                    ? (Exception) buildException.getCause() : buildException;
+            buildSummary.addFailedMdpFiles(mdpFile, exception);
+            return new ArrayList<>();
         }
     }
 

@@ -3,6 +3,7 @@ package org.mentalizr.contentManager;
 import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.build.BuildHandler;
 import org.mentalizr.contentManager.build.BuildProcessor;
+import org.mentalizr.contentManager.build.BuildSummary;
 import org.mentalizr.contentManager.exceptions.ProgramManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
@@ -85,16 +86,17 @@ public class Program {
         }
     }
 
-    public void build(BuildHandler buildHandler) throws ProgramManagerException {
+    public BuildSummary build(BuildHandler buildHandler) throws ProgramManagerException {
         clean();
         try {
             BuildProcessor.createHtmlDirSkeleton(this.programDir);
             this.programDir = ProgramDir.reinitializeHtmlDir(this.programDir);
-            BuildProcessor.compile(this.programDir, buildHandler);
         } catch (IOException e) {
             throw new ProgramManagerException(e);
         }
+        BuildSummary buildSummary = BuildProcessor.compile(this.programDir, buildHandler);
         reinitializeProgramDir();
+        return buildSummary;
     }
 
     private void removeHtmlDir() throws ProgramManagerException {
