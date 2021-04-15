@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.build;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.nio.file.Path;
 
-public class BuildException extends ProgramManagerException {
+public class BuildException extends ContentManagerException {
 
     private final Path path;
 

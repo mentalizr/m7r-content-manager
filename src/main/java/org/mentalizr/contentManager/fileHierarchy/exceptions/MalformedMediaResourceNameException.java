@@ -1,8 +1,8 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
-public class MalformedMediaResourceNameException extends ProgramManagerException {
+public class MalformedMediaResourceNameException extends ContentManagerException {
 
     private final String resourceName;
 

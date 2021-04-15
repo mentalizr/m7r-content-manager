@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.exceptions;
 
-public class NoSuchProgramException extends ProgramManagerException {
+public class NoSuchProgramException extends ContentManagerException {
 
     private final String programName;
 

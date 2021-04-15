@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.module;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
@@ -15,7 +15,7 @@ public class ModuleDirMdp extends ContentTreeDirectory implements ModuleDir {
     private final ModuleConfFile moduleConfFile;
     private final List<SubmoduleDirMdp> submoduleDirList;
 
-    public ModuleDirMdp(File file) throws ProgramManagerException {
+    public ModuleDirMdp(File file) throws ContentManagerException {
         super(file);
         this.moduleConfFile = new ModuleConfFile(new File(asFile(), ModuleConfFile.FILE_NAME));
         this.submoduleDirList = obtainSubmoduleDirs();
@@ -80,7 +80,7 @@ public class ModuleDirMdp extends ContentTreeDirectory implements ModuleDir {
         return false;
     }
 
-    private List<SubmoduleDirMdp> obtainSubmoduleDirs() throws ProgramManagerException {
+    private List<SubmoduleDirMdp> obtainSubmoduleDirs() throws ContentManagerException {
 
         File[] fileArray = this.file.listFiles(new ModuleDirFileFilter());
         if (fileArray == null || fileArray.length == 0)

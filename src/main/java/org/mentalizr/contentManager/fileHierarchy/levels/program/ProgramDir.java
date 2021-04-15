@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.program;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
@@ -18,21 +18,21 @@ public class ProgramDir extends RepoDirectory {
     private final HtmlDir htmlDir;
     private final MediaDir mediaDir;
 
-    public ProgramDir(File file) throws ProgramManagerException {
+    public ProgramDir(File file) throws ContentManagerException {
         super(file);
         this.mdpDir = new MdpDir(new File(asFile(), MdpDir.DIR_NAME));
         this.htmlDir = obtainHtmlDirNullable();
         this.mediaDir = new MediaDir(new File(asFile(), MediaDir.DIR_NAME));
     }
 
-    private ProgramDir(ProgramDir programDir) throws ProgramManagerException {
+    private ProgramDir(ProgramDir programDir) throws ContentManagerException {
         super(programDir.file);
         this.mdpDir = programDir.mdpDir;
         this.htmlDir = obtainHtmlDirNullable();
         this.mediaDir = programDir.mediaDir;
     }
 
-    public static ProgramDir reinitializeHtmlDir(ProgramDir programDir) throws ProgramManagerException {
+    public static ProgramDir reinitializeHtmlDir(ProgramDir programDir) throws ContentManagerException {
         return new ProgramDir(programDir);
     }
 
@@ -86,7 +86,7 @@ public class ProgramDir extends RepoDirectory {
         if (!hasHtmlDir()) throw new IllegalStateException("No html dir existing. Check before calling.");
     }
 
-    private HtmlDir obtainHtmlDirNullable() throws ProgramManagerException {
+    private HtmlDir obtainHtmlDirNullable() throws ContentManagerException {
         HtmlDir htmlDir = null;
         File htmlDirFile = new File(asFile(), HtmlDir.DIR_NAME);
         if (htmlDirFile.exists()) {

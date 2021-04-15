@@ -1,8 +1,8 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
-public class ContentNotFoundException extends ProgramManagerException {
+public class ContentNotFoundException extends ContentManagerException {
 
     private final String id;
 

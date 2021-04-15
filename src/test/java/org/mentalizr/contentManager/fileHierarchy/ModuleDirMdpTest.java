@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirMdp;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ModuleDirMdpTest {
 
     @Test
-    public void positive() throws ProgramManagerException {
+    public void positive() throws ContentManagerException {
         ModuleDirMdp moduleDirMdp = new ModuleDirMdp(new File("src/test/testPrograms/test1/mdp/m1"));
         assertEquals("m1", moduleDirMdp.getName());
         assertEquals("Module1", moduleDirMdp.getModuleConfFile().getModuleConf().getName());
@@ -22,7 +22,7 @@ class ModuleDirMdpTest {
     }
 
     @Test
-    public void noSubmodulesFound_neg() throws ProgramManagerException {
+    public void noSubmodulesFound_neg() throws ContentManagerException {
         try {
             new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m3"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
@@ -34,7 +34,7 @@ class ModuleDirMdpTest {
     }
 
     @Test
-    public void moduleConfMissing_neg() throws ProgramManagerException {
+    public void moduleConfMissing_neg() throws ContentManagerException {
         try {
             new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m2"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
@@ -46,7 +46,7 @@ class ModuleDirMdpTest {
     }
 
     @Test
-    public void moduleNotExisting_neg() throws ProgramManagerException {
+    public void moduleNotExisting_neg() throws ContentManagerException {
         try {
             new ModuleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m_not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");

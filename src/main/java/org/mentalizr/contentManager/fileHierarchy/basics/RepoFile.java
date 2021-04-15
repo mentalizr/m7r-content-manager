@@ -1,21 +1,17 @@
 package org.mentalizr.contentManager.fileHierarchy.basics;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WritePermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WrongFileTypeException;
-import org.mentalizr.contentManager.helper.Nio2Helper;
-import org.mentalizr.contentManager.helper.PathAssertions;
 
 import java.io.File;
-import java.nio.file.Path;
 import java.util.Locale;
-import java.util.Objects;
 
 public abstract class RepoFile extends FileHierarchyElement {
 
-    public RepoFile(java.io.File file) throws ProgramManagerException {
+    public RepoFile(java.io.File file) throws ContentManagerException {
         super(file);
         if (requiresExistence()) assertIsFile();
         assertFiletype();

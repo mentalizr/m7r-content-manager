@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.submodule;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFileFilter;
@@ -17,7 +17,7 @@ public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleD
     private final List<HtmlFile> contentFileList;
     private final Submodule submodule;
 
-    public SubmoduleDirHtml(File file) throws ProgramManagerException {
+    public SubmoduleDirHtml(File file) throws ContentManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(asFile(), SubmoduleConfFile.FILE_NAME));
         this.contentFileList = obtainHtmlFiles();
@@ -66,7 +66,7 @@ public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleD
         return this.submodule;
     }
 
-    private List<HtmlFile> obtainHtmlFiles() throws ProgramManagerException {
+    private List<HtmlFile> obtainHtmlFiles() throws ContentManagerException {
         List<HtmlFile> htmlFileList = new ArrayList<>();
         File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)

@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager;
 
 import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
@@ -17,7 +17,7 @@ import static org.mentalizr.contentManager.helper.PathHelper.*;
 
 public class Programs {
 
-    public static void createProgram(Path contentRootPath, String programName, String programDisplayName) throws ProgramManagerException {
+    public static void createProgram(Path contentRootPath, String programName, String programDisplayName) throws ContentManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
@@ -26,7 +26,7 @@ public class Programs {
 
         Path programPath = contentRootPath.resolve(programName);
         if (Files.exists(programPath))
-            throw new ProgramManagerException("Program [" + programName + "] already existing.");
+            throw new ContentManagerException("Program [" + programName + "] already existing.");
 
         createDirectory(programPath);
 
@@ -43,7 +43,7 @@ public class Programs {
         createDirectory(mediaPath);
     }
 
-    public static void createModule(Path contentRootPath, String programName, String moduleName, String moduleDisplayName) throws ProgramManagerException {
+    public static void createModule(Path contentRootPath, String programName, String moduleName, String moduleDisplayName) throws ContentManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
@@ -64,7 +64,7 @@ public class Programs {
         createConfFile(moduleConfPath, moduleDisplayName);
     }
 
-    public static void createSubmodule(Path contentRootPath, String programName, String moduleName, String submoduleName, String submoduleDisplayName) throws ProgramManagerException {
+    public static void createSubmodule(Path contentRootPath, String programName, String moduleName, String submoduleName, String submoduleDisplayName) throws ContentManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
@@ -95,7 +95,7 @@ public class Programs {
             String moduleName,
             String submoduleName,
             String mdpFileName,
-            String mdpFileDisplayName) throws ProgramManagerException {
+            String mdpFileDisplayName) throws ContentManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
@@ -125,7 +125,7 @@ public class Programs {
             Path contentRootPath,
             String programName,
             String mdpFileName,
-            String mdpFileDisplayName) throws ProgramManagerException {
+            String mdpFileDisplayName) throws ContentManagerException {
 
         AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);

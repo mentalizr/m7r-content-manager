@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.basics;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WritePermissionMissingException;
@@ -12,7 +12,7 @@ public abstract class FileHierarchyElement {
 
     protected File file;
 
-    public FileHierarchyElement(File file) throws ProgramManagerException {
+    public FileHierarchyElement(File file) throws ContentManagerException {
         this.file = file;
 
         if (requiresExistence()) {

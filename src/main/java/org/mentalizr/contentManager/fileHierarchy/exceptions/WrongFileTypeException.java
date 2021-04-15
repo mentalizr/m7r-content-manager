@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.io.File;
 
-public class WrongFileTypeException extends ProgramManagerException {
+public class WrongFileTypeException extends ContentManagerException {
 
     public WrongFileTypeException(String message) {
         super(message);

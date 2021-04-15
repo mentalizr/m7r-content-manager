@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.media;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
@@ -16,7 +16,7 @@ public class MediaDir extends RepoDirectory {
 
     public static final String DIR_NAME = "media";
 
-    public MediaDir(File file) throws ProgramManagerException {
+    public MediaDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), DIR_NAME);
     }

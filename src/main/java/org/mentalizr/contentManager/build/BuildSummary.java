@@ -43,4 +43,8 @@ public class BuildSummary {
         return this.failedMdpFiles;
     }
 
+    public boolean isSuccess() {
+        return this.failedMdpFiles.isEmpty();
+    }
+
 }

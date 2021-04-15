@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.build;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class BuildProcessorTest {
 
     @Test
-    void createHtmlDirSkeleton() throws ProgramManagerException, IOException {
+    void createHtmlDirSkeleton() throws ContentManagerException, IOException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         Path programRootPath = tempDir.asPath();
@@ -55,7 +55,7 @@ class BuildProcessorTest {
     }
 
     @Test
-    void build() throws IOException, ProgramManagerException {
+    void build() throws IOException, ContentManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         Path programRootPath = tempDir.asPath();

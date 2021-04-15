@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.io.File;
 
-public class ReadPermissionMissingException extends ProgramManagerException {
+public class ReadPermissionMissingException extends ContentManagerException {
 
     private ReadPermissionMissingException(String message) {
         super(message);

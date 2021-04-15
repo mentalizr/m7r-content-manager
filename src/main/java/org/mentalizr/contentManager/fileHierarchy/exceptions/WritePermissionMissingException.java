@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.io.File;
 
-public class WritePermissionMissingException extends ProgramManagerException {
+public class WritePermissionMissingException extends ContentManagerException {
 
     private WritePermissionMissingException(String message) {
         super(message);

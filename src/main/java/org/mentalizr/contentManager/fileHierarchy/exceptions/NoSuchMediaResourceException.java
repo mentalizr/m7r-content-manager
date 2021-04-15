@@ -1,8 +1,8 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
-public class NoSuchMediaResourceException extends ProgramManagerException {
+public class NoSuchMediaResourceException extends ContentManagerException {
 
     private final String programName;
     private final String fileName;

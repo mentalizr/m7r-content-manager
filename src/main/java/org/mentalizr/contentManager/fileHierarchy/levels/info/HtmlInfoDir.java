@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.info;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFileFilter;
@@ -17,7 +17,7 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
     private final List<HtmlFile> infopageFiles;
     private final List<Infotext> infotextList;
 
-    public HtmlInfoDir(File file) throws ProgramManagerException {
+    public HtmlInfoDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), InfoDir.DIR_NAME);
         this.infopageFiles = obtainInfopageFiles();
@@ -48,7 +48,7 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
         return this.infotextList;
     }
 
-    private List<HtmlFile> obtainInfopageFiles() throws ProgramManagerException {
+    private List<HtmlFile> obtainInfopageFiles() throws ContentManagerException {
         File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)
             return new ArrayList<>();

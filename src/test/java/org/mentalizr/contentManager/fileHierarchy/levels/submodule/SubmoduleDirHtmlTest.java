@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.submodule;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
 import org.mentalizr.serviceObjects.frontend.program.Step;
@@ -16,31 +16,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class SubmoduleDirHtmlTest {
 
     @Test
-    public void getSubmoduleConf() throws ProgramManagerException {
+    public void getSubmoduleConf() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         assertEquals("Submodule1", submoduleDirMdp.getSubmoduleConfFile().getSubmoduleConf().getName());
     }
 
     @Test
-    public void getName() throws ProgramManagerException {
+    public void getName() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         assertEquals("sm1", submoduleDirMdp.getName());
     }
 
     @Test
-    public void getDisplayName() throws ProgramManagerException {
+    public void getDisplayName() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         assertEquals("Submodule1", submoduleDirMdp.getDisplayName());
     }
 
     @Test
-    public void getId() throws ProgramManagerException {
+    public void getId() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         assertEquals("test1_m1_sm1", submoduleDirMdp.getId());
     }
 
     @Test
-    public void getContentFiles() throws ProgramManagerException {
+    public void getContentFiles() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         List<HtmlFile> htmlFiles = submoduleDirMdp.getContentFiles();
         assertEquals(2, htmlFiles.size());
@@ -49,7 +49,7 @@ class SubmoduleDirHtmlTest {
     }
 
     @Test
-    public void asSubmodule() throws ProgramManagerException {
+    public void asSubmodule() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         Submodule submodule = submoduleDirMdp.asSubmodule();
         assertEquals("test1_m1_sm1", submodule.getId());

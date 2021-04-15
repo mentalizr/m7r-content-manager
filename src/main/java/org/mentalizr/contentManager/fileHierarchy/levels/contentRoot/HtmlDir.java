@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentRoot;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
@@ -27,7 +27,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     private final List<HtmlFile> htmlFiles;
     private final Program program;
 
-    public HtmlDir(File file) throws ProgramManagerException {
+    public HtmlDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
@@ -105,7 +105,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         return this.program;
     }
 
-    private List<ModuleDirHtml> obtainModuleDirs() throws ProgramManagerException {
+    private List<ModuleDirHtml> obtainModuleDirs() throws ContentManagerException {
 
         File[] fileArray = this.file.listFiles(new ModuleDirFileFilter());
         if (fileArray == null || fileArray.length == 0)

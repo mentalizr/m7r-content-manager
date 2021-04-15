@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.build;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
@@ -20,7 +20,7 @@ import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
 
 public class BuildProcessor {
 
-    public static void createHtmlDirSkeleton(ProgramDir programDir) throws ProgramManagerException, IOException {
+    public static void createHtmlDirSkeleton(ProgramDir programDir) throws ContentManagerException, IOException {
 
         Path programDirPath = programDir.asPath();
         Path mdpDirPath = programDir.getMdpDir().asPath();
@@ -77,7 +77,7 @@ public class BuildProcessor {
         });
     }
 
-    public static BuildSummary compile(ProgramDir programDir, BuildHandler buildHandler) throws ProgramManagerException {
+    public static BuildSummary compile(ProgramDir programDir, BuildHandler buildHandler) throws ContentManagerException {
 
         if (!programDir.hasHtmlDir())
             throw new IllegalArgumentException("Program has no html directory: "
@@ -112,11 +112,11 @@ public class BuildProcessor {
         }
     }
 
-    private static void writeAllLines(Path file, List<String> lines) throws ProgramManagerException {
+    private static void writeAllLines(Path file, List<String> lines) throws ContentManagerException {
         try {
             Files.write(file, lines);
         } catch (IOException e) {
-            throw new ProgramManagerException(e);
+            throw new ContentManagerException(e);
         }
     }
 

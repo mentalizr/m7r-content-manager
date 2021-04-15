@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentFile;
 
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
@@ -22,7 +22,7 @@ public abstract class ContentFile extends RepoFile {
     private final String name;
     private final String displayName;
 
-    public ContentFile(File file) throws ProgramManagerException {
+    public ContentFile(File file) throws ContentManagerException {
         super(file);
         this.name = Strings.cutEnd(super.getName(), getFiletype().length());
         this.id = obtainId();
@@ -62,7 +62,7 @@ public abstract class ContentFile extends RepoFile {
         return Strings.listing(names, "_");
     }
 
-    private String obtainDisplayName() throws ProgramManagerException {
+    private String obtainDisplayName() throws ContentManagerException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
 
@@ -77,9 +77,9 @@ public abstract class ContentFile extends RepoFile {
                 lineNr++;
                 line = bufferedReader.readLine();
             }
-            throw new ProgramManagerException("Syntax error in " + getFiletype() + " file. Tag @@name not found. [" + this.file.getAbsolutePath() + "]");
+            throw new ContentManagerException("Syntax error in " + getFiletype() + " file. Tag @@name not found. [" + this.file.getAbsolutePath() + "]");
         } catch (IOException e) {
-            throw new ProgramManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
+            throw new ContentManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
         }
     }
 

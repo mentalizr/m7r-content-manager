@@ -1,13 +1,13 @@
 package org.mentalizr.contentManager.helper;
 
 import org.mentalizr.contentManager.Programs;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.nio.file.Path;
 
 public class TestPrograms {
 
-    public static void createTest(Path programRootPath) throws ProgramManagerException {
+    public static void createTest(Path programRootPath) throws ContentManagerException {
 
         Programs.createProgram(programRootPath, "test", "Test");
         Programs.createModule(programRootPath, "test", "m1", "Module1");

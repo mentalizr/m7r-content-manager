@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleDirMdp;
 
@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class SubmoduleDirMdpTest {
 
     @Test
-    public void positive() throws ProgramManagerException {
+    public void positive() throws ContentManagerException {
         SubmoduleDirMdp submoduleDirMdp = new SubmoduleDirMdp(new File("src/test/testPrograms/test1/mdp/m1/sm1"));
         assertEquals("sm1", submoduleDirMdp.getName());
         assertEquals("Submodule1", submoduleDirMdp.getSubmoduleConfFile().getSubmoduleConf().getName());
@@ -22,7 +22,7 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void noHtmlFilesFound_neg() throws ProgramManagerException {
+    public void noHtmlFilesFound_neg() throws ContentManagerException {
         try {
             new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm1"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
@@ -34,7 +34,7 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void submoduleConfMissing_neg() throws ProgramManagerException {
+    public void submoduleConfMissing_neg() throws ContentManagerException {
         try {
             new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm2"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");
@@ -46,7 +46,7 @@ class SubmoduleDirMdpTest {
     }
 
     @Test
-    public void submoduleNotExisting_neg() throws ProgramManagerException {
+    public void submoduleNotExisting_neg() throws ContentManagerException {
         try {
             new SubmoduleDirMdp(new File("src/test/testPrograms/test_neg_3/mdp/m1/sm_not_existing"));
             fail(FileNotFoundException.class.getSimpleName() + " expected.");

@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentRoot;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
@@ -23,7 +23,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
     private final List<ModuleDirMdp> moduleDirList;
     private final List<MdpFile> mdpFiles;
 
-    public MdpDir(File file) throws ProgramManagerException {
+    public MdpDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), DIR_NAME);
         this.programConfFile = new ProgramConfFile(new File(asFile(), ProgramConfFile.FILE_NAME));
@@ -92,7 +92,7 @@ public class MdpDir extends RepoDirectory implements ContentRootDir {
         return false;
     }
 
-    private List<ModuleDirMdp> obtainModuleDirs() throws ProgramManagerException {
+    private List<ModuleDirMdp> obtainModuleDirs() throws ContentManagerException {
 
         File[] fileArray = this.file.listFiles(new ModuleDirFileFilter());
         if (fileArray == null || fileArray.length == 0)

@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.submodule;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.confFile.ConfFile;
 
 import java.io.File;
@@ -11,7 +11,7 @@ public class SubmoduleConfFile extends ConfFile {
 
     private final SubmoduleConf submoduleConf;
 
-    public SubmoduleConfFile(File file) throws ProgramManagerException {
+    public SubmoduleConfFile(File file) throws ContentManagerException {
         super(file);
         this.submoduleConf = new SubmoduleConf(this.file);
     }

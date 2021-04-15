@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentRoot;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
@@ -17,31 +17,31 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 class HtmlDirTest {
 
     @Test
-    public void getProgramConf() throws ProgramManagerException {
+    public void getProgramConf() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         assertEquals("Test1", htmlDir.getProgramConfFile().getProgramConf().getName());
     }
 
     @Test
-    public void getName() throws ProgramManagerException {
+    public void getName() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         assertEquals("html", htmlDir.getName());
     }
 
     @Test
-    public void getDisplayName() throws ProgramManagerException {
+    public void getDisplayName() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         assertEquals("Test1", htmlDir.getDisplayName());
     }
 
     @Test
-    public void getId() throws ProgramManagerException {
+    public void getId() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         assertEquals("test1", htmlDir.getId());
     }
 
     @Test
-    public void getContentFiles() throws ProgramManagerException {
+    public void getContentFiles() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         List<HtmlFile> htmlFiles = htmlDir.getContentFiles();
         assertEquals(6, htmlFiles.size());
@@ -54,7 +54,7 @@ class HtmlDirTest {
     }
 
     @Test
-    public void asProgram() throws ProgramManagerException {
+    public void asProgram() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         Program program = htmlDir.asProgram();
         assertEquals("test1", program.getId());

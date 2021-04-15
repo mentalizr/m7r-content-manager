@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
@@ -16,14 +16,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProgramDirTest {
 
     @Test
-    public void getName() throws ProgramManagerException {
+    public void getName() throws ContentManagerException {
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         String name = programDir.getName();
         assertEquals("test1", name);
     }
 
     @Test
-    public void getHtmlFiles() throws ProgramManagerException {
+    public void getHtmlFiles() throws ContentManagerException {
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         List<HtmlFile> htmlFilesFromHtmlDir = programDir.getHtmlDir().getContentFiles();
         List<HtmlFile> htmlFiles = programDir.getHtmlFiles();
@@ -31,7 +31,7 @@ class ProgramDirTest {
     }
 
     @Test
-    public void getMdpFiles() throws ProgramManagerException {
+    public void getMdpFiles() throws ContentManagerException {
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         List<MdpFile> mdpFilesFromMdpDir = programDir.getMdpDir().getContentFiles();
         List<MdpFile> mdpFiles = programDir.getMdpFiles();
@@ -39,7 +39,7 @@ class ProgramDirTest {
     }
 
     @Test
-    public void asProgram() throws ProgramManagerException {
+    public void asProgram() throws ContentManagerException {
 
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         Program program = programDir.asProgram();

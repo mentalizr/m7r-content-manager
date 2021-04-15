@@ -1,10 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 
 import java.io.File;
 
-public class FileNotFoundException extends ProgramManagerException {
+public class FileNotFoundException extends ContentManagerException {
 
     public FileNotFoundException(String message) {
         super(message);

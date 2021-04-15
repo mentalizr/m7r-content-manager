@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.info;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFileFilter;
@@ -15,7 +15,7 @@ public class MdpInfoDir extends RepoDirectory implements InfoDir {
 
     private final List<MdpFile> infotextFiles;
 
-    public MdpInfoDir(File file) throws ProgramManagerException {
+    public MdpInfoDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), InfoDir.DIR_NAME);
         this.infotextFiles = obtainInfotextFiles();
@@ -41,7 +41,7 @@ public class MdpInfoDir extends RepoDirectory implements InfoDir {
         return false;
     }
 
-    private List<MdpFile> obtainInfotextFiles() throws ProgramManagerException {
+    private List<MdpFile> obtainInfotextFiles() throws ContentManagerException {
         File[] fileArray = this.file.listFiles(new MdpFileFilter());
         if (fileArray == null || fileArray.length == 0)
             return new ArrayList<>();

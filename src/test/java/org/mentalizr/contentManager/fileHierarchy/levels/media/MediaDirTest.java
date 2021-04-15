@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.media;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
 
@@ -13,19 +13,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class MediaDirTest {
 
     @Test
-    public void getProgramName() throws ProgramManagerException {
+    public void getProgramName() throws ContentManagerException {
         MediaDir mediaDir = new MediaDir(new File("src/test/testPrograms/test1/media"));
         assertEquals("test1", mediaDir.getProgramName());
     }
 
     @Test
-    public void getMediaResource() throws ProgramManagerException {
+    public void getMediaResource() throws ContentManagerException {
         MediaDir mediaDir = new MediaDir(new File("src/test/testPrograms/test1/media"));
         assertTrue(Files.exists(mediaDir.getMediaResource("dummy.txt")));
     }
 
     @Test
-    public void getMediaResource_neg_noSuchResource() throws ProgramManagerException {
+    public void getMediaResource_neg_noSuchResource() throws ContentManagerException {
         MediaDir mediaDir = new MediaDir(new File("src/test/testPrograms/test1/media"));
         try {
             mediaDir.getMediaResource("notExisting.postfix");
@@ -37,7 +37,7 @@ class MediaDirTest {
     }
 
     @Test
-    public void getMediaResource_neg_Malformed() throws ProgramManagerException {
+    public void getMediaResource_neg_Malformed() throws ContentManagerException {
         MediaDir mediaDir = new MediaDir(new File("src/test/testPrograms/test1/media"));
         try {
             mediaDir.getMediaResource("../malicious.postfix");

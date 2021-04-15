@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.TestPrograms;
@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ProgramsTest {
 
     @Test
-    void plausibility() throws IOException, ProgramManagerException {
+    void plausibility() throws IOException, ContentManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         Path programRootPath = tempDir.asPath();

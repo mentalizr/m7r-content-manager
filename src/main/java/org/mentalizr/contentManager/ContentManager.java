@@ -2,7 +2,7 @@ package org.mentalizr.contentManager;
 
 import org.mentalizr.contentManager.build.BuildHandler;
 import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
@@ -18,22 +18,22 @@ public class ContentManager extends ContentManagerNotThreadsafe {
 
     private final ReadWriteLock readWriteLock;
 
-    public static ContentManager getInstanceForContentRoot(Path contentRoot) throws ProgramManagerException {
+    public static ContentManager getInstanceForContentRoot(Path contentRoot) throws ContentManagerException {
         try {
             List<Path> programRootDirs = Nio2Helper.getSubdirectories(contentRoot);
             return new ContentManager(programRootDirs);
         } catch (IOException e) {
-            throw new ProgramManagerException(e.getMessage(), e);
+            throw new ContentManagerException(e.getMessage(), e);
         }
     }
 
-    public ContentManager(List<Path> programRootPaths) throws ProgramManagerException {
+    public ContentManager(List<Path> programRootPaths) throws ContentManagerException {
         super(programRootPaths);
         this.readWriteLock = new ReentrantReadWriteLock();
     }
 
     @Override
-    public void reinitialize() throws ProgramManagerException {
+    public void reinitialize() throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
             super.reinitialize();
@@ -63,7 +63,7 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public void build(String programName, BuildHandler buildHandler) throws ProgramManagerException {
+    public void build(String programName, BuildHandler buildHandler) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
             super.build(programName, buildHandler);
@@ -73,7 +73,7 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public void buildAll(BuildHandler buildHandler) throws ProgramManagerException {
+    public void buildAll(BuildHandler buildHandler) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
             super.buildAll(buildHandler);
@@ -83,7 +83,7 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public void cleanBuild(String programName, BuildHandler buildHandler) throws ProgramManagerException {
+    public void cleanBuild(String programName, BuildHandler buildHandler) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
             super.cleanBuild(programName, buildHandler);
@@ -93,7 +93,7 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public void cleanBuildAll(BuildHandler buildHandler) throws ProgramManagerException {
+    public void cleanBuildAll(BuildHandler buildHandler) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
             super.cleanBuildAll(buildHandler);

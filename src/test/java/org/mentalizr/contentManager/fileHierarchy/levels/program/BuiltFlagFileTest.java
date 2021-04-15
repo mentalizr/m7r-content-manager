@@ -1,11 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.program;
 
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.testUtils.TempDir;
 import org.mentalizr.contentManager.testUtils.TempDirs;
 
-import java.io.File;
 import java.io.IOException;
 import java.time.Instant;
 
@@ -14,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class BuiltFlagFileTest {
 
     @Test
-    void exists() throws IOException, ProgramManagerException {
+    void exists() throws IOException, ContentManagerException {
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
         assertFalse(builtFlagFile.exists());
@@ -24,7 +23,7 @@ class BuiltFlagFileTest {
     }
 
     @Test
-    void getCreationTime() throws ProgramManagerException, IOException {
+    void getCreationTime() throws ContentManagerException, IOException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
@@ -50,7 +49,7 @@ class BuiltFlagFileTest {
     }
 
     @Test
-    void remove() throws IOException, ProgramManagerException {
+    void remove() throws IOException, ContentManagerException {
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
         assertFalse(builtFlagFile.exists());

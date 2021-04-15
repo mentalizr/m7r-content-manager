@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.submodule;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
@@ -15,7 +15,7 @@ public class SubmoduleDirMdp extends ContentTreeDirectory implements SubmoduleDi
     private final SubmoduleConfFile submoduleConfFile;
     private final List<MdpFile> contentFileList;
 
-    public SubmoduleDirMdp(File file) throws ProgramManagerException {
+    public SubmoduleDirMdp(File file) throws ContentManagerException {
         super(file);
         this.submoduleConfFile = new SubmoduleConfFile(new File(asFile(), SubmoduleConfFile.FILE_NAME));
         this.contentFileList = obtainMdpFiles();
@@ -55,7 +55,7 @@ public class SubmoduleDirMdp extends ContentTreeDirectory implements SubmoduleDi
         return false;
     }
 
-    private List<MdpFile> obtainMdpFiles() throws ProgramManagerException {
+    private List<MdpFile> obtainMdpFiles() throws ContentManagerException {
         File[] fileArray = this.file.listFiles(new MdpFileFilter());
         if (fileArray == null || fileArray.length == 0)
             throw new FileNotFoundException("No .mdp files found in submodule: [" + this.file.getAbsolutePath() + "]");

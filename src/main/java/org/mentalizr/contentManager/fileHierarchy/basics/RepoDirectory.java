@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.basics;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ReadPermissionMissingException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.WritePermissionMissingException;
@@ -10,7 +10,7 @@ import java.io.File;
 
 public abstract class RepoDirectory extends FileHierarchyElement {
 
-    public RepoDirectory(File file) throws ProgramManagerException {
+    public RepoDirectory(File file) throws ContentManagerException {
         super(file);
         assertIsDirectory();
     }

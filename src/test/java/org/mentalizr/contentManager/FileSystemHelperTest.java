@@ -1,6 +1,14 @@
 package org.mentalizr.contentManager;
 
+import org.junit.jupiter.api.Test;
+
 class FileSystemHelperTest {
+
+    @Test
+    public void test() {
+
+        System.out.println("test");
+    }
 
 //    @Test
 //    public void test1() throws IOException {

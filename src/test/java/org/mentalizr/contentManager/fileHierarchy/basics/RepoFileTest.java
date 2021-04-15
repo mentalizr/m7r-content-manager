@@ -2,7 +2,7 @@ package org.mentalizr.contentManager.fileHierarchy.basics;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.testUtils.TempDir;
 import org.mentalizr.contentManager.testUtils.TempDirs;
 
@@ -11,12 +11,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class RepoFileTest {
 
     @Test
-    void init_readPermissionWithoutRequiredExistence() throws IOException, ProgramManagerException {
+    void init_readPermissionWithoutRequiredExistence() throws IOException, ContentManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         Path file = Files.createFile(tempDir.asPath().resolve("testFile.test"));
@@ -50,7 +48,7 @@ class RepoFileTest {
     }
 
     @Test
-    void init_writePermissionWithoutRequiredExistence() throws IOException, ProgramManagerException {
+    void init_writePermissionWithoutRequiredExistence() throws IOException, ContentManagerException {
 
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         Path file = Files.createFile(tempDir.asPath().resolve("testFile.test"));

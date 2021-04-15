@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentFile;
 
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.serviceObjects.frontend.program.Infotext;
 import org.mentalizr.serviceObjects.frontend.program.Step;
 
@@ -10,7 +10,7 @@ public class HtmlFile extends ContentFile {
 
     public static final String FILETYPE = ".html";
 
-    public HtmlFile(File file) throws ProgramManagerException {
+    public HtmlFile(File file) throws ContentManagerException {
         super(file);
     }
 

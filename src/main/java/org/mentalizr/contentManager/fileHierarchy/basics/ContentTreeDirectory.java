@@ -1,7 +1,7 @@
 package org.mentalizr.contentManager.fileHierarchy.basics;
 
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.contentManager.exceptions.ProgramManagerException;
+import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 
@@ -15,7 +15,7 @@ public abstract class ContentTreeDirectory extends RepoDirectory {
 
     protected final String id;
 
-    public ContentTreeDirectory(File file) throws ProgramManagerException {
+    public ContentTreeDirectory(File file) throws ContentManagerException {
         super(file);
         this.id = prepareId();
     }
