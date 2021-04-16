@@ -83,7 +83,6 @@ public abstract class ContentFile extends RepoFile {
         }
     }
 
-
     private String eliminateFilePostfix(String name) {
         if (name.endsWith(MdpFile.FILETYPE)) {
             name = Strings.cutEnd(name, 4);
@@ -96,5 +95,7 @@ public abstract class ContentFile extends RepoFile {
     private boolean isNotContentRootDir(String name) {
         return (!name.equals(MdpDir.DIR_NAME) && !name.equals(HtmlDir.DIR_NAME));
     }
+
+
 
 }

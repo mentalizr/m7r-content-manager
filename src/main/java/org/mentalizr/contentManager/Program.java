@@ -65,7 +65,12 @@ public class Program {
         } catch (IOException e) {
             throw new ContentManagerException(e);
         }
+
         BuildSummary buildSummary = BuildProcessor.compile(this.programDir, buildHandler);
+        if (!buildSummary.isSuccess()) {
+            forceClean(this.programDir.asPath());
+        }
+
         reinitializeProgramDir();
         return buildSummary;
     }
@@ -76,7 +81,7 @@ public class Program {
             FileUtils.rmDir(htmlDir);
         } catch (IOException e) {
             throw new ContentManagerException("Exception on cleaning html file." +
-                    " [" + htmlDir.toAbsolutePath().toString() + "]", e);
+                    " [" + htmlDir.toAbsolutePath() + "]", e);
         }
     }
 
@@ -86,6 +91,7 @@ public class Program {
     }
 
     public static void forceClean(Path programPath) throws ContentManagerException {
+
         Program.assertProgramDirByPlausibility(programPath);
 
         Path htmlDir = programPath.resolve(HtmlDir.DIR_NAME);
@@ -97,7 +103,6 @@ public class Program {
                         " [" + htmlDir.toAbsolutePath() + "]", e);
             }
         }
-
     }
 
     public static void assertProgramDirByPlausibility(Path programPath) throws ConsistencyException {
@@ -130,7 +135,5 @@ public class Program {
         if (!Nio2Helper.isExistingDir(htmlDir))
             throw new ContentManagerException("No html directory in program repo. [" + htmlDir.toAbsolutePath() + "]");
     }
-
-
 
 }
