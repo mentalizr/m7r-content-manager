@@ -4,6 +4,7 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class TestBuildHandler implements BuildHandler {
 
@@ -23,4 +24,10 @@ public class TestBuildHandler implements BuildHandler {
 
         return html;
     }
+
+    @Override
+    public Set<String> getReferencedMediaResources(MdpFile mdpFile) throws BuildException {
+        return Set.of();
+    }
+
 }

@@ -9,6 +9,7 @@ import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
@@ -21,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Set;
 
 public class Program {
 
@@ -36,6 +38,10 @@ public class Program {
 
     public List<HtmlFile> getHtmlFiles() {
         return this.programDir.getHtmlFiles();
+    }
+
+    public List<MdpFile> getMdpFiles() {
+        return this.programDir.getMdpFiles();
     }
 
     public org.mentalizr.serviceObjects.frontend.program.Program asProgram() {
@@ -134,6 +140,32 @@ public class Program {
         Path htmlDir = programPath.resolve(HtmlDir.DIR_NAME);
         if (!Nio2Helper.isExistingDir(htmlDir))
             throw new ContentManagerException("No html directory in program repo. [" + htmlDir.toAbsolutePath() + "]");
+    }
+
+    public static Path getHtmlDestinationForMdpFile(Path mdpDir, Path htmlDir, MdpFile mdpFile) {
+        Path relativePath = mdpDir.relativize(mdpFile.asPath());
+        Path creationFile = htmlDir.resolve(relativePath);
+
+        Path creationDir = creationFile.getParent();
+        String htmlFileName = mdpFile.getName() + HtmlFile.FILETYPE;
+
+        return creationDir.resolve(htmlFileName);
+    }
+
+    public Path getHtmlDestinationForMdpFile(MdpFile mdpFile) {
+        Path relativePath = this.programDir.getMdpDir().asPath().relativize(mdpFile.asPath());
+        Path creationFile = this.programDir.getHtmlDir().asPath().resolve(relativePath);
+
+        Path creationDir = creationFile.getParent();
+        String htmlFileName = mdpFile.getName() + HtmlFile.FILETYPE;
+
+        return creationDir.resolve(htmlFileName);
+    }
+
+    public Set<String> getReferencedMediaResources(BuildHandler buildHandler) throws ContentManagerException {
+        if (!isBuilt()) throw new RuntimeException("Program not built yet. Check before calling.");
+
+        return BuildProcessor.getReferencedMediaFiles(this.programDir, buildHandler);
     }
 
 }

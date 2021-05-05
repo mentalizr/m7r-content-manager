@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.build;
 
+import org.mentalizr.contentManager.Program;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
@@ -14,7 +15,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
 
@@ -78,10 +81,7 @@ public class BuildProcessor {
     }
 
     public static BuildSummary compile(ProgramDir programDir, BuildHandler buildHandler) throws ContentManagerException {
-
-        if (!programDir.hasHtmlDir())
-            throw new IllegalArgumentException("Program has no html directory: "
-                    + programDir.asPath().toAbsolutePath().toString());
+        assertHtmlDir(programDir);
 
         Path mdpDirPath = programDir.getMdpDir().asPath();
         Path htmlDirPath = programDir.getHtmlDir().asPath();
@@ -90,7 +90,7 @@ public class BuildProcessor {
         BuildSummary buildSummary = new BuildSummary();
 
         for (MdpFile mdpFile : mdpFiles) {
-            Path htmlFile = getHtmlDestination(mdpDirPath, htmlDirPath, mdpFile);
+            Path htmlFile = Program.getHtmlDestinationForMdpFile(mdpDirPath, htmlDirPath, mdpFile);
             List<String> htmlLines = compileMdpFile(buildHandler, buildSummary, mdpFile);
             writeAllLines(htmlFile, htmlLines);
         }
@@ -120,22 +120,29 @@ public class BuildProcessor {
         }
     }
 
-//    private static List<String> readAllLines(MdpFile mdpFile) throws ProgramManagerException {
-//        try {
-//            return Files.readAllLines(mdpFile.asPath());
-//        } catch (IOException e) {
-//            throw new ProgramManagerException(e);
-//        }
-//    }
+    public static Set<String> getReferencedMediaFiles(ProgramDir programDir, BuildHandler buildHandler) throws ContentManagerException {
+        assertHtmlDir(programDir);
 
-    private static Path getHtmlDestination(Path mdpDir, Path htmlDir, MdpFile mdpFile) {
-        Path relativePath = mdpDir.relativize(mdpFile.asPath());
-        Path creationFile = htmlDir.resolve(relativePath);
+        List<MdpFile> mdpFiles = programDir.getMdpFiles();
+        Set<String> referencesMediaResources = new HashSet<>();
 
-        Path creationDir = creationFile.getParent();
-        String htmlFileName = mdpFile.getName() + HtmlFile.FILETYPE;
+        for (MdpFile mdpFile : mdpFiles) {
+            Set<String> mediaFileOfSingleMdpFile = null;
+            try {
+                mediaFileOfSingleMdpFile = buildHandler.getReferencedMediaResources(mdpFile);
+            } catch (BuildException e) {
+                throw new ContentManagerException(e);
+            }
+            referencesMediaResources.addAll(mediaFileOfSingleMdpFile);
+        }
 
-        return creationDir.resolve(htmlFileName);
+        return referencesMediaResources;
+    }
+
+    private static void assertHtmlDir(ProgramDir programDir) {
+        if (!programDir.hasHtmlDir())
+            throw new IllegalArgumentException("Program has no html directory: "
+                    + programDir.asPath().toAbsolutePath());
     }
 
 }
