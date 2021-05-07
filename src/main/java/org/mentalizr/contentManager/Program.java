@@ -1,9 +1,11 @@
 package org.mentalizr.contentManager;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.contentManager.build.BuildHandler;
 import org.mentalizr.contentManager.build.BuildProcessor;
 import org.mentalizr.contentManager.build.BuildSummary;
+import org.mentalizr.contentManager.buildHandler.BuildHandler;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerException;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
 import org.mentalizr.contentManager.exceptions.ConsistencyException;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
@@ -21,6 +23,7 @@ import org.mentalizr.contentManager.helper.Nio2Helper;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -34,6 +37,10 @@ public class Program {
 
     public String getName() {
         return this.programDir.getName();
+    }
+
+    public ProgramDir getProgramDir() {
+        return this.programDir;
     }
 
     public List<HtmlFile> getHtmlFiles() {
@@ -63,16 +70,11 @@ public class Program {
         }
     }
 
-    public BuildSummary build(BuildHandler buildHandler) throws ContentManagerException {
+    public BuildSummary build(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         clean();
-        try {
-            BuildProcessor.createHtmlDirSkeleton(this.programDir);
-            this.programDir = ProgramDir.reinitializeHtmlDir(this.programDir);
-        } catch (IOException e) {
-            throw new ContentManagerException(e);
-        }
+        createHtmlDirSkeleton();
 
-        BuildSummary buildSummary = BuildProcessor.compile(this.programDir, buildHandler);
+        BuildSummary buildSummary = BuildProcessor.compile(this, buildHandlerFactory);
         if (!buildSummary.isSuccess()) {
             forceClean(this.programDir.asPath());
         }
@@ -81,19 +83,8 @@ public class Program {
         return buildSummary;
     }
 
-    private void removeHtmlDir() throws ContentManagerException {
-        Path htmlDir = this.programDir.getHtmlDir().asPath();
-        try {
-            FileUtils.rmDir(htmlDir);
-        } catch (IOException e) {
-            throw new ContentManagerException("Exception on cleaning html file." +
-                    " [" + htmlDir.toAbsolutePath() + "]", e);
-        }
-    }
-
-    private void reinitializeProgramDir() throws ContentManagerException {
-        Path programPath = this.programDir.asPath();
-        this.programDir = new ProgramDir(programPath.toFile());
+    public Set<String> getAllMediaResourceNames() throws ContentManagerException {
+        return this.programDir.getMediaDir().getAllMediaResourceNames();
     }
 
     public static void forceClean(Path programPath) throws ContentManagerException {
@@ -162,10 +153,47 @@ public class Program {
         return creationDir.resolve(htmlFileName);
     }
 
-    public Set<String> getReferencedMediaResources(BuildHandler buildHandler) throws ContentManagerException {
+    public Set<String> getReferencedMediaResources(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         if (!isBuilt()) throw new RuntimeException("Program not built yet. Check before calling.");
 
-        return BuildProcessor.getReferencedMediaFiles(this.programDir, buildHandler);
+        List<MdpFile> mdpFiles = programDir.getMdpFiles();
+        Set<String> referencesMediaResources = new HashSet<>();
+
+        for (MdpFile mdpFile : mdpFiles) {
+            Set<String> mediaFileOfSingleMdpFile;
+            try {
+                BuildHandler buildHandler = buildHandlerFactory.createBuildHandler(this, mdpFile);
+                mediaFileOfSingleMdpFile = buildHandler.getReferencedMediaResources();
+            } catch (BuildHandlerException e) {
+                throw new ContentManagerException(e);
+            }
+            referencesMediaResources.addAll(mediaFileOfSingleMdpFile);
+        }
+
+        return referencesMediaResources;
     }
 
+    private void removeHtmlDir() throws ContentManagerException {
+        Path htmlDir = this.programDir.getHtmlDir().asPath();
+        try {
+            FileUtils.rmDir(htmlDir);
+        } catch (IOException e) {
+            throw new ContentManagerException("Exception on cleaning html file." +
+                    " [" + htmlDir.toAbsolutePath() + "]", e);
+        }
+    }
+
+    private void createHtmlDirSkeleton() throws ContentManagerException {
+        try {
+            BuildProcessor.createHtmlDirSkeleton(this.programDir);
+            this.programDir = ProgramDir.reinitializeHtmlDir(this.programDir);
+        } catch (IOException e) {
+            throw new ContentManagerException(e);
+        }
+    }
+
+    private void reinitializeProgramDir() throws ContentManagerException {
+        Path programPath = this.programDir.asPath();
+        this.programDir = new ProgramDir(programPath.toFile());
+    }
 }

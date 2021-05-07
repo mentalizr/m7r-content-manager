@@ -4,11 +4,17 @@ import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
+import org.mentalizr.contentManager.helper.Nio2Helper;
+import org.mentalizr.contentManager.helper.PathHelper;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 
@@ -43,6 +49,19 @@ public class MediaDir extends RepoDirectory {
         Path fileNamePath = Paths.get(fileName);
         if (fileNamePath.getNameCount() != 1) throw new MalformedMediaResourceNameException(fileName);
         return asPath().resolve(fileName);
+    }
+
+    public Set<String> getAllMediaResourceNames() throws ContentManagerException {
+        List<Path> mediaResources;
+        try {
+            mediaResources = Nio2Helper.getRegularFilesInDirectory(asPath());
+        } catch (IOException e) {
+            throw new ContentManagerException(e);
+        }
+        return mediaResources.stream()
+                .map(Path::getFileName)
+                .map(Path::toString)
+                .collect(Collectors.toSet());
     }
 
     @Override

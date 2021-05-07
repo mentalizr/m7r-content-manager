@@ -1,6 +1,6 @@
 package org.mentalizr.contentManager;
 
-import org.mentalizr.contentManager.build.BuildHandler;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
 import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
@@ -54,25 +54,25 @@ public class ContentManagerNotThreadsafe {
         return program.getMediaResource(fileName);
     }
 
-    public void build(String programName, BuildHandler buildHandler) throws ContentManagerException {
+    public void build(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         Program program = assertProgram(programName);
-        program.build(buildHandler);
+        program.build(buildHandlerFactory);
     }
 
-    public void buildAll(BuildHandler buildHandler) throws ContentManagerException {
-        for (Program program : this.programMap.values()) program.build(buildHandler);
+    public void buildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
+        for (Program program : this.programMap.values()) program.build(buildHandlerFactory);
     }
 
-    public void cleanBuild(String programName, BuildHandler buildHandler) throws ContentManagerException {
+    public void cleanBuild(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         Program program = assertProgram(programName);
         program.clean();
-        program.build(buildHandler);
+        program.build(buildHandlerFactory);
     }
 
-    public void cleanBuildAll(BuildHandler buildHandler) throws ContentManagerException {
+    public void cleanBuildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         for (Program program : this.programMap.values()) {
             program.clean();
-            program.build(buildHandler);
+            program.build(buildHandlerFactory);
         }
     }
 

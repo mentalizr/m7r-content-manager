@@ -1,8 +1,8 @@
 package org.mentalizr.contentManager;
 
-import org.mentalizr.contentManager.build.BuildHandler;
-import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
+import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
@@ -63,40 +63,40 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public void build(String programName, BuildHandler buildHandler) throws ContentManagerException {
+    public void build(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
-            super.build(programName, buildHandler);
+            super.build(programName, buildHandlerFactory);
         } finally {
             this.readWriteLock.writeLock().unlock();
         }
     }
 
     @Override
-    public void buildAll(BuildHandler buildHandler) throws ContentManagerException {
+    public void buildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
-            super.buildAll(buildHandler);
+            super.buildAll(buildHandlerFactory);
         } finally {
             this.readWriteLock.writeLock().unlock();
         }
     }
 
     @Override
-    public void cleanBuild(String programName, BuildHandler buildHandler) throws ContentManagerException {
+    public void cleanBuild(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
-            super.cleanBuild(programName, buildHandler);
+            super.cleanBuild(programName, buildHandlerFactory);
         } finally {
             this.readWriteLock.writeLock().unlock();
         }
     }
 
     @Override
-    public void cleanBuildAll(BuildHandler buildHandler) throws ContentManagerException {
+    public void cleanBuildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
         this.readWriteLock.writeLock().lock();
         try {
-            super.cleanBuildAll(buildHandler);
+            super.cleanBuildAll(buildHandlerFactory);
         } finally {
             this.readWriteLock.writeLock().unlock();
         }

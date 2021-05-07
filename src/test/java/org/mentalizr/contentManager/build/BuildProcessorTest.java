@@ -1,6 +1,7 @@
 package org.mentalizr.contentManager.build;
 
 import org.junit.jupiter.api.Test;
+import org.mentalizr.contentManager.Program;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
@@ -68,7 +69,9 @@ class BuildProcessorTest {
         programDir = new ProgramDir(programRootPath.resolve("test").toFile());
         assertTrue(programDir.hasHtmlDir());
 
-        BuildSummary buildSummary = BuildProcessor.compile(programDir, new TestBuildHandler());
+        Program program = new Program(programDir.asPath());
+
+        BuildSummary buildSummary = BuildProcessor.compile(program, new TestBuildHandlerFactory());
 
         Path htmlPath = programDir.getHtmlDir().asPath();
 

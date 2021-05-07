@@ -1,8 +1,10 @@
 package org.mentalizr.contentManager.build;
 
 import org.mentalizr.contentManager.Program;
+import org.mentalizr.contentManager.buildHandler.BuildHandler;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerException;
+import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
-import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
@@ -15,9 +17,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
 
@@ -80,7 +80,8 @@ public class BuildProcessor {
         });
     }
 
-    public static BuildSummary compile(ProgramDir programDir, BuildHandler buildHandler) throws ContentManagerException {
+    public static BuildSummary compile(Program program, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
+        ProgramDir programDir = program.getProgramDir();
         assertHtmlDir(programDir);
 
         Path mdpDirPath = programDir.getMdpDir().asPath();
@@ -91,22 +92,23 @@ public class BuildProcessor {
 
         for (MdpFile mdpFile : mdpFiles) {
             Path htmlFile = Program.getHtmlDestinationForMdpFile(mdpDirPath, htmlDirPath, mdpFile);
-            List<String> htmlLines = compileMdpFile(buildHandler, buildSummary, mdpFile);
+            List<String> htmlLines = compileMdpFile(mdpFile, program, buildSummary, buildHandlerFactory);
             writeAllLines(htmlFile, htmlLines);
         }
 
         return buildSummary;
     }
 
-    private static List<String> compileMdpFile(BuildHandler buildHandler, BuildSummary buildSummary, MdpFile mdpFile) {
+    private static List<String> compileMdpFile(MdpFile mdpFile, Program program, BuildSummary buildSummary, BuildHandlerFactory buildHandlerFactory) {
         try {
-            List<String> htmlLines = buildHandler.compile(mdpFile);
+            BuildHandler buildHandler = buildHandlerFactory.createBuildHandler(program, mdpFile);
+            List<String> htmlLines = buildHandler.compile();
             buildSummary.addSuccessfulMdpFile(mdpFile);
             return htmlLines;
-        } catch (BuildException buildException) {
+        } catch (BuildHandlerException buildHandlerException) {
             Exception exception
-                    = (buildException.getCause() != null) && (buildException.getCause() instanceof  Exception)
-                    ? (Exception) buildException.getCause() : buildException;
+                    = (buildHandlerException.getCause() != null) && (buildHandlerException.getCause() instanceof  Exception)
+                    ? (Exception) buildHandlerException.getCause() : buildHandlerException;
             buildSummary.addFailedMdpFiles(mdpFile, exception);
             return new ArrayList<>();
         }
@@ -120,26 +122,7 @@ public class BuildProcessor {
         }
     }
 
-    public static Set<String> getReferencedMediaFiles(ProgramDir programDir, BuildHandler buildHandler) throws ContentManagerException {
-        assertHtmlDir(programDir);
-
-        List<MdpFile> mdpFiles = programDir.getMdpFiles();
-        Set<String> referencesMediaResources = new HashSet<>();
-
-        for (MdpFile mdpFile : mdpFiles) {
-            Set<String> mediaFileOfSingleMdpFile = null;
-            try {
-                mediaFileOfSingleMdpFile = buildHandler.getReferencedMediaResources(mdpFile);
-            } catch (BuildException e) {
-                throw new ContentManagerException(e);
-            }
-            referencesMediaResources.addAll(mediaFileOfSingleMdpFile);
-        }
-
-        return referencesMediaResources;
-    }
-
-    private static void assertHtmlDir(ProgramDir programDir) {
+    public static void assertHtmlDir(ProgramDir programDir) {
         if (!programDir.hasHtmlDir())
             throw new IllegalArgumentException("Program has no html directory: "
                     + programDir.asPath().toAbsolutePath());

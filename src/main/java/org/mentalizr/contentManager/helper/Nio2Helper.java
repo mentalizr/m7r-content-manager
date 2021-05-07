@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class Nio2Helper {
 
@@ -64,5 +65,11 @@ public class Nio2Helper {
         return Paths.get(".").normalize().toAbsolutePath();
     }
 
+    public static List<Path> getRegularFilesInDirectory(Path dir) throws IOException {
+        PathAssertions.assertIsExistingDirectory(dir);
+        try (Stream<Path> stream = Files.list(dir)) {
+            return stream.filter(Files::isRegularFile).collect(Collectors.toList());
+        }
+    }
 
 }
