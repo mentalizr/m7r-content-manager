@@ -12,4 +12,9 @@ public class TestBuildHandlerFactory extends BuildHandlerFactory {
         return new TestBuildHandler(program, mdpFile);
     }
 
+    @Override
+    public String getCompilerVersion() {
+        return "Test";
+    }
+
 }

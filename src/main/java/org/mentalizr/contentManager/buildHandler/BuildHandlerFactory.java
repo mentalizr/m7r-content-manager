@@ -7,4 +7,6 @@ public abstract class BuildHandlerFactory {
 
     public abstract BuildHandler createBuildHandler(Program program, MdpFile mdpFile);
 
+    public abstract String getCompilerVersion();
+
 }
