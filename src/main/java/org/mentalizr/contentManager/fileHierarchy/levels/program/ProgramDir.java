@@ -7,7 +7,7 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
-import org.mentalizr.serviceObjects.frontend.program.Program;
+import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
 import java.util.List;
@@ -45,7 +45,7 @@ public class ProgramDir extends RepoDirectory {
         return this.mdpDir.getContentFiles();
     }
 
-    public Program asProgram() {
+    public ProgramSO asProgram() {
         assertHtmlDir();
         return this.htmlDir.asProgram();
     }

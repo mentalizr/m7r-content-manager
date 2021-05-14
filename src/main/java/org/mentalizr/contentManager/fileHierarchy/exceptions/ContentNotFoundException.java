@@ -12,6 +12,6 @@ public class ContentNotFoundException extends ContentManagerException {
     }
 
     public String getId() {
-        return id;
+        return this.id;
     }
 }

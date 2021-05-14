@@ -19,6 +19,7 @@ import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.Nio2Helper;
+import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -51,7 +52,7 @@ public class Program {
         return this.programDir.getMdpFiles();
     }
 
-    public org.mentalizr.serviceObjects.frontend.program.Program asProgram() {
+    public ProgramSO asProgram() {
         return this.programDir.asProgram();
     }
 

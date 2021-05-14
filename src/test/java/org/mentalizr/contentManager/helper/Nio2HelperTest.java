@@ -51,6 +51,31 @@ class Nio2HelperTest {
     }
 
     @Test
+    void getActiveSubdirectories() throws IOException {
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+
+        Path subdirectory1 = tempDir.asPath().resolve(UUID.randomUUID().toString());
+        Files.createDirectory(subdirectory1);
+        assertTrue(Nio2Helper.isExistingDir(subdirectory1));
+
+        Path subdirectory2Deactivated = tempDir.asPath().resolve(UUID.randomUUID() + "~");
+        assertTrue(subdirectory2Deactivated.getFileName().toString().endsWith("~"));
+
+        Files.createDirectory(subdirectory2Deactivated);
+        assertTrue(Nio2Helper.isExistingDir(subdirectory2Deactivated));
+
+        Path subdirectory3 = tempDir.asPath().resolve(UUID.randomUUID().toString());
+        Files.createDirectory(subdirectory3);
+        assertTrue(Nio2Helper.isExistingDir(subdirectory3));
+
+        List<Path> subdirectories = Nio2Helper.getActiveSubdirectories(tempDir.asPath());
+
+        assertEquals(2, subdirectories.size());
+        assertTrue(subdirectories.contains(subdirectory1));
+        assertTrue(subdirectories.contains(subdirectory3));
+    }
+
+    @Test
     void getSubdirectoriesEmpty() throws IOException {
         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
         List<Path> subdirectories = Nio2Helper.getSubdirectories(tempDir.asPath());

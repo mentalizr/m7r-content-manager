@@ -4,7 +4,7 @@ import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFileFilter;
-import org.mentalizr.serviceObjects.frontend.program.Infotext;
+import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -15,13 +15,13 @@ import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
 public class HtmlInfoDir extends RepoDirectory implements InfoDir {
 
     private final List<HtmlFile> infopageFiles;
-    private final List<Infotext> infotextList;
+    private final List<InfotextSO> infotextSOList;
 
     public HtmlInfoDir(File file) throws ContentManagerException {
         super(file);
         assertFileName(file.toPath(), InfoDir.DIR_NAME);
         this.infopageFiles = obtainInfopageFiles();
-        this.infotextList = prepareInfotextList();
+        this.infotextSOList = prepareInfotextList();
     }
 
     @Override
@@ -44,8 +44,8 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
         return false;
     }
 
-    public List<Infotext> asInfotextList() {
-        return this.infotextList;
+    public List<InfotextSO> asInfotextList() {
+        return this.infotextSOList;
     }
 
     private List<HtmlFile> obtainInfopageFiles() throws ContentManagerException {
@@ -65,13 +65,13 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
         return htmlFileList;
     }
 
-    private List<Infotext> prepareInfotextList() {
-        List<Infotext> infotextList = new ArrayList<>();
+    private List<InfotextSO> prepareInfotextList() {
+        List<InfotextSO> infotextSOList = new ArrayList<>();
         for (HtmlFile htmlFile : this.infopageFiles) {
-            Infotext infotext = new Infotext(htmlFile.getId(), htmlFile.getDisplayName());
-            infotextList.add(infotext);
+            InfotextSO infotextSO = new InfotextSO(htmlFile.getId(), htmlFile.getDisplayName());
+            infotextSOList.add(infotextSO);
         }
-        return infotextList;
+        return infotextSOList;
     }
 
 }

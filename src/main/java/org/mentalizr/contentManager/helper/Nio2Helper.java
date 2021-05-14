@@ -38,6 +38,20 @@ public class Nio2Helper {
         return subdirectories;
     }
 
+    /**
+     * Selects all subdirectories not ending with tilde.
+     *
+     * @param path
+     * @return
+     * @throws IOException
+     */
+    public static List<Path> getActiveSubdirectories(Path path) throws IOException {
+        List<Path> subdirectories = getSubdirectories(path);
+        return subdirectories.stream()
+                .filter(p -> !p.getFileName().toString().endsWith("~"))
+                .collect(Collectors.toList());
+    }
+
     public static boolean isSubdirectory(Path dir, Path subdir) {
         Path dirWork = dir.normalize().toAbsolutePath();
         PathAssertions.assertIsExistingDirectory(dir);

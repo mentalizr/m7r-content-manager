@@ -4,7 +4,7 @@ import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFileFilter;
-import org.mentalizr.serviceObjects.frontend.program.Step;
+import org.mentalizr.serviceObjects.frontend.program.StepSO;
 import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
@@ -85,15 +85,15 @@ public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleD
     }
 
     private Submodule prepareSubmodule() {
-        List<Step> steps = new ArrayList<>();
+        List<StepSO> stepSOs = new ArrayList<>();
         for (HtmlFile htmlFile : this.contentFileList) {
-            steps.add(htmlFile.asStep());
+            stepSOs.add(htmlFile.asStep());
         }
 
         return new Submodule(
                 getId(),
                 getDisplayName(),
-                steps
+                stepSOs
         );
     }
 

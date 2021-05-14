@@ -7,9 +7,9 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.HtmlInfoDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirHtml;
-import org.mentalizr.serviceObjects.frontend.program.Infotext;
-import org.mentalizr.serviceObjects.frontend.program.Module;
-import org.mentalizr.serviceObjects.frontend.program.Program;
+import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
+import org.mentalizr.serviceObjects.frontend.program.ModuleSO;
+import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,7 +25,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     private final HtmlInfoDir htmlInfoDir;
     private final List<ModuleDirHtml> moduleDirList;
     private final List<HtmlFile> htmlFiles;
-    private final Program program;
+    private final ProgramSO program;
 
     public HtmlDir(File file) throws ContentManagerException {
         super(file);
@@ -101,7 +101,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         return false;
     }
 
-    public Program asProgram() {
+    public ProgramSO asProgram() {
         return this.program;
     }
 
@@ -124,20 +124,20 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     }
 
 
-    private Program prepareProgram() {
-        List<Module> modules = new ArrayList<>();
+    private ProgramSO prepareProgram() {
+        List<ModuleSO> moduleSOs = new ArrayList<>();
         for (ModuleDirHtml moduleDirHtml : this.moduleDirList) {
-            modules.add(moduleDirHtml.asModule());
+            moduleSOs.add(moduleDirHtml.asModule());
         }
 
-        List<Infotext> infotextList = this.htmlInfoDir.asInfotextList();
+        List<InfotextSO> infotextSOList = this.htmlInfoDir.asInfotextList();
 
-        Program program = new Program(
+        ProgramSO program = new ProgramSO(
                 getId(),
                 getDisplayName(),
-                modules
+                moduleSOs
         );
-        program.setInfotexts(infotextList);
+        program.setInfotexts(infotextSOList);
 
         return program;
     }
