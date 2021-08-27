@@ -1,6 +1,8 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.contentFile;
 
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
+import org.mentalizr.contentManager.programStructure.Infotext;
+import org.mentalizr.contentManager.programStructure.Step;
 import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
 import org.mentalizr.serviceObjects.frontend.program.StepSO;
 
@@ -34,12 +36,12 @@ public class HtmlFile extends ContentFile {
         return false;
     }
 
-    public StepSO asStep() {
-        return new StepSO(getId(), getDisplayName());
+    public Step asStep() {
+        return new Step(getId(), getDisplayName());
     }
 
-    public InfotextSO asInfotext() {
-        return new InfotextSO(getId(), getDisplayName());
+    public Infotext asInfotext() {
+        return new Infotext(getId(), getDisplayName());
     }
 
 }

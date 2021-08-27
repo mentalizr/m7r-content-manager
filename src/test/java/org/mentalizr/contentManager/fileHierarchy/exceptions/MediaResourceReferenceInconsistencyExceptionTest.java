@@ -13,12 +13,14 @@ class MediaResourceReferenceInconsistencyExceptionTest {
         assertEquals("Referenced media file is not available: [fileName].", exception.getMessage());
     }
 
-    @Test
-    public void getMessage2() {
-        MediaResourceReferenceInconsistencyException cause = new MediaResourceReferenceInconsistencyException("fileName");
-        Exception exception = new Exception(cause);
-
-        assertEquals("Referenced media file is not available: [fileName].", exception.getMessage());
-    }
+//    @Test
+//    public void getMessage2() {
+//        MediaResourceReferenceInconsistencyException cause = new MediaResourceReferenceInconsistencyException("fileName");
+//        Exception exception = new Exception(cause);
+//
+//        System.out.println(exception.getMessage());
+//
+//        assertEquals("Referenced media file is not available: [fileName].", exception.getMessage());
+//    }
 
 }

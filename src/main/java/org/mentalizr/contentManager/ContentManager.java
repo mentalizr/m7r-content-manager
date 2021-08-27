@@ -6,6 +6,7 @@ import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
 import org.mentalizr.contentManager.helper.Nio2Helper;
+import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,11 +49,11 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
-    public ProgramSO getProgramSO(String programName) throws ProgramNotFoundException {
-        logger.debug("Requested programSO: [" + programName + "]");
+    public ProgramStructure getProgramStructure(String programName) throws ProgramNotFoundException {
+        logger.debug("Requested programStructure for name: [" + programName + "]");
         this.readWriteLock.readLock().lock();
         try {
-            return super.getProgramSO(programName);
+            return super.getProgramStructure(programName);
         } finally {
             this.readWriteLock.readLock().unlock();
         }

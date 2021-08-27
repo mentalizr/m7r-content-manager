@@ -3,10 +3,10 @@ package org.mentalizr.contentManager.fileHierarchy.levels.contentRoot;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.programStructure.Infotext;
+import org.mentalizr.contentManager.programStructure.Module;
+import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
-import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
-import org.mentalizr.serviceObjects.frontend.program.ModuleSO;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
 import java.util.List;
@@ -56,13 +56,13 @@ class HtmlDirTest {
     @Test
     public void asProgram() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
-        ProgramSO programSO = htmlDir.asProgram();
-        assertEquals("test1", programSO.getId());
-        assertEquals("Test1", programSO.getName());
-        List<ModuleSO> moduleSOs = programSO.getModules();
-        assertEquals(3, moduleSOs.size());
-        List<InfotextSO> infotextSOs = programSO.getInfotexts();
-        assertEquals(1, infotextSOs.size());
+        ProgramStructure programStructure = htmlDir.asProgramStructure();
+        assertEquals("test1", programStructure.getId());
+        assertEquals("Test1", programStructure.getName());
+        List<Module> modules = programStructure.getModules();
+        assertEquals(3, modules.size());
+        List<Infotext> infotexts = programStructure.getInfotexts();
+        assertEquals(1, infotexts.size());
     }
 
 }

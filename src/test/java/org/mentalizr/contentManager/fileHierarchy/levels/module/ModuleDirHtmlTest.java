@@ -3,9 +3,9 @@ package org.mentalizr.contentManager.fileHierarchy.levels.module;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.programStructure.Module;
+import org.mentalizr.contentManager.programStructure.Submodule;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
-import org.mentalizr.serviceObjects.frontend.program.ModuleSO;
-import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
 import java.util.List;
@@ -52,7 +52,7 @@ class ModuleDirHtmlTest {
     @Test
     public void asModule() throws ContentManagerException {
         ModuleDirHtml moduleDirHtml = new ModuleDirHtml(new File("src/test/testPrograms/test1/html/m1"));
-        ModuleSO module = moduleDirHtml.asModule();
+        Module module = moduleDirHtml.asModule();
         assertEquals("test1_m1", module.getId());
         assertEquals("Module1", module.getName());
         List<Submodule> submodules = module.getSubmodules();

@@ -3,9 +3,10 @@ package org.mentalizr.contentManager.fileHierarchy.levels.submodule;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.programStructure.Step;
+import org.mentalizr.contentManager.programStructure.Submodule;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
 import org.mentalizr.serviceObjects.frontend.program.StepSO;
-import org.mentalizr.serviceObjects.frontend.program.Submodule;
 
 import java.io.File;
 import java.util.List;
@@ -54,14 +55,14 @@ class SubmoduleDirHtmlTest {
         Submodule submodule = submoduleDirMdp.asSubmodule();
         assertEquals("test1_m1_sm1", submodule.getId());
         assertEquals("Submodule1", submodule.getName());
-        List<StepSO> stepSOList = submodule.getSteps();
-        assertEquals(2, stepSOList.size());
-        StepSO stepSO = stepSOList.get(0);
-        assertEquals("test1_m1_sm1_s1", stepSO.getId());
-        assertEquals("Step1", stepSO.getName());
-        stepSO = stepSOList.get(1);
-        assertEquals("test1_m1_sm1_s2", stepSO.getId());
-        assertEquals("Step2", stepSO.getName());
+        List<Step> stepList = submodule.getSteps();
+        assertEquals(2, stepList.size());
+        Step step = stepList.get(0);
+        assertEquals("test1_m1_sm1_s1", step.getId());
+        assertEquals("Step1", step.getName());
+        step = stepList.get(1);
+        assertEquals("test1_m1_sm1_s2", step.getId());
+        assertEquals("Step2", step.getName());
     }
 
 }

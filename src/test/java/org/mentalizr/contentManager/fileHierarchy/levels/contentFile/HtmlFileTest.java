@@ -3,8 +3,8 @@ package org.mentalizr.contentManager.fileHierarchy.levels.contentFile;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
-import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
-import org.mentalizr.serviceObjects.frontend.program.StepSO;
+import org.mentalizr.contentManager.programStructure.Infotext;
+import org.mentalizr.contentManager.programStructure.Step;
 
 import java.io.File;
 
@@ -61,19 +61,17 @@ class HtmlFileTest {
     @Test
     public void asStep() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s1.html"));
-        StepSO stepSO = htmlFile.asStep();
-        assertEquals("test1_m1_sm1_s1", stepSO.getId());
-        assertEquals("Step1", stepSO.getName());
+        Step step = htmlFile.asStep();
+        assertEquals("test1_m1_sm1_s1", step.getId());
+        assertEquals("Step1", step.getName());
     }
 
     @Test
     public void asInfotext() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/_info/info1.html"));
-        InfotextSO infotextSO = htmlFile.asInfotext();
-        assertEquals("test1__info_info1", infotextSO.getId());
-        assertEquals("Info1", infotextSO.getName());
+        Infotext infotext = htmlFile.asInfotext();
+        assertEquals("test1__info_info1", infotext.getId());
+        assertEquals("Info1", infotext.getName());
     }
-
-
 
 }

@@ -6,6 +6,7 @@ import org.mentalizr.contentManager.exceptions.NoSuchProgramException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.nio.file.Path;
@@ -42,9 +43,9 @@ public class ContentManagerNotThreadsafe {
         }
     }
 
-    public ProgramSO getProgramSO(String programName) throws ProgramNotFoundException {
+    public ProgramStructure getProgramStructure(String programName) throws ProgramNotFoundException {
         if (programMap.containsKey(programName)) {
-            return this.programMap.get(programName).asProgram();
+            return this.programMap.get(programName).asProgramStructure();
         }
         throw new ProgramNotFoundException(programName);
     }

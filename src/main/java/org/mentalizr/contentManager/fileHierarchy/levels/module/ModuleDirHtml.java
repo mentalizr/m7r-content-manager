@@ -5,8 +5,8 @@ import org.mentalizr.contentManager.fileHierarchy.basics.ContentTreeDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.FileNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleDirHtml;
-import org.mentalizr.serviceObjects.frontend.program.ModuleSO;
-import org.mentalizr.serviceObjects.frontend.program.Submodule;
+import org.mentalizr.contentManager.programStructure.Module;
+import org.mentalizr.contentManager.programStructure.Submodule;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class ModuleDirHtml extends ContentTreeDirectory implements ModuleDir {
 
     private final ModuleConfFile moduleConfFile;
     private final List<SubmoduleDirHtml> submoduleDirList;
-    private final ModuleSO module;
+    private final Module module;
 
     public ModuleDirHtml(File file) throws ContentManagerException {
         super(file);
@@ -88,7 +88,7 @@ public class ModuleDirHtml extends ContentTreeDirectory implements ModuleDir {
         return this.moduleConfFile.getModuleConf().getName();
     }
 
-    public ModuleSO asModule() {
+    public Module asModule() {
         return this.module;
     }
 
@@ -110,13 +110,13 @@ public class ModuleDirHtml extends ContentTreeDirectory implements ModuleDir {
         return submoduleDirList;
     }
 
-    private ModuleSO prepareModule() {
+    private Module prepareModule() {
         List<Submodule> submodules = new ArrayList<>();
         for (SubmoduleDirHtml submoduleDirHtml : this.submoduleDirList) {
             submodules.add(submoduleDirHtml.asSubmodule());
         }
 
-        return new ModuleSO(
+        return new Module(
                 this.getId(),
                 getDisplayName(),
                 submodules

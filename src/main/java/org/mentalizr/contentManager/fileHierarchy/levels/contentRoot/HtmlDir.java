@@ -7,8 +7,9 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.HtmlInfoDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirFileFilter;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirHtml;
-import org.mentalizr.serviceObjects.frontend.program.InfotextSO;
-import org.mentalizr.serviceObjects.frontend.program.ModuleSO;
+import org.mentalizr.contentManager.programStructure.Infotext;
+import org.mentalizr.contentManager.programStructure.Module;
+import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
@@ -25,7 +26,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     private final HtmlInfoDir htmlInfoDir;
     private final List<ModuleDirHtml> moduleDirList;
     private final List<HtmlFile> htmlFiles;
-    private final ProgramSO program;
+    private final ProgramStructure programStructure;
 
     public HtmlDir(File file) throws ContentManagerException {
         super(file);
@@ -34,7 +35,7 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         this.htmlInfoDir = new HtmlInfoDir(new File(asFile(), "_info"));
         this.moduleDirList = obtainModuleDirs();
         this.htmlFiles = obtainContentFiles();
-        this.program = prepareProgram();
+        this.programStructure = prepareProgramStructure();
     }
 
     public String getDisplayName() {
@@ -101,8 +102,8 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
         return false;
     }
 
-    public ProgramSO asProgram() {
-        return this.program;
+    public ProgramStructure asProgramStructure() {
+        return this.programStructure;
     }
 
     private List<ModuleDirHtml> obtainModuleDirs() throws ContentManagerException {
@@ -124,22 +125,22 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
     }
 
 
-    private ProgramSO prepareProgram() {
-        List<ModuleSO> moduleSOs = new ArrayList<>();
+    private ProgramStructure prepareProgramStructure() {
+        List<Module> modules = new ArrayList<>();
         for (ModuleDirHtml moduleDirHtml : this.moduleDirList) {
-            moduleSOs.add(moduleDirHtml.asModule());
+            modules.add(moduleDirHtml.asModule());
         }
 
-        List<InfotextSO> infotextSOList = this.htmlInfoDir.asInfotextList();
+        List<Infotext> infotextList = this.htmlInfoDir.asInfotextList();
 
-        ProgramSO program = new ProgramSO(
+        ProgramStructure programStructure = new ProgramStructure(
                 getId(),
                 getDisplayName(),
-                moduleSOs
+                modules
         );
-        program.setInfotexts(infotextSOList);
+        programStructure.setInfotexts(infotextList);
 
-        return program;
+        return programStructure;
     }
 
     private List<HtmlFile> obtainContentFiles() {
