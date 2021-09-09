@@ -7,7 +7,6 @@ import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundExce
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
 import org.mentalizr.contentManager.helper.Nio2Helper;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

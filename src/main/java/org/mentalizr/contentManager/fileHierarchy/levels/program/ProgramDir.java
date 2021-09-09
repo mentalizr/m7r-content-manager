@@ -8,7 +8,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
 import java.util.List;

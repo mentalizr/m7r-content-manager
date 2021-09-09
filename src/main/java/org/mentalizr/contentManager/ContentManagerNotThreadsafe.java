@@ -7,7 +7,6 @@ import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundExce
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.nio.file.Path;
 import java.util.HashMap;

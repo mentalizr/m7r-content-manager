@@ -20,7 +20,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.Nio2Helper;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.IOException;
 import java.nio.file.Files;

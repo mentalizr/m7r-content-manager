@@ -6,7 +6,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.programStructure.Step;
 import org.mentalizr.contentManager.programStructure.Submodule;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
-import org.mentalizr.serviceObjects.frontend.program.StepSO;
 
 import java.io.File;
 import java.util.List;

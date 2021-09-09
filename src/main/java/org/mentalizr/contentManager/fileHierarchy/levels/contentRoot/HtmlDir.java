@@ -10,7 +10,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirHtml;
 import org.mentalizr.contentManager.programStructure.Infotext;
 import org.mentalizr.contentManager.programStructure.Module;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
 
 import java.io.File;
 import java.util.ArrayList;

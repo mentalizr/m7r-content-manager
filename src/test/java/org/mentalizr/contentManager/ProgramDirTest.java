@@ -6,8 +6,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSO;
-import org.mentalizr.serviceObjects.frontend.program.ProgramSOX;
 
 import java.io.File;
 import java.util.List;
