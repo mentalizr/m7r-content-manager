@@ -21,12 +21,14 @@ public abstract class ContentFile extends RepoFile {
     private final String id;
     private final String name;
     private final String displayName;
+    private final boolean feedback;
 
     public ContentFile(File file) throws ContentManagerException {
         super(file);
         this.name = Strings.cutEnd(super.getName(), getFiletype().length());
         this.id = obtainId();
         this.displayName = obtainDisplayName();
+        this.feedback = checkIfFeedback();
     }
 
     public String getId() {
@@ -39,6 +41,10 @@ public abstract class ContentFile extends RepoFile {
 
     public String getDisplayName() {
         return this.displayName;
+    }
+
+    public boolean isFeedback() {
+        return this.feedback;
     }
 
     private String obtainId() {
@@ -78,6 +84,25 @@ public abstract class ContentFile extends RepoFile {
                 line = bufferedReader.readLine();
             }
             throw new ContentManagerException("Syntax error in " + getFiletype() + " file. Tag @@name not found. [" + this.file.getAbsolutePath() + "]");
+        } catch (IOException e) {
+            throw new ContentManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
+        }
+    }
+
+    private boolean checkIfFeedback() throws ContentManagerException {
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
+
+            String token = "@@feedback";
+            String line = bufferedReader.readLine();
+            int lineNr = 1;
+            while (line != null && lineNr < 5) {
+                line = line.trim();
+                if (line.equals(token)) return true;
+                lineNr++;
+                line = bufferedReader.readLine();
+            }
+            return false;
         } catch (IOException e) {
             throw new ContentManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
         }

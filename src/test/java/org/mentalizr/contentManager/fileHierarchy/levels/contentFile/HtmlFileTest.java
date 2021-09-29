@@ -8,8 +8,7 @@ import org.mentalizr.contentManager.programStructure.Step;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assertions.*;
 
 class HtmlFileTest {
 
@@ -53,6 +52,18 @@ class HtmlFileTest {
     }
 
     @Test
+    public void isFeedbackNeg() throws ContentManagerException {
+        HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s1.html"));
+        assertFalse(htmlFile.isFeedback());
+    }
+
+    @Test
+    public void isFeedbackPos() throws ContentManagerException {
+        HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s2.html"));
+        assertTrue(htmlFile.isFeedback());
+    }
+
+    @Test
     public void getFileType() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/_info/info1.html"));
         assertEquals(".html", htmlFile.getFiletype());
@@ -64,6 +75,14 @@ class HtmlFileTest {
         Step step = htmlFile.asStep();
         assertEquals("test1_m1_sm1_s1", step.getId());
         assertEquals("Step1", step.getName());
+        assertFalse(step.isFeedback());
+    }
+
+    @Test
+    public void asStepWithFeedback() throws ContentManagerException {
+        HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s2.html"));
+        Step step = htmlFile.asStep();
+        assertTrue(step.isFeedback());
     }
 
     @Test
