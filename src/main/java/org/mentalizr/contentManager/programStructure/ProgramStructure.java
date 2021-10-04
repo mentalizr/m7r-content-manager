@@ -1,5 +1,6 @@
 package org.mentalizr.contentManager.programStructure;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProgramStructure {
@@ -7,7 +8,7 @@ public class ProgramStructure {
     private String id;
     private String name;
     private List<Module> modules;
-    private List<Infotext> infotexts;
+    private List<Infotext> infotexts = new ArrayList<>();
 
     public ProgramStructure() {}
 

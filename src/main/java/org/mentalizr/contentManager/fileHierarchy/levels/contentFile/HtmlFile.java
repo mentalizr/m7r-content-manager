@@ -35,7 +35,7 @@ public class HtmlFile extends ContentFile {
     }
 
     public Step asStep() {
-        return new Step(getId(), getDisplayName(), isFeedback());
+        return new Step(getId(), getDisplayName(), isExercise(), isFeedback());
     }
 
     public Infotext asInfotext() {

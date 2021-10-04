@@ -21,6 +21,7 @@ public abstract class ContentFile extends RepoFile {
     private final String id;
     private final String name;
     private final String displayName;
+    private final boolean exercise;
     private final boolean feedback;
 
     public ContentFile(File file) throws ContentManagerException {
@@ -28,6 +29,7 @@ public abstract class ContentFile extends RepoFile {
         this.name = Strings.cutEnd(super.getName(), getFiletype().length());
         this.id = obtainId();
         this.displayName = obtainDisplayName();
+        this.exercise = checkIfExercise();
         this.feedback = checkIfFeedback();
     }
 
@@ -41,6 +43,10 @@ public abstract class ContentFile extends RepoFile {
 
     public String getDisplayName() {
         return this.displayName;
+    }
+
+    public boolean isExercise() {
+        return this.exercise;
     }
 
     public boolean isFeedback() {
@@ -90,23 +96,32 @@ public abstract class ContentFile extends RepoFile {
     }
 
     private boolean checkIfFeedback() throws ContentManagerException {
+        return checkForFlagDirective("@@feedback");
+    }
+
+    private boolean checkIfExercise() throws ContentManagerException {
+        return checkForFlagDirective("@exercise");
+    }
+
+    private boolean checkForFlagDirective(String directive) throws ContentManagerException {
         try {
             BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
 
-            String token = "@@feedback";
             String line = bufferedReader.readLine();
             int lineNr = 1;
             while (line != null && lineNr < 5) {
                 line = line.trim();
-                if (line.equals(token)) return true;
+                if (line.equals(directive)) return true;
                 lineNr++;
                 line = bufferedReader.readLine();
             }
             return false;
         } catch (IOException e) {
-            throw new ContentManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
+            throw new ContentManagerException("IOException when accessing " + getFiletype()
+                    + " file: [" + this.file.getAbsolutePath() + "]", e);
         }
     }
+
 
     private String eliminateFilePostfix(String name) {
         if (name.endsWith(MdpFile.FILETYPE)) {
