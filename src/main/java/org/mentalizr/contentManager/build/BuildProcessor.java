@@ -1,5 +1,7 @@
 package org.mentalizr.contentManager.build;
 
+import de.arthurpicht.utils.core.collection.Lists;
+import org.mentalizr.contentManager.ContentManager;
 import org.mentalizr.contentManager.Program;
 import org.mentalizr.contentManager.buildHandler.BuildHandler;
 import org.mentalizr.contentManager.buildHandler.BuildHandlerException;
@@ -95,6 +97,9 @@ public class BuildProcessor {
             List<String> htmlLines = compileMdpFile(mdpFile, program, buildSummary, buildHandlerFactory);
             writeAllLines(htmlFile, htmlLines);
         }
+
+        // perform validation
+        new ContentManager(Lists.newArrayList(program.getProgramDir().asPath()));
 
         return buildSummary;
     }

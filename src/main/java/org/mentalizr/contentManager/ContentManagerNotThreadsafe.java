@@ -42,24 +42,7 @@ public class ContentManagerNotThreadsafe {
         for (HtmlFile htmlFile : htmlFiles) {
             this.contentFileMap.put(htmlFile.getId(), htmlFile.asPath());
         }
-        validityCheck(program);
-    }
-
-    private void validityCheck(Program program) throws ContentManagerException {
-        ProgramStructure programStructure = program.asProgramStructure();
-        List<Step> stepList = ProgramStructures.stepList(programStructure);
-        for (int i = 0; i < stepList.size(); i++) {
-            Step currentStep = stepList.get(i);
-            if (currentStep.isFeedback()) {
-                if (i == 0)
-                    throw new ContentManagerException("Validity check failed for program [" + program.getName() + "] " +
-                            "and step [" + currentStep.getName() + "]: First step can not be marked as feedback.");
-                Step previousStep = stepList.get(i - 1);
-                if (!previousStep.isExercise())
-                    throw new ContentManagerException("Validity check failed for program [" + program.getName() + "] " +
-                            "and step [" + currentStep.getName() + "]: Feedback step has no preceding exercise step.");
-            }
-        }
+        ProgramValidity.check(program);
     }
 
     public ProgramStructure getProgramStructure(String programName) throws ProgramNotFoundException {
