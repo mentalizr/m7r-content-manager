@@ -100,7 +100,7 @@ public abstract class ContentFile extends RepoFile {
     }
 
     private boolean checkIfExercise() throws ContentManagerException {
-        return checkForFlagDirective("@exercise");
+        return checkForFlagDirective("@@exercise");
     }
 
     private boolean checkForFlagDirective(String directive) throws ContentManagerException {
