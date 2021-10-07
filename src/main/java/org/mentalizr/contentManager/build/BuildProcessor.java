@@ -98,8 +98,7 @@ public class BuildProcessor {
             writeAllLines(htmlFile, htmlLines);
         }
 
-        // perform validation
-        new ContentManager(Lists.newArrayList(program.getProgramDir().asPath()));
+        performValidation(program);
 
         return buildSummary;
     }
@@ -117,6 +116,10 @@ public class BuildProcessor {
             buildSummary.addFailedMdpFiles(mdpFile, exception);
             return new ArrayList<>();
         }
+    }
+
+    private static void performValidation(Program program) throws ContentManagerException {
+        new ContentManager(Lists.newArrayList(program.getProgramDir().asPath()));
     }
 
     private static void writeAllLines(Path file, List<String> lines) throws ContentManagerException {
