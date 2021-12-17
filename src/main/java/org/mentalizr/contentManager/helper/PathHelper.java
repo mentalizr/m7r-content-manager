@@ -18,24 +18,4 @@ public class PathHelper {
         }
     }
 
-    public static void createConfFile(Path path, String displayName) throws ContentManagerException {
-        try {
-            Files.writeString(path, "name=" + displayName + "\n");
-        } catch (IOException e) {
-            throw new ContentManagerException("Exception when writing configuration file ["
-                    + path.toAbsolutePath().toString() + "]: "
-                    + e.getMessage());
-        }
-    }
-
-    public static void createMdpFile(Path path, String displayName) throws ContentManagerException {
-        try {
-            Files.writeString(path, "@@name=" + displayName + "\n\n// automatically generated mdp file stub/n");
-        } catch (IOException e) {
-            throw new ContentManagerException("Exception when writing configuration file ["
-                    + path.toAbsolutePath().toString() + "]: "
-                    + e.getMessage());
-        }
-    }
-
 }

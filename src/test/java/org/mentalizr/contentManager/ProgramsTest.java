@@ -1,12 +1,12 @@
 package org.mentalizr.contentManager;
 
+import de.arthurpicht.utils.io.tempDir.TempDir;
+import de.arthurpicht.utils.io.tempDir.TempDirs;
 import org.junit.jupiter.api.Test;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
-import org.mentalizr.contentManager.helper.TestPrograms;
-import org.mentalizr.contentManager.testUtils.TempDir;
-import org.mentalizr.contentManager.testUtils.TempDirs;
+import org.mentalizr.contentManager.helper.ProgramStubs;
 import org.mentalizr.contentManager.utils.ContentFileUtils;
 
 import java.io.IOException;
@@ -20,10 +20,10 @@ class ProgramsTest {
     @Test
     void plausibility() throws IOException, ContentManagerException {
 
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path programRootPath = tempDir.asPath();
 
-        TestPrograms.createTest(programRootPath);
+        ProgramStubs.createTestProgram(programRootPath);
 
         ProgramDir programDir = new ProgramDir(programRootPath.resolve("test").toFile());
 

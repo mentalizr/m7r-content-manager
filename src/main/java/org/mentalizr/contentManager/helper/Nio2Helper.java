@@ -86,4 +86,15 @@ public class Nio2Helper {
         }
     }
 
+    public static List<Path> getRegularNonHiddenFilesInDirectory(Path dir) throws IOException {
+        PathAssertions.assertIsExistingDirectory(dir);
+        try (Stream<Path> stream = Files.list(dir)) {
+            return stream
+                    .filter(Files::isRegularFile)
+                    .filter(f -> !f.getFileName().toString().startsWith("."))
+                    .collect(Collectors.toList());
+        }
+    }
+
+
 }

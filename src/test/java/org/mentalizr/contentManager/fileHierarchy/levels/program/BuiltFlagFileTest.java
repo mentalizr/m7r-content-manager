@@ -1,20 +1,22 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.program;
 
+import de.arthurpicht.utils.io.tempDir.TempDir;
+import de.arthurpicht.utils.io.tempDir.TempDirs;
 import org.junit.jupiter.api.Test;
+import org.mentalizr.contentManager.TestConfig;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
-import org.mentalizr.contentManager.testUtils.TempDir;
-import org.mentalizr.contentManager.testUtils.TempDirs;
 
 import java.io.IOException;
 import java.time.Instant;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class BuiltFlagFileTest {
 
     @Test
     void exists() throws IOException, ContentManagerException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
         assertFalse(builtFlagFile.exists());
 
@@ -25,7 +27,7 @@ class BuiltFlagFileTest {
     @Test
     void getCreationTime() throws ContentManagerException, IOException {
 
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
 
         Instant preTimestamp = Instant.now();
@@ -50,7 +52,7 @@ class BuiltFlagFileTest {
 
     @Test
     void remove() throws IOException, ContentManagerException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         BuiltFlagFile builtFlagFile = new BuiltFlagFile(tempDir.asPath());
         assertFalse(builtFlagFile.exists());
 

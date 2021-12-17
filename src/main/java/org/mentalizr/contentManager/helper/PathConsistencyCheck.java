@@ -1,15 +1,14 @@
 package org.mentalizr.contentManager.helper;
 
-import org.mentalizr.contentManager.exceptions.ConsistencyException;
+import org.mentalizr.contentManager.exceptions.InconsistencyException;
 
 import java.nio.file.Path;
 
 public class PathConsistencyCheck {
 
-    public static void assertIsExistingDirectory(Path dir) throws ConsistencyException {
+    public static void assertIsExistingDirectory(Path dir) throws InconsistencyException {
         if (!Nio2Helper.isExistingDir(dir))
-            throw new ConsistencyException("Inconsistent content repository. Existing directory expected: ["
-                    + dir.toAbsolutePath() + "].");
+            throw new InconsistencyException("No valid directory: [" + dir.toAbsolutePath() + "].");
     }
 
 }

@@ -23,19 +23,19 @@ public class PathAssertions {
     public static void assertIsExistingDirectory(Path dir) {
         if (!Nio2Helper.isExistingDir(dir))
             throw new PathAssertionException(dir, "Assertion failed. Existing directory expected: ["
-                    + dir.toAbsolutePath().toString() + "].");
+                    + dir.toAbsolutePath() + "].");
     }
 
     public static void assertPathNotExisting(Path path) {
         if (Files.exists(path))
             throw new PathAssertionException(path, "Assertion failed. Path as not existing expected : ["
-                    + path.toAbsolutePath().toString() + "].");
+                    + path.toAbsolutePath() + "].");
     }
 
     public static void assertIsDirectSubdirectory(Path dir, Path subdir) {
         if (!Nio2Helper.isDirectSubdirectory(dir, subdir))
-            throw new PathAssertionException(subdir, "Assertion failed. [" + subdir.toAbsolutePath().toString() + "] " +
-                    "is no direct subdirectory of [" + dir.toAbsolutePath().toString() + "].");
+            throw new PathAssertionException(subdir, "Assertion failed. [" + subdir.toAbsolutePath() + "] " +
+                    "is no direct subdirectory of [" + dir.toAbsolutePath() + "].");
     }
 
 }

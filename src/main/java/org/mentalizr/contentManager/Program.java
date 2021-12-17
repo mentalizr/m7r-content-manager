@@ -1,30 +1,22 @@
 package org.mentalizr.contentManager;
 
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.contentManager.build.BuildProcessor;
-import org.mentalizr.contentManager.build.BuildSummary;
-import org.mentalizr.contentManager.buildHandler.BuildHandler;
-import org.mentalizr.contentManager.buildHandler.BuildHandlerException;
-import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
-import org.mentalizr.contentManager.exceptions.ConsistencyException;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
+import org.mentalizr.contentManager.exceptions.InconsistencyException;
+import org.mentalizr.contentManager.exceptions.ValidationException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
-import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
-import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
-import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
-import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.helper.Nio2Helper;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
+import org.mentalizr.contentManager.validator.*;
 
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -33,7 +25,34 @@ public class Program {
     private ProgramDir programDir;
 
     public Program(Path programPath) throws ContentManagerException {
+        validatePre(programPath);
         this.programDir = new ProgramDir(programPath.toFile());
+        validate();
+    }
+
+    public void reinitializeProgramDir() throws ContentManagerException {
+        Path programPath = this.programDir.asPath();
+        this.programDir = new ProgramDir(programPath.toFile());
+        validate();
+    }
+
+    private void validatePre(Path programPath) throws InconsistencyException {
+        BasicDirsValidator.validate(programPath);
+    }
+
+    public void validate() throws ValidationException {
+
+        Validator nonEmptyStructuresValidator = new NonEmptyStructuresValidator(this);
+        List<ValidationError> validationErrors = new ArrayList<>(nonEmptyStructuresValidator.getValidationResult().getValidationErrors());
+
+        Validator exerciseAndFeedbackMarkValidator = new ExerciseAndFeedbackMarkValidator(this);
+        validationErrors.addAll(exerciseAndFeedbackMarkValidator.getValidationResult().getValidationErrors());
+
+        if (!validationErrors.isEmpty()) throw new ValidationException(validationErrors);
+    }
+
+    public Path getPath() {
+        return this.programDir.asPath();
     }
 
     public String getName() {
@@ -60,69 +79,19 @@ public class Program {
         return this.programDir.getMediaDir().getMediaResource(fileName);
     }
 
-    public boolean isBuilt() {
+    public boolean hasHtmlDir() {
         return this.programDir.hasHtmlDir();
     }
 
-    public void clean() throws ContentManagerException {
-        if (this.isBuilt()) {
-            removeHtmlDir();
+    public void cleanHtmlDir() throws ContentManagerException {
+        if (this.hasHtmlDir()) {
+            rmHtmlDir();
             reinitializeProgramDir();
         }
     }
 
-    public BuildSummary build(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        clean();
-        createHtmlDirSkeleton();
-
-        BuildSummary buildSummary = BuildProcessor.compile(this, buildHandlerFactory);
-        if (!buildSummary.isSuccess()) {
-            forceClean(this.programDir.asPath());
-        }
-
-        reinitializeProgramDir();
-        return buildSummary;
-    }
-
     public Set<String> getAllMediaResourceNames() throws ContentManagerException {
         return this.programDir.getMediaDir().getAllMediaResourceNames();
-    }
-
-    public static void forceClean(Path programPath) throws ContentManagerException {
-
-        Program.assertProgramDirByPlausibility(programPath);
-
-        Path htmlDir = programPath.resolve(HtmlDir.DIR_NAME);
-        if (Files.exists(htmlDir)) {
-            try {
-                FileUtils.rmDir(htmlDir);
-            } catch (IOException e) {
-                throw new ContentManagerException("Exception on cleaning html file." +
-                        " [" + htmlDir.toAbsolutePath() + "]", e);
-            }
-        }
-    }
-
-    public static void assertProgramDirByPlausibility(Path programPath) throws ConsistencyException {
-
-        if (!Nio2Helper.isExistingDir(programPath))
-            throw new ConsistencyException("Program repo not existing. [" + programPath.toAbsolutePath() + "]");
-
-        Path mdpDir = programPath.resolve(MdpDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(mdpDir))
-            throw new ConsistencyException("No program repo. mdp directory missing. [" + mdpDir.toAbsolutePath() + "]");
-
-        Path mediaDir = programPath.resolve(MediaDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(mediaDir))
-            throw new ConsistencyException("No program repo. media directory missing. [" + mediaDir.toAbsolutePath() + "]");
-
-        Path infoDir = mdpDir.resolve(InfoDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(infoDir))
-            throw new ConsistencyException("No program repo. info directory missing. [" + infoDir.toAbsolutePath() + "]");
-
-        Path programConfig = mdpDir.resolve(ProgramConfFile.FILE_NAME);
-        if (!Nio2Helper.isExistingRegularFile(programConfig))
-            throw new ConsistencyException("No program repo. program.config file missing. [" + programConfig.toAbsolutePath() + "]");
     }
 
     public static void assertHasHtmlDir(Path programPath) throws ContentManagerException {
@@ -154,27 +123,7 @@ public class Program {
         return creationDir.resolve(htmlFileName);
     }
 
-    public Set<String> getReferencedMediaResources(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        if (!isBuilt()) throw new RuntimeException("Program not built yet. Check before calling.");
-
-        List<MdpFile> mdpFiles = programDir.getMdpFiles();
-        Set<String> referencesMediaResources = new HashSet<>();
-
-        for (MdpFile mdpFile : mdpFiles) {
-            Set<String> mediaFileOfSingleMdpFile;
-            try {
-                BuildHandler buildHandler = buildHandlerFactory.createBuildHandler(this, mdpFile);
-                mediaFileOfSingleMdpFile = buildHandler.getReferencedMediaResources();
-            } catch (BuildHandlerException e) {
-                throw new ContentManagerException(e);
-            }
-            referencesMediaResources.addAll(mediaFileOfSingleMdpFile);
-        }
-
-        return referencesMediaResources;
-    }
-
-    private void removeHtmlDir() throws ContentManagerException {
+    private void rmHtmlDir() throws ContentManagerException {
         Path htmlDir = this.programDir.getHtmlDir().asPath();
         try {
             FileUtils.rmDir(htmlDir);
@@ -184,17 +133,16 @@ public class Program {
         }
     }
 
-    private void createHtmlDirSkeleton() throws ContentManagerException {
+    public void createHtmlDirSkeleton() throws ContentManagerException {
+        if (this.programDir.hasHtmlDir())
+            throw new IllegalStateException("html directory is already existing. Check before calling");
+
         try {
-            BuildProcessor.createHtmlDirSkeleton(this.programDir);
+            Programs.createHtmlDirSkeleton(this.programDir);
             this.programDir = ProgramDir.reinitializeHtmlDir(this.programDir);
         } catch (IOException e) {
             throw new ContentManagerException(e);
         }
     }
 
-    private void reinitializeProgramDir() throws ContentManagerException {
-        Path programPath = this.programDir.asPath();
-        this.programDir = new ProgramDir(programPath.toFile());
-    }
 }

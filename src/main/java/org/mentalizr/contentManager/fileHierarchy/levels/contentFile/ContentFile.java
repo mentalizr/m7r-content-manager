@@ -6,10 +6,9 @@ import org.mentalizr.contentManager.fileHierarchy.basics.RepoFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
+import org.mentalizr.contentManager.helper.DirectiveInFileChecker;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -76,52 +75,19 @@ public abstract class ContentFile extends RepoFile {
 
     private String obtainDisplayName() throws ContentManagerException {
         try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
-
-            String token = "@@name=";
-            String line = bufferedReader.readLine();
-            int lineNr = 1;
-            while (line != null && lineNr < 5) {
-                if (line.contains(token)) {
-                    String[] splitString = Strings.splitAtDelimiter(line, token);
-                    return splitString[1];
-                }
-                lineNr++;
-                line = bufferedReader.readLine();
-            }
-            throw new ContentManagerException("Syntax error in " + getFiletype() + " file. Tag @@name not found. [" + this.file.getAbsolutePath() + "]");
+            return DirectiveInFileChecker.obtainDisplayName(this.file.toPath());
         } catch (IOException e) {
             throw new ContentManagerException("IOException when accessing " + getFiletype() + " file: [" + this.file.getAbsolutePath() + "]", e);
         }
     }
 
     private boolean checkIfFeedback() throws ContentManagerException {
-        return checkForFlagDirective("@@feedback");
+        return DirectiveInFileChecker.hasFeedbackDirective(this.file.toPath());
     }
 
     private boolean checkIfExercise() throws ContentManagerException {
-        return checkForFlagDirective("@@exercise");
+        return DirectiveInFileChecker.hasExerciseDirective(this.file.toPath());
     }
-
-    private boolean checkForFlagDirective(String directive) throws ContentManagerException {
-        try {
-            BufferedReader bufferedReader = new BufferedReader(new FileReader(this.file));
-
-            String line = bufferedReader.readLine();
-            int lineNr = 1;
-            while (line != null && lineNr < 5) {
-                line = line.trim();
-                if (line.equals(directive)) return true;
-                lineNr++;
-                line = bufferedReader.readLine();
-            }
-            return false;
-        } catch (IOException e) {
-            throw new ContentManagerException("IOException when accessing " + getFiletype()
-                    + " file: [" + this.file.getAbsolutePath() + "]", e);
-        }
-    }
-
 
     private String eliminateFilePostfix(String name) {
         if (name.endsWith(MdpFile.FILETYPE)) {

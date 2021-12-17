@@ -5,13 +5,13 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class MediaResourceReferenceInconsistencyExceptionTest {
+class MediaNotFoundExceptionTest {
 
-    @Test
-    public void getMessage() {
-        MediaResourceReferenceInconsistencyException exception = new MediaResourceReferenceInconsistencyException("fileName");
-        assertEquals("Referenced media file is not available: [fileName].", exception.getMessage());
-    }
+//    @Test
+//    public void getMessage() {
+//        MediaNotFoundException exception = new MediaNotFoundException("fileName");
+//        assertEquals("Referenced media file is not available: [fileName].", exception.getMessage());
+//    }
 
 //    @Test
 //    public void getMessage2() {

@@ -1,8 +1,9 @@
 package org.mentalizr.contentManager.helper;
 
+import de.arthurpicht.utils.io.tempDir.TempDir;
+import de.arthurpicht.utils.io.tempDir.TempDirs;
 import org.junit.jupiter.api.Test;
-import org.mentalizr.contentManager.testUtils.TempDir;
-import org.mentalizr.contentManager.testUtils.TempDirs;
+import org.mentalizr.contentManager.TestConfig;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -17,18 +18,18 @@ class Nio2HelperTest {
 
     @Test
     void isExistingDir() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         assertTrue(Nio2Helper.isExistingDir(tempDir.asPath()));
     }
 
     @Test
-    void isExistingDir_neg() throws IOException {
+    void isExistingDir_neg() {
         assertFalse(Nio2Helper.isExistingDir(Paths.get(UUID.randomUUID().toString())));
     }
 
     @Test
     void getSubdirectories() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
 
         Path subdirectory1 = tempDir.asPath().resolve(UUID.randomUUID().toString());
         Files.createDirectory(subdirectory1);
@@ -52,7 +53,7 @@ class Nio2HelperTest {
 
     @Test
     void getActiveSubdirectories() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
 
         Path subdirectory1 = tempDir.asPath().resolve(UUID.randomUUID().toString());
         Files.createDirectory(subdirectory1);
@@ -77,7 +78,7 @@ class Nio2HelperTest {
 
     @Test
     void getSubdirectoriesEmpty() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         List<Path> subdirectories = Nio2Helper.getSubdirectories(tempDir.asPath());
         assertEquals(0, subdirectories.size());
     }
@@ -94,7 +95,7 @@ class Nio2HelperTest {
 
     @Test
     void isSubdirectory() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub1");
         Files.createDirectory(subDir);
 
@@ -103,7 +104,7 @@ class Nio2HelperTest {
 
     @Test
     void isSubdirectorySubSub() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub1").resolve("sub2");
         Files.createDirectories(subDir);
 
@@ -112,14 +113,14 @@ class Nio2HelperTest {
 
     @Test
     void isSubdirectory_neg() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         assertFalse(Nio2Helper.isSubdirectory(tempDir.asPath(), tempDir.asPath()));
         assertFalse(Nio2Helper.isSubdirectory(tempDir.asPath(), tempDir.asPath().resolve("..")));
     }
 
     @Test
     void isSubdirectory_notExistingSubDir_neg() throws IOException {
-         TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+         TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
          try {
              Nio2Helper.isSubdirectory(tempDir.asPath(), tempDir.asPath().resolve("not_existing"));
              fail(PathAssertionException.class.getSimpleName() + " expected");
@@ -130,7 +131,7 @@ class Nio2HelperTest {
 
     @Test
     void isSubdirectory_notExistingDir_neg() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         try {
             Nio2Helper.isSubdirectory(Paths.get(UUID.randomUUID().toString()), tempDir.asPath());
             fail(PathAssertionException.class.getSimpleName() + " expected");
@@ -141,7 +142,7 @@ class Nio2HelperTest {
 
     @Test
     void isDirectSubdirectory() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub");
         Files.createDirectory(subDir);
 
@@ -150,7 +151,7 @@ class Nio2HelperTest {
 
     @Test
     void isDirectSubdirectorySubSub() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub1").resolve("sub2");
         Files.createDirectories(subDir);
 
@@ -159,7 +160,7 @@ class Nio2HelperTest {
 
     @Test
     void isDirectSubdirectoryNotNormalized() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub1");
         Files.createDirectory(subDir);
 
@@ -168,12 +169,24 @@ class Nio2HelperTest {
 
     @Test
     void isDirectSubdirectoryNotNormalizedSubSub() throws IOException {
-        TempDir tempDir = TempDirs.createUniqueTempDirAutoClean();
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
         Path subDir = tempDir.asPath().resolve("sub1").resolve("sub2");
         Files.createDirectories(subDir);
 
         assertFalse(Nio2Helper.isDirectSubdirectory(tempDir.asPath(), tempDir.asPath().resolve("sub1").resolve("..").resolve("sub1").resolve("sub2")));
     }
 
+    @Test
+    void getRegularNonHiddenFilesInDirectory() throws IOException {
+        TempDir tempDir = TempDirs.createUniqueTempDirAutoRemove(TestConfig.PROJECT_TEMP_DIR);
+        Files.createFile(tempDir.asPath().resolve("a"));
+        Files.createFile(tempDir.asPath().resolve("b"));
+        Files.createFile(tempDir.asPath().resolve(".c"));
+        Files.createDirectory(tempDir.asPath().resolve("dir"));
+
+        List<Path> fileList = Nio2Helper.getRegularNonHiddenFilesInDirectory(tempDir.asPath());
+
+        assertEquals(2, fileList.size());
+    }
 
 }

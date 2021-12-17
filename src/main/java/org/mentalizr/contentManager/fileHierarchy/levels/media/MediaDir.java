@@ -54,7 +54,7 @@ public class MediaDir extends RepoDirectory {
     public Set<String> getAllMediaResourceNames() throws ContentManagerException {
         List<Path> mediaResources;
         try {
-            mediaResources = Nio2Helper.getRegularFilesInDirectory(asPath());
+            mediaResources = Nio2Helper.getRegularNonHiddenFilesInDirectory(asPath());
         } catch (IOException e) {
             throw new ContentManagerException(e);
         }

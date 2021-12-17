@@ -1,7 +1,6 @@
 package org.mentalizr.contentManager;
 
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.contentManager.buildHandler.BuildHandlerFactory;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
@@ -77,46 +76,6 @@ public class ContentManager extends ContentManagerNotThreadsafe {
             return super.getMediaResource(programName, fileName);
         } finally {
             this.readWriteLock.readLock().unlock();
-        }
-    }
-
-    @Override
-    public void build(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        this.readWriteLock.writeLock().lock();
-        try {
-            super.build(programName, buildHandlerFactory);
-        } finally {
-            this.readWriteLock.writeLock().unlock();
-        }
-    }
-
-    @Override
-    public void buildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        this.readWriteLock.writeLock().lock();
-        try {
-            super.buildAll(buildHandlerFactory);
-        } finally {
-            this.readWriteLock.writeLock().unlock();
-        }
-    }
-
-    @Override
-    public void cleanBuild(String programName, BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        this.readWriteLock.writeLock().lock();
-        try {
-            super.cleanBuild(programName, buildHandlerFactory);
-        } finally {
-            this.readWriteLock.writeLock().unlock();
-        }
-    }
-
-    @Override
-    public void cleanBuildAll(BuildHandlerFactory buildHandlerFactory) throws ContentManagerException {
-        this.readWriteLock.writeLock().lock();
-        try {
-            super.cleanBuildAll(buildHandlerFactory);
-        } finally {
-            this.readWriteLock.writeLock().unlock();
         }
     }
 
