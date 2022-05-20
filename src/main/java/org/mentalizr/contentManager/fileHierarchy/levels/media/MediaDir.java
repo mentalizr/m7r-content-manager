@@ -1,11 +1,10 @@
 package org.mentalizr.contentManager.fileHierarchy.levels.media;
 
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.basics.RepoDirectory;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.MalformedMediaResourceNameException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResourceException;
-import org.mentalizr.contentManager.helper.Nio2Helper;
-import org.mentalizr.contentManager.helper.PathHelper;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertFileName;
 
 public class MediaDir extends RepoDirectory {
 
@@ -54,7 +53,7 @@ public class MediaDir extends RepoDirectory {
     public Set<String> getAllMediaResourceNames() throws ContentManagerException {
         List<Path> mediaResources;
         try {
-            mediaResources = Nio2Helper.getRegularNonHiddenFilesInDirectory(asPath());
+            mediaResources = FileUtils.getRegularNonHiddenFilesInDirectory(asPath());
         } catch (IOException e) {
             throw new ContentManagerException(e);
         }
@@ -78,4 +77,5 @@ public class MediaDir extends RepoDirectory {
     public boolean requiresWritePermission() {
         return false;
     }
+
 }

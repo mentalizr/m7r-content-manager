@@ -1,9 +1,9 @@
 package org.mentalizr.contentManager.validator;
 
+import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.Program;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleDirMdp;
 import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleDirMdp;
-import org.mentalizr.contentManager.helper.Nio2Helper;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class NonEmptyStructuresValidator extends Validator {
     @Override
     protected void validate() {
 
-        if (!Nio2Helper.isExistingRegularFile(mdpDir.asPath().resolve("program.conf")))
+        if (!FileUtils.isExistingRegularFile(mdpDir.asPath().resolve("program.conf")))
             validationErrors.add(new ValidationError(this.program.getName(), "program.conf missing"));
 
         List<String> moduleDirNames = mdpDir.getModuleDirNames();

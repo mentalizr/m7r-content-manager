@@ -1,6 +1,5 @@
 package org.mentalizr.contentManager.helper;
 
-import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 import org.mentalizr.contentManager.Programs;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
@@ -10,7 +9,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertIsExistingDirectory;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNullAndNotEmpty;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertIsExistingDirectory;
 
 public class ProgramStubs {
 
@@ -42,13 +43,13 @@ public class ProgramStubs {
             String mdpFileName,
             String mdpFileDisplayName) throws ContentManagerException {
 
-        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertArgumentNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleName", submoduleName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileName", mdpFileName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
+        assertArgumentNotNullAndNotEmpty("programName", programName);
+        assertArgumentNotNullAndNotEmpty("moduleName", moduleName);
+        assertArgumentNotNullAndNotEmpty("submoduleName", submoduleName);
+        assertArgumentNotNullAndNotEmpty("mdpFileName", mdpFileName);
+        assertArgumentNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
         assertIsExistingDirectory(programPath);
@@ -72,11 +73,11 @@ public class ProgramStubs {
             String mdpFileName,
             String mdpFileDisplayName) throws ContentManagerException {
 
-        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertArgumentNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileName", mdpFileName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
+        assertArgumentNotNullAndNotEmpty("programName", programName);
+        assertArgumentNotNullAndNotEmpty("mdpFileName", mdpFileName);
+        assertArgumentNotNullAndNotEmpty("mdpFileDisplayName", mdpFileDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
         assertIsExistingDirectory(programPath);

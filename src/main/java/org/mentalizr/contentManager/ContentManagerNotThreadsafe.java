@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertIsExistingDirectory;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertIsExistingDirectory;
 
 public class ContentManagerNotThreadsafe {
 

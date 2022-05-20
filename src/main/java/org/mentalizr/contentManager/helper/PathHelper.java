@@ -13,7 +13,7 @@ public class PathHelper {
             Files.createDirectory(path);
         } catch (IOException e) {
             throw new ContentManagerException("Exception when creating directory ["
-                    + path.toAbsolutePath().toString() + "]: "
+                    + path.toAbsolutePath() + "]: "
                     + e.getMessage());
         }
     }

@@ -1,9 +1,9 @@
 package org.mentalizr.contentManager;
 
-import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
+import de.arthurpicht.utils.io.assertions.PathAssertions;
 import de.arthurpicht.utils.io.nio2.FileUtils;
-import org.mentalizr.contentManager.exceptions.InconsistencyException;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
+import org.mentalizr.contentManager.exceptions.InconsistencyException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConfFile;
@@ -12,8 +12,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.media.MediaDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.module.ModuleConfFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.submodule.SubmoduleConfFile;
-import org.mentalizr.contentManager.helper.Nio2Helper;
-import org.mentalizr.contentManager.helper.PathAssertions;
 import org.mentalizr.contentManager.helper.ProgramStubs;
 
 import java.io.IOException;
@@ -23,17 +21,19 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertIsExistingDirectory;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNullAndNotEmpty;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertIsExistingDirectory;
 import static org.mentalizr.contentManager.helper.PathHelper.createDirectory;
 
 public class Programs {
 
     public static void createProgram(Path contentRootPath, String programName, String programDisplayName) throws ContentManagerException {
 
-        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertArgumentNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programDisplayName", programDisplayName);
+        assertArgumentNotNullAndNotEmpty("programName", programName);
+        assertArgumentNotNullAndNotEmpty("programDisplayName", programDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
         if (Files.exists(programPath))
@@ -56,11 +56,11 @@ public class Programs {
 
     public static void createModule(Path contentRootPath, String programName, String moduleName, String moduleDisplayName) throws ContentManagerException {
 
-        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertArgumentNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleDisplayName", moduleDisplayName);
+        assertArgumentNotNullAndNotEmpty("programName", programName);
+        assertArgumentNotNullAndNotEmpty("moduleName", moduleName);
+        assertArgumentNotNullAndNotEmpty("moduleDisplayName", moduleDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
         assertIsExistingDirectory(programPath);
@@ -77,12 +77,12 @@ public class Programs {
 
     public static void createSubmodule(Path contentRootPath, String programName, String moduleName, String submoduleName, String submoduleDisplayName) throws ContentManagerException {
 
-        AssertMethodPrecondition.parameterNotNull("contentRootPath", contentRootPath);
+        assertArgumentNotNull("contentRootPath", contentRootPath);
         assertIsExistingDirectory(contentRootPath);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("programName", programName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("moduleName", moduleName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleName", submoduleName);
-        AssertMethodPrecondition.parameterNotNullAndNotEmpty("submoduleDisplayName", submoduleDisplayName);
+        assertArgumentNotNullAndNotEmpty("programName", programName);
+        assertArgumentNotNullAndNotEmpty("moduleName", moduleName);
+        assertArgumentNotNullAndNotEmpty("submoduleName", submoduleName);
+        assertArgumentNotNullAndNotEmpty("submoduleDisplayName", submoduleDisplayName);
 
         Path programPath = contentRootPath.resolve(programName);
         assertIsExistingDirectory(programPath);
@@ -171,23 +171,23 @@ public class Programs {
 
     public static void assertIsProgramDirByPlausibility(Path programPath) throws InconsistencyException {
 
-        if (!Nio2Helper.isExistingDir(programPath))
+        if (!FileUtils.isExistingDirectory(programPath))
             throw new InconsistencyException("Program repo not existing. [" + programPath.toAbsolutePath() + "]");
 
         Path mdpDir = programPath.resolve(MdpDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(mdpDir))
+        if (!FileUtils.isExistingDirectory(mdpDir))
             throw new InconsistencyException("No program repo. mdp directory missing. [" + mdpDir.toAbsolutePath() + "]");
 
         Path mediaDir = programPath.resolve(MediaDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(mediaDir))
+        if (!FileUtils.isExistingDirectory(mediaDir))
             throw new InconsistencyException("No program repo. media directory missing. [" + mediaDir.toAbsolutePath() + "]");
 
         Path infoDir = mdpDir.resolve(InfoDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(infoDir))
+        if (!FileUtils.isExistingDirectory(infoDir))
             throw new InconsistencyException("No program repo. info directory missing. [" + infoDir.toAbsolutePath() + "]");
 
         Path programConfig = mdpDir.resolve(ProgramConfFile.FILE_NAME);
-        if (!Nio2Helper.isExistingRegularFile(programConfig))
+        if (!FileUtils.isExistingRegularFile(programConfig))
             throw new InconsistencyException("No program repo. program.config file missing. [" + programConfig.toAbsolutePath() + "]");
     }
 

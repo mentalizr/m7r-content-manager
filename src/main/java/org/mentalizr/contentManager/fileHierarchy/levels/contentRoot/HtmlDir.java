@@ -15,7 +15,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertFileName;
+
 
 public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
@@ -122,7 +123,6 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
         return moduleDirList;
     }
-
 
     private ProgramStructure prepareProgramStructure() {
         List<Module> modules = new ArrayList<>();

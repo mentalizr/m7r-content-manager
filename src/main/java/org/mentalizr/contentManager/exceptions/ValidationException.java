@@ -1,10 +1,11 @@
 package org.mentalizr.contentManager.exceptions;
 
-import de.arthurpicht.utils.core.assertion.AssertMethodPrecondition;
 import org.mentalizr.contentManager.validator.ValidationError;
 
 import java.util.Collections;
 import java.util.List;
+
+import static de.arthurpicht.utils.core.assertion.MethodPreconditions.assertArgumentNotNull;
 
 public class ValidationException extends ContentManagerException {
 
@@ -12,7 +13,7 @@ public class ValidationException extends ContentManagerException {
 
     public ValidationException(List<ValidationError> validationErrors) {
         super("Program validation failed.");
-        AssertMethodPrecondition.parameterNotNull("validationErrors", validationErrors);
+        assertArgumentNotNull("validationErrors", validationErrors);
         if (validationErrors.isEmpty()) throw new IllegalArgumentException("Parameter 'validationErrors' is empty.");
         this.validationErrorList = Collections.unmodifiableList(validationErrors);
     }

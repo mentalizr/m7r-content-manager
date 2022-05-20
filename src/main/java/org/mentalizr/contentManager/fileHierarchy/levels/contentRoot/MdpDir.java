@@ -12,7 +12,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mentalizr.contentManager.helper.PathAssertions.assertFileName;
+import static de.arthurpicht.utils.io.assertions.PathAssertions.assertFileName;
 
 public class MdpDir extends RepoDirectory implements ContentRootDir {
 

@@ -10,7 +10,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
-import org.mentalizr.contentManager.helper.Nio2Helper;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.contentManager.validator.*;
 
@@ -95,11 +94,11 @@ public class Program {
     }
 
     public static void assertHasHtmlDir(Path programPath) throws ContentManagerException {
-        if (!Nio2Helper.isExistingDir(programPath))
+        if (!FileUtils.isExistingDirectory(programPath))
             throw new ContentManagerException("Program repo not existing. [" + programPath.toAbsolutePath() + "]");
 
         Path htmlDir = programPath.resolve(HtmlDir.DIR_NAME);
-        if (!Nio2Helper.isExistingDir(htmlDir))
+        if (!FileUtils.isExistingDirectory(htmlDir))
             throw new ContentManagerException("No html directory in program repo. [" + htmlDir.toAbsolutePath() + "]");
     }
 
