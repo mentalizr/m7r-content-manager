@@ -13,13 +13,13 @@ import java.util.Map;
 
 import static de.arthurpicht.utils.io.assertions.PathAssertions.assertIsExistingDirectory;
 
-public class ContentManagerNotThreadsafe {
+public class ContentManagerNotThreadSafe {
 
     private final List<Path> programRootPaths;
     private Map<String, Program> programMap;
     private Map<String, Path> contentFileMap;
 
-    public ContentManagerNotThreadsafe(List<Path> programRootPaths) throws ContentManagerException {
+    public ContentManagerNotThreadSafe(List<Path> programRootPaths) throws ContentManagerException {
         this.programRootPaths = programRootPaths;
         reinitialize();
     }

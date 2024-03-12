@@ -53,9 +53,9 @@ class ModuleDirHtmlTest {
     public void asModule() throws ContentManagerException {
         ModuleDirHtml moduleDirHtml = new ModuleDirHtml(new File("src/test/testPrograms/test1/html/m1"));
         Module module = moduleDirHtml.asModule();
-        assertEquals("test1_m1", module.getId());
-        assertEquals("Module1", module.getName());
-        List<Submodule> submodules = module.getSubmodules();
+        assertEquals("test1_m1", module.id());
+        assertEquals("Module1", module.name());
+        List<Submodule> submodules = module.submodules();
         assertEquals(2, submodules.size());
     }
 

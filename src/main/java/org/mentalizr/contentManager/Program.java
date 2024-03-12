@@ -36,13 +36,13 @@ public class Program {
     }
 
     private void validatePre(Path programPath) throws InconsistencyException {
-        BasicDirsValidator.validate(programPath);
+        Programs.assertIsProgramDirByPlausibility(programPath);
     }
 
     public void validate() throws ValidationException {
-
         Validator nonEmptyStructuresValidator = new NonEmptyStructuresValidator(this);
-        List<ValidationError> validationErrors = new ArrayList<>(nonEmptyStructuresValidator.getValidationResult().getValidationErrors());
+        List<ValidationError> validationErrors
+                = new ArrayList<>(nonEmptyStructuresValidator.getValidationResult().getValidationErrors());
 
         Validator exerciseAndFeedbackMarkValidator = new ExerciseAndFeedbackMarkValidator(this);
         validationErrors.addAll(exerciseAndFeedbackMarkValidator.getValidationResult().getValidationErrors());

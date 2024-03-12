@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ContentManager extends ContentManagerNotThreadsafe {
+public class ContentManager extends ContentManagerNotThreadSafe {
 
     private static final Logger logger = LoggerFactory.getLogger(ContentManager.class);
     private final ReadWriteLock readWriteLock;

@@ -42,39 +42,39 @@ class ProgramDirTest {
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         ProgramStructure programStructure = programDir.asProgramStructure();
 
-        assertEquals("test1", programStructure.getId());
-        assertEquals(1, programStructure.getInfotexts().size());
-        assertEquals("test1__info_info1", programStructure.getInfotexts().get(0).getId());
-        assertEquals("Info1", programStructure.getInfotexts().get(0).getName());
-        assertEquals(3, programStructure.getModules().size());
-        assertEquals("test1_m1", programStructure.getModules().get(0).getId());
+        assertEquals("test1", programStructure.id());
+        assertEquals(1, programStructure.infotexts().size());
+        assertEquals("test1__info_info1", programStructure.infotexts().get(0).id());
+        assertEquals("Info1", programStructure.infotexts().get(0).name());
+        assertEquals(3, programStructure.modules().size());
+        assertEquals("test1_m1", programStructure.modules().get(0).id());
 
-        assertEquals("Module1", programStructure.getModules().get(0).getName());
-        assertEquals(2, programStructure.getModules().get(0).getSubmodules().size());
-        assertEquals("test1_m1_sm1", programStructure.getModules().get(0).getSubmodules().get(0).getId());
-        assertEquals("Submodule1", programStructure.getModules().get(0).getSubmodules().get(0).getName());
-        assertEquals(2, programStructure.getModules().get(0).getSubmodules().get(0).getSteps().size());
-        assertEquals("test1_m1_sm1_s1", programStructure.getModules().get(0).getSubmodules().get(0).getSteps().get(0).getId());
-        assertEquals("Step1", programStructure.getModules().get(0).getSubmodules().get(0).getSteps().get(0).getName());
-        assertEquals("test1_m1_sm1_s2", programStructure.getModules().get(0).getSubmodules().get(0).getSteps().get(1).getId());
-        assertEquals("Step2", programStructure.getModules().get(0).getSubmodules().get(0).getSteps().get(1).getName());
-        assertEquals("test1_m2", programStructure.getModules().get(1).getId());
+        assertEquals("Module1", programStructure.modules().get(0).name());
+        assertEquals(2, programStructure.modules().get(0).submodules().size());
+        assertEquals("test1_m1_sm1", programStructure.modules().get(0).submodules().get(0).id());
+        assertEquals("Submodule1", programStructure.modules().get(0).submodules().get(0).name());
+        assertEquals(2, programStructure.modules().get(0).submodules().get(0).steps().size());
+        assertEquals("test1_m1_sm1_s1", programStructure.modules().get(0).submodules().get(0).steps().get(0).id());
+        assertEquals("Step1", programStructure.modules().get(0).submodules().get(0).steps().get(0).name());
+        assertEquals("test1_m1_sm1_s2", programStructure.modules().get(0).submodules().get(0).steps().get(1).id());
+        assertEquals("Step2", programStructure.modules().get(0).submodules().get(0).steps().get(1).name());
+        assertEquals("test1_m2", programStructure.modules().get(1).id());
 
-        assertEquals("Module2", programStructure.getModules().get(1).getName());
-        assertEquals(1, programStructure.getModules().get(1).getSubmodules().size());
-        assertEquals("test1_m2_sm1", programStructure.getModules().get(1).getSubmodules().get(0).getId());
-        assertEquals("Submodule1", programStructure.getModules().get(1).getSubmodules().get(0).getName());
-        assertEquals(1, programStructure.getModules().get(1).getSubmodules().get(0).getSteps().size());
-        assertEquals("test1_m2_sm1_s1", programStructure.getModules().get(1).getSubmodules().get(0).getSteps().get(0).getId());
-        assertEquals("Step1", programStructure.getModules().get(1).getSubmodules().get(0).getSteps().get(0).getName());
+        assertEquals("Module2", programStructure.modules().get(1).name());
+        assertEquals(1, programStructure.modules().get(1).submodules().size());
+        assertEquals("test1_m2_sm1", programStructure.modules().get(1).submodules().get(0).id());
+        assertEquals("Submodule1", programStructure.modules().get(1).submodules().get(0).name());
+        assertEquals(1, programStructure.modules().get(1).submodules().get(0).steps().size());
+        assertEquals("test1_m2_sm1_s1", programStructure.modules().get(1).submodules().get(0).steps().get(0).id());
+        assertEquals("Step1", programStructure.modules().get(1).submodules().get(0).steps().get(0).name());
 
-        assertEquals("Module3", programStructure.getModules().get(2).getName());
-        assertEquals(1, programStructure.getModules().get(2).getSubmodules().size());
-        assertEquals("test1_m3_sm1", programStructure.getModules().get(2).getSubmodules().get(0).getId());
-        assertEquals("Submodule1", programStructure.getModules().get(2).getSubmodules().get(0).getName());
-        assertEquals(1, programStructure.getModules().get(2).getSubmodules().get(0).getSteps().size());
-        assertEquals("test1_m3_sm1_s1", programStructure.getModules().get(2).getSubmodules().get(0).getSteps().get(0).getId());
-        assertEquals("Step1", programStructure.getModules().get(2).getSubmodules().get(0).getSteps().get(0).getName());
+        assertEquals("Module3", programStructure.modules().get(2).name());
+        assertEquals(1, programStructure.modules().get(2).submodules().size());
+        assertEquals("test1_m3_sm1", programStructure.modules().get(2).submodules().get(0).id());
+        assertEquals("Submodule1", programStructure.modules().get(2).submodules().get(0).name());
+        assertEquals(1, programStructure.modules().get(2).submodules().get(0).steps().size());
+        assertEquals("test1_m3_sm1_s1", programStructure.modules().get(2).submodules().get(0).steps().get(0).id());
+        assertEquals("Step1", programStructure.modules().get(2).submodules().get(0).steps().get(0).name());
 
 //        assertEquals("{\"id\":\"test1\",\"infotexts\":[{\"id\":\"test1__info_info1\",\"name\":\"Info1\"}],\"" +
 //                        "modules\":[{\"id\":\"test1_m1\",\"name\":\"Module1\"," +

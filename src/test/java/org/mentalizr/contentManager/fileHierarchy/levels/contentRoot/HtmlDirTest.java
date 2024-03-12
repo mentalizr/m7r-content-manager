@@ -57,11 +57,11 @@ class HtmlDirTest {
     public void asProgram() throws ContentManagerException {
         HtmlDir htmlDir = new HtmlDir(new File("src/test/testPrograms/test1/html"));
         ProgramStructure programStructure = htmlDir.asProgramStructure();
-        assertEquals("test1", programStructure.getId());
-        assertEquals("Test1", programStructure.getName());
-        List<Module> modules = programStructure.getModules();
+        assertEquals("test1", programStructure.id());
+        assertEquals("Test1", programStructure.name());
+        List<Module> modules = programStructure.modules();
         assertEquals(3, modules.size());
-        List<Infotext> infotexts = programStructure.getInfotexts();
+        List<Infotext> infotexts = programStructure.infotexts();
         assertEquals(1, infotexts.size());
     }
 
