@@ -3,6 +3,7 @@ package org.mentalizr.contentManager.programStructure;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class ProgramStructures {
 
 //    public static boolean hasModules(ProgramStructure programStructure) {
