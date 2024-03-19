@@ -17,7 +17,6 @@ import java.util.List;
 
 import static de.arthurpicht.utils.io.assertions.PathAssertions.assertFileName;
 
-
 public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
     public static final String DIR_NAME = "html";
@@ -132,14 +131,12 @@ public class HtmlDir extends ContentTreeDirectory implements ContentRootDir {
 
         List<Infotext> infotextList = this.htmlInfoDir.asInfotextList();
 
-        ProgramStructure programStructure = new ProgramStructure(
+        return new ProgramStructure(
                 getId(),
                 getDisplayName(),
-                modules
+                modules,
+                infotextList
         );
-        programStructure.setInfotexts(infotextList);
-
-        return programStructure;
     }
 
     private List<HtmlFile> obtainContentFiles() {

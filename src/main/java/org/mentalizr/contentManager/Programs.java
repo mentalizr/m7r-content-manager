@@ -115,7 +115,7 @@ public class Programs {
             public FileVisitResult preVisitDirectory(Path dir, BasicFileAttributes attrs) throws IOException {
                 Path relativePath = mdpDirPath.relativize(dir);
 
-                if (relativePath.toString().equals("")) return FileVisitResult.CONTINUE;
+                if (relativePath.toString().isEmpty()) return FileVisitResult.CONTINUE;
 
                 Path creationPath = htmlDirPath.resolve(relativePath);
                 Files.createDirectory(creationPath);

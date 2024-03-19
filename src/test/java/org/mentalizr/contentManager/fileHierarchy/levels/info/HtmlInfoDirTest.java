@@ -36,8 +36,8 @@ class HtmlInfoDirTest {
         List<Infotext> infotextList = htmlInfoDir.asInfotextList();
         assertEquals(1, infotextList.size());
         Infotext infotext = infotextList.get(0);
-        assertEquals("test1__info_info1", infotext.getId());
-        assertEquals("Info1", infotext.getName());
+        assertEquals("test1__info_info1", infotext.id());
+        assertEquals("Info1", infotext.name());
     }
 
 }

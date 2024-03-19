@@ -41,6 +41,11 @@ public class ProgramDir extends RepoDirectory {
         return this.htmlDir.getContentFiles();
     }
 
+    public List<HtmlFile> getHtmlInfoTextFiles() {
+        assertHtmlDir();
+        return this.htmlDir.getInfoDir().getContentFiles();
+    }
+
     public List<MdpFile> getMdpFiles() {
         return this.mdpDir.getContentFiles();
     }
@@ -87,12 +92,12 @@ public class ProgramDir extends RepoDirectory {
     }
 
     private HtmlDir obtainHtmlDirNullable() throws ContentManagerException {
-        HtmlDir htmlDir = null;
         File htmlDirFile = new File(asFile(), HtmlDir.DIR_NAME);
         if (htmlDirFile.exists()) {
-            htmlDir = new HtmlDir(new File(asFile(), HtmlDir.DIR_NAME));
+            return new HtmlDir(htmlDirFile);
+        } else {
+            return null;
         }
-        return htmlDir;
     }
 
 }

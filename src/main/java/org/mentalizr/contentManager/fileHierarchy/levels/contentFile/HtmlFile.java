@@ -35,11 +35,23 @@ public class HtmlFile extends ContentFile {
     }
 
     public Step asStep() {
-        return new Step(getId(), getDisplayName(), isExercise(), isFeedback());
+        if (this.contentFileType == ContentFileType.STEP) {
+            return new Step(getId(), getDisplayName(), isExercise(), isFeedback());
+        } else {
+            throw new IllegalStateException(
+                    "ContentFileType of [" + this.id + "] is not of type [" + ContentFileType.STEP + "]."
+            );
+        }
     }
 
     public Infotext asInfotext() {
-        return new Infotext(getId(), getDisplayName());
+        if (this.contentFileType == ContentFileType.INFO) {
+            return new Infotext(getId(), getDisplayName());
+        } else {
+            throw new IllegalStateException(
+                    "ContentFileType of [" + this.id + "] is not of type [" + ContentFileType.INFO + "]."
+            );
+        }
     }
 
 }

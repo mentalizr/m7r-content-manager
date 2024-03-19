@@ -52,16 +52,16 @@ class SubmoduleDirHtmlTest {
     public void asSubmodule() throws ContentManagerException {
         SubmoduleDirHtml submoduleDirMdp = new SubmoduleDirHtml(new File("src/test/testPrograms/test1/html/m1/sm1"));
         Submodule submodule = submoduleDirMdp.asSubmodule();
-        assertEquals("test1_m1_sm1", submodule.getId());
-        assertEquals("Submodule1", submodule.getName());
-        List<Step> stepList = submodule.getSteps();
+        assertEquals("test1_m1_sm1", submodule.id());
+        assertEquals("Submodule1", submodule.name());
+        List<Step> stepList = submodule.steps();
         assertEquals(2, stepList.size());
         Step step = stepList.get(0);
-        assertEquals("test1_m1_sm1_s1", step.getId());
-        assertEquals("Step1", step.getName());
+        assertEquals("test1_m1_sm1_s1", step.id());
+        assertEquals("Step1", step.name());
         step = stepList.get(1);
-        assertEquals("test1_m1_sm1_s2", step.getId());
-        assertEquals("Step2", step.getName());
+        assertEquals("test1_m1_sm1_s2", step.id());
+        assertEquals("Step2", step.name());
     }
 
 }

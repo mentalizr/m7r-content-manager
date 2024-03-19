@@ -73,24 +73,24 @@ class HtmlFileTest {
     public void asStep() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s1.html"));
         Step step = htmlFile.asStep();
-        assertEquals("test1_m1_sm1_s1", step.getId());
-        assertEquals("Step1", step.getName());
-        assertFalse(step.isFeedback());
+        assertEquals("test1_m1_sm1_s1", step.id());
+        assertEquals("Step1", step.name());
+        assertFalse(step.feedback());
     }
 
     @Test
     public void asStepWithFeedback() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/m1/sm1/s2.html"));
         Step step = htmlFile.asStep();
-        assertTrue(step.isFeedback());
+        assertTrue(step.feedback());
     }
 
     @Test
     public void asInfotext() throws ContentManagerException {
         HtmlFile htmlFile = new HtmlFile(new File("src/test/testPrograms/test1/html/_info/info1.html"));
         Infotext infotext = htmlFile.asInfotext();
-        assertEquals("test1__info_info1", infotext.getId());
-        assertEquals("Info1", infotext.getName());
+        assertEquals("test1__info_info1", infotext.id());
+        assertEquals("Info1", infotext.name());
     }
 
 }

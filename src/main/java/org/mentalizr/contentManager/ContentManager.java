@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
-public class ContentManager extends ContentManagerNotThreadsafe {
+public class ContentManager extends ContentManagerNotThreadSafe {
 
     private static final Logger logger = LoggerFactory.getLogger(ContentManager.class);
     private final ReadWriteLock readWriteLock;
@@ -58,11 +58,33 @@ public class ContentManager extends ContentManagerNotThreadsafe {
     }
 
     @Override
+    public boolean hasContent(String id) {
+        logger.debug("Check for content: [" + id + "]");
+        this.readWriteLock.readLock().lock();
+        try {
+            return super.hasContent(id);
+        } finally {
+            this.readWriteLock.readLock().unlock();
+        }
+    }
+
+    @Override
     public Path getContent(String id) throws ContentNotFoundException {
         logger.debug("Requested content: [" + id + "]");
         this.readWriteLock.readLock().lock();
         try {
             return super.getContent(id);
+        } finally {
+            this.readWriteLock.readLock().unlock();
+        }
+    }
+
+    @Override
+    public boolean isInfoTextContent(String id) {
+        logger.debug("Check if content is infoText: [" + id + "]");
+        this.readWriteLock.readLock().lock();
+        try {
+            return super.isInfoTextContent(id);
         } finally {
             this.readWriteLock.readLock().unlock();
         }

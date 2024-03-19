@@ -19,9 +19,11 @@ public class ProgramStubs {
         try {
             Files.writeString(path, "name=" + displayName + "\n");
         } catch (IOException e) {
-            throw new ContentManagerException("Exception when writing configuration file ["
-                    + path.toAbsolutePath().toString() + "]: "
-                    + e.getMessage());
+            throw new ContentManagerException(
+                    "Exception when writing configuration file ["
+                    + path.toAbsolutePath() + "]: "
+                    + e.getMessage()
+            );
         }
     }
 
@@ -29,8 +31,9 @@ public class ProgramStubs {
         try {
             Files.writeString(path, "@@name=" + displayName + "\n\n// automatically generated mdp file stub/n");
         } catch (IOException e) {
-            throw new ContentManagerException("Exception when writing configuration file ["
-                    + path.toAbsolutePath().toString() + "]: "
+            throw new ContentManagerException(
+                    "Exception when writing configuration file ["
+                    + path.toAbsolutePath() + "]: "
                     + e.getMessage());
         }
     }

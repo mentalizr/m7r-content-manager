@@ -21,7 +21,7 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
         super(file);
         assertFileName(file.toPath(), InfoDir.DIR_NAME);
         this.infopageFiles = obtainInfopageFiles();
-        this.infotextList = prepareInfotextList();
+        this.infotextList = prepareInfotextList(this.infopageFiles);
     }
 
     @Override
@@ -65,9 +65,9 @@ public class HtmlInfoDir extends RepoDirectory implements InfoDir {
         return htmlFileList;
     }
 
-    private List<Infotext> prepareInfotextList() {
+    private List<Infotext> prepareInfotextList(List<HtmlFile> infopageFiles) {
         List<Infotext> infotextList = new ArrayList<>();
-        for (HtmlFile htmlFile : this.infopageFiles) {
+        for (HtmlFile htmlFile : infopageFiles) {
             Infotext infotext = new Infotext(htmlFile.getId(), htmlFile.getDisplayName());
             infotextList.add(infotext);
         }
