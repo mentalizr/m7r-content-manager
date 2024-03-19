@@ -1,7 +1,6 @@
 package org.mentalizr.contentManager.fileHierarchy.exceptions;
 
 import de.arthurpicht.utils.core.strings.Strings;
-import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 
 import java.util.Set;

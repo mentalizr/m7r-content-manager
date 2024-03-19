@@ -58,11 +58,33 @@ public class ContentManager extends ContentManagerNotThreadSafe {
     }
 
     @Override
+    public boolean hasContent(String id) {
+        logger.debug("Check for content: [" + id + "]");
+        this.readWriteLock.readLock().lock();
+        try {
+            return super.hasContent(id);
+        } finally {
+            this.readWriteLock.readLock().unlock();
+        }
+    }
+
+    @Override
     public Path getContent(String id) throws ContentNotFoundException {
         logger.debug("Requested content: [" + id + "]");
         this.readWriteLock.readLock().lock();
         try {
             return super.getContent(id);
+        } finally {
+            this.readWriteLock.readLock().unlock();
+        }
+    }
+
+    @Override
+    public boolean isInfoTextContent(String id) {
+        logger.debug("Check if content is infoText: [" + id + "]");
+        this.readWriteLock.readLock().lock();
+        try {
+            return super.isInfoTextContent(id);
         } finally {
             this.readWriteLock.readLock().unlock();
         }

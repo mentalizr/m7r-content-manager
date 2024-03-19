@@ -8,7 +8,6 @@ import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.MdpDir;
 import org.mentalizr.contentManager.fileHierarchy.levels.info.InfoDir;
 import org.mentalizr.contentManager.helper.DirectiveInFileChecker;
 
-import java.awt.print.Pageable;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -23,8 +22,8 @@ public abstract class ContentFile extends RepoFile {
 
     public enum ContentFileType { STEP, INFO }
 
-    private final ContentFileType contentFileType;
-    private final String id;
+    protected final ContentFileType contentFileType;
+    protected final String id;
     private final String name;
     private final String displayName;
     private final boolean exercise;

@@ -30,6 +30,16 @@ class ProgramDirTest {
     }
 
     @Test
+    public void getHtmlInfoTextFile() throws ContentManagerException {
+        ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
+        List<HtmlFile> htmlInfoTextFilesFromHtmlDir = programDir.getHtmlDir().getInfoDir().getContentFiles();
+        List<HtmlFile> htmlInfoTextFiles = programDir.getHtmlInfoTextFiles();
+        assertEquals(htmlInfoTextFilesFromHtmlDir, htmlInfoTextFiles);
+        assertEquals(1, htmlInfoTextFiles.size());
+        System.out.println(htmlInfoTextFiles.get(0).getId());
+    }
+
+    @Test
     public void getMdpFiles() throws ContentManagerException {
         ProgramDir programDir = new ProgramDir(new File("src/test/testPrograms/test1"));
         List<MdpFile> mdpFilesFromMdpDir = programDir.getMdpDir().getContentFiles();

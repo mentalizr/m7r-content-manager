@@ -41,6 +41,11 @@ public class ProgramDir extends RepoDirectory {
         return this.htmlDir.getContentFiles();
     }
 
+    public List<HtmlFile> getHtmlInfoTextFiles() {
+        assertHtmlDir();
+        return this.htmlDir.getInfoDir().getContentFiles();
+    }
+
     public List<MdpFile> getMdpFiles() {
         return this.mdpDir.getContentFiles();
     }

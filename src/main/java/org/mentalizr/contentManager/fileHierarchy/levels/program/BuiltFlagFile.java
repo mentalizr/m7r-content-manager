@@ -73,8 +73,4 @@ public class BuiltFlagFile extends RepoFile {
         return ".flag";
     }
 
-//    @Override
-//    protected boolean requireContainingDir() {
-//        return true;
-//    }
 }

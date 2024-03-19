@@ -50,24 +50,18 @@ public abstract class FileHierarchyElement {
 
     /**
      * Specifies weather file hierarchy element is expected as existing.
-     *
-     * @return
      */
     public abstract boolean requiresExistence();
 
     /**
      * Specifies weather file hierarchy element is expected to be readably by executing user.
      * Checking file permissions requires existence also.
-     *
-     * @return
      */
     public abstract boolean requiresReadPermission();
 
     /**
      * Specifies weather file hierarchy element is expected to be writable by executing user.
      * Checking file permissions requires existence also.
-     *
-     * @return
      */
     public abstract boolean requiresWritePermission();
 

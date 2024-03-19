@@ -71,7 +71,6 @@ public class SubmoduleDirHtml extends ContentTreeDirectory implements SubmoduleD
         File[] fileArray = this.file.listFiles(new HtmlFileFilter());
         if (fileArray == null || fileArray.length == 0)
             return htmlFileList;
-//            throw new FileNotFoundException("No .html files found in submodule: [" + this.file.getAbsolutePath() + "]");
 
         for (File file : fileArray) {
             HtmlFile htmlFile = new HtmlFile(file);
