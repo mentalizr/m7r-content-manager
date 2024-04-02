@@ -9,6 +9,7 @@ import org.mentalizr.contentManager.fileHierarchy.exceptions.NoSuchMediaResource
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.MdpFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.HtmlDir;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConf;
 import org.mentalizr.contentManager.fileHierarchy.levels.program.ProgramDir;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.mentalizr.contentManager.validator.*;
@@ -72,6 +73,10 @@ public class Program {
 
     public ProgramStructure asProgramStructure() {
         return this.programDir.asProgramStructure();
+    }
+
+    public ProgramConf getProgramConf() {
+        return this.programDir.getHtmlDir().getProgramConfFile().getProgramConf();
     }
 
     public Path getMediaResource(String fileName) throws MalformedMediaResourceNameException, NoSuchMediaResourceException {
