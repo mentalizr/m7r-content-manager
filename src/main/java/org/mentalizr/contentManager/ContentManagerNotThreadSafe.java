@@ -6,6 +6,7 @@ import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundExce
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.ContentFile;
 import org.mentalizr.contentManager.fileHierarchy.levels.contentFile.HtmlFile;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConf;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import java.nio.file.Path;
 import java.util.*;
@@ -47,6 +48,13 @@ public class ContentManagerNotThreadSafe {
     public ProgramStructure getProgramStructure(String programName) throws ProgramNotFoundException {
         if (programMap.containsKey(programName)) {
             return this.programMap.get(programName).asProgramStructure();
+        }
+        throw new ProgramNotFoundException(programName);
+    }
+
+    public ProgramConf getProgramConfig(String programName) throws ProgramNotFoundException {
+        if (programMap.containsKey(programName)) {
+            return this.programMap.get(programName).getProgramConf();
         }
         throw new ProgramNotFoundException(programName);
     }

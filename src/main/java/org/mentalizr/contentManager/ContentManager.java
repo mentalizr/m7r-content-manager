@@ -5,6 +5,7 @@ import de.arthurpicht.utils.io.nio2.FileUtils;
 import org.mentalizr.contentManager.exceptions.ContentManagerException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ContentNotFoundException;
 import org.mentalizr.contentManager.fileHierarchy.exceptions.ProgramNotFoundException;
+import org.mentalizr.contentManager.fileHierarchy.levels.contentRoot.ProgramConf;
 import org.mentalizr.contentManager.programStructure.ProgramStructure;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,6 +53,16 @@ public class ContentManager extends ContentManagerNotThreadSafe {
         this.readWriteLock.readLock().lock();
         try {
             return super.getProgramStructure(programName);
+        } finally {
+            this.readWriteLock.readLock().unlock();
+        }
+    }
+
+    public ProgramConf getProgramConfig(String programName) throws ProgramNotFoundException {
+        logger.debug("Requested programConfig for name: [" + programName + "]");
+        this.readWriteLock.readLock().lock();
+        try {
+            return super.getProgramConfig(programName);
         } finally {
             this.readWriteLock.readLock().unlock();
         }
