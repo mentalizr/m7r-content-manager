@@ -1,2 +1,5 @@
 rootProject.name = 'm7r-content-manager'
 
+apply from: "../../infra/m7r-common-config/libs.gradle"
+
+

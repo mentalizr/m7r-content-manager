@@ -11,13 +11,13 @@ repositories {
 }
 
 dependencies {
-    implementation 'com.github.arthurpicht:utils-core:1.13.0'
-    implementation 'com.github.arthurpicht:AP-Configuration:0.1.6'
-    implementation 'com.github.arthurpicht:utils-io:0.0.20'
-    implementation 'ch.qos.logback:logback-classic:1.4.14'
+    implementation libs.ap.utils.core
+    implementation libs.ap.utils.io
+    implementation libs.ap.configuration
+    implementation libs.qos.logback
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.2'
+    testImplementation libs.junit.jupiter
+    testRuntimeOnly libs.junit.engine
 }
 
 test {
