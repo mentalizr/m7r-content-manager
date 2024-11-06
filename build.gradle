@@ -6,7 +6,7 @@ group 'org.mentalizr'
 version '0.1-SNAPSHOT'
 
 repositories {
-    maven { url "https://jitpack.io" }
+    maven { url "https://raw.githubusercontent.com/arthurpicht/mvn-repo/main/releases"}
     mavenCentral()
 }
 
